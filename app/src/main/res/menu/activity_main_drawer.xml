@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_checkin"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Check-in" />
+        <item
+            android:id="@+id/nav_friendscheckin"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Check-ins van je vrienden" />
+        <item
+            android:id="@+id/nav_instellingen"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Instellingen" />
+    </group>
+
+
+</menu>
