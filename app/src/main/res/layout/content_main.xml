@@ -13,15 +13,6 @@
     android:background="#848484">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/name_app"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -30,7 +21,7 @@
         android:layout_marginTop="86dp"
         android:id="@+id/editText"
         android:hint="@string/question_whichstation"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/imageView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -49,6 +40,16 @@
         android:id="@+id/listView"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/button" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/logooo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
 
 
 </RelativeLayout>

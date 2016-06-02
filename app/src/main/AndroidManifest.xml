@@ -37,7 +37,6 @@
 
         <activity
             android:name=".FBLogin"
-            android:label="@string/name_app"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

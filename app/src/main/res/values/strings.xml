@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">programmeerproject2</string>
+    <string name="app_name">Social Train Journey</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,12 +8,13 @@
 
     <string name="facebook_app_id">1040163589387502</string>
 
-    <string name="name_app">Social Train Journey</string>
-    <string name="welcome_text">Connect with your friends in the train!</string>
+    <string name="name_app">Menu</string>
+    <string name="welcome_text">Connect met je vrienden in de trein!</string>
     <string name="title_nav_bar">Social Train Journey</string>
-    <string name="undertitle_nav_bar">Connect to your friends in the train!</string>
-    <string name="search_trains">SEARCH</string>
-    <string name="question_whichstation">From which station are you leaving?</string>
+    <string name="undertitle_nav_bar">Connect met je vrienden in de trein!</string>
+    <string name="search_trains">ZOEK</string>
+    <string name="question_whichstation">Vanaf welk station reis je?</string>
     <string name="checkin">INCHECKEN</string>
+    <string name="info_friends">Check hier in welke trein je vrienden zitten!</string>
 </resources>
 

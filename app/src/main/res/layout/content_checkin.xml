@@ -13,31 +13,40 @@
     android:background="#848484">
 
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/name_app"
-        android:id="@+id/textView3"
+        android:id="@+id/imageView2"
+        android:src="@drawable/logooo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"/>
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView2"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/imageView2"
         android:layout_above="@+id/button2" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/checkin"
         android:id="@+id/button2"
+        android:layout_marginBottom="69dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="91dp" />
+        android:onClick="check_in_train"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Zit jij zo in de trein naar Amsterdam Centraal van 16.58?"
+        android:textAlignment="center"
+        android:id="@+id/textView3"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

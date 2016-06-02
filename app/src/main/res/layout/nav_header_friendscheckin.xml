@@ -17,7 +17,7 @@
         android:layout_width="258dp"
         android:layout_height="81dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/trein"
+        android:src="@drawable/logooo"
         android:layout_weight="0.36" />
 
     <TextView
