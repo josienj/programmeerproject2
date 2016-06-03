@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.josien.programmeerproject2.CheckIn"
-    android:background="#848484">
+    android:background="#0431B4">
 
 
     <ImageView
