@@ -17,15 +17,12 @@
         android:textColor="#FFFFFF"/>
 
 
-
-    <ImageButton
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:src="@drawable/loginwithfacebook"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="94dp"
-        android:onClick="go_to_app"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

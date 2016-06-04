@@ -28,7 +28,7 @@ public class HttpRequestHelper {
         if (basicHeaderValue.endsWith("\n")) {
             basicHeaderValue = basicHeaderValue.substring(0, basicHeaderValue.length() - 1);
         }
-        /*
+
         HttpHeaders headers = new HttpHeaders();
         headers.setAuthorization(basicHeaderValue);
         httpRequest.setHeaders(headers);
