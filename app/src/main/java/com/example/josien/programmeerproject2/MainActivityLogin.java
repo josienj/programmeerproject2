@@ -1,15 +1,20 @@
 package com.example.josien.programmeerproject2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 
 public class MainActivityLogin extends AppCompatActivity {
@@ -24,6 +29,7 @@ public class MainActivityLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_login);
         mFragmentManager = getSupportFragmentManager();
 
@@ -69,5 +75,25 @@ public class MainActivityLogin extends AppCompatActivity {
                 break;
         }
         transaction.commit();
+    }
+
+    private void facebookPost() {
+        //check login
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken == null) {
+            Log.d("Niet ingelogd", ">>>" + "Signed Out");
+        } else {
+            Log.d("Ingelogd", ">>>" + "Signed In");
+            startActivity(new Intent(MainActivityLogin.this, MainActivity.class));
+            Intent checkin = new Intent(this, MainActivity.class);
+            checkin.putExtra("Checkin", 500);
+            startActivity(checkin);
+        }
+    }
+
+    public void next_screen2(View view){
+        Intent next_screen = new Intent(this, MainActivity.class);
+        next_screen.putExtra("next_screen", 500);
+        startActivity(next_screen);
     }
 }
