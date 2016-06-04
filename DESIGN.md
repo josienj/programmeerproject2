@@ -9,3 +9,17 @@ Unfortunately, the NS don't provide any stop-overs within the API, so only the t
 
 ### Diagram
 ![diagram programmeerproject](https://cloud.githubusercontent.com/assets/18394953/15799812/a6d8850c-2a69-11e6-9107-4ad77e6da581.png)<br>
+####Database:
+when the time allows it, it is nice to implement a database in which the history of the check-ins of the user are stored. This will be a SQLite Database, with only local storage. Then the user can see the history of his check-ins even when there is no internet-access.
+####(Helpers)-classes:
+Facebook SDK:
+AsyncTask:
+HttpRequestHelper:
+CheckInAdapter:
+####Activities
+Facebook login:
+MainActivity:
+Check-in:
+Friends:
+Settings:
+#### Navigation bar:
