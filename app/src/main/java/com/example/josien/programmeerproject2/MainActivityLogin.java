@@ -1,5 +1,6 @@
 package com.example.josien.programmeerproject2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,9 @@ import android.view.View;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 
 public class MainActivityLogin extends AppCompatActivity {
@@ -96,4 +100,5 @@ public class MainActivityLogin extends AppCompatActivity {
         next_screen.putExtra("next_screen", 500);
         startActivity(next_screen);
     }
+
 }

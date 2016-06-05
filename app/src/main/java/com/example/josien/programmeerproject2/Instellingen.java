@@ -1,5 +1,8 @@
 package com.example.josien.programmeerproject2;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +22,8 @@ import com.facebook.FacebookSdk;
 
 public class Instellingen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    FacebookSdk fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,18 @@ public class Instellingen extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void log_out (View view){
+        Intent mStartActivity = new Intent(getApplicationContext(), MainActivityLogin.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() , mPendingIntent);
+        System.exit(0);
+    }
+
+
+
 
 
 }
