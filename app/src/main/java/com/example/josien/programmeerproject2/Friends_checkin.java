@@ -1,5 +1,12 @@
 package com.example.josien.programmeerproject2;
 
+/*
+Josien Jansen
+11162295
+Programmeerproject
+Universiteit van Amsterdam
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

@@ -1,12 +1,17 @@
 package com.example.josien.programmeerproject2;
 
+/*
+Josien Jansen
+11162295
+Programmeerproject
+Universiteit van Amsterdam
+ */
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,8 +27,6 @@ import com.facebook.FacebookSdk;
 
 public class Instellingen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    FacebookSdk fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

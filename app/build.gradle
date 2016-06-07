@@ -23,10 +23,16 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    compile files('libs/json-lib-2.4-jdk15.jar')
+    compile 'org.apache.commons:commons-lang3:3.0'
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
+    compile files('libs/java-json.jar')
 }
+
+

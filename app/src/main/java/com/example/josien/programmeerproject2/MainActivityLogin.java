@@ -1,12 +1,17 @@
 package com.example.josien.programmeerproject2;
 
-import android.content.Context;
+/*
+Josien Jansen
+11162295
+Programmeerproject
+Universiteit van Amsterdam
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -17,8 +22,10 @@ import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
+
+/*
+This Activity handles
+ */
 
 
 public class MainActivityLogin extends AppCompatActivity {
