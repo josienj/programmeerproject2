@@ -13,17 +13,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ListView items_listview;
+    EditText input_station;
+    private  Train_AsyncTask obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        input_station = (EditText) findViewById(R.id.editText);
+        items_listview = (ListView) findViewById(R.id.listViewleavingtrains);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -81,9 +92,15 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void next_screen(View view){
-        Intent next_screen = new Intent(this, CheckIn.class);
-        next_screen.putExtra("next_screen", 500);
-        startActivity(next_screen);
+
+    public void get_data(View view){
+        String input = input_station.getText().toString();
+        Train_AsyncTask asyncTask = new Train_AsyncTask(this);
+        asyncTask.execute(input);
+    }
+
+    public void setData(ArrayList<TrainData> traindata){
+        TrainAdapter adapter = new TrainAdapter(this,traindata);
+        items_listview.setAdapter(adapter);
     }
 }

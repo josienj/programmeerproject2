@@ -56,6 +56,13 @@ public class HttpRequestHelper {
             try {
                 connection = (HttpURLConnection) url.openConnection();
 
+                String userCredentials = "josienjansen1@gmail.com" + ":" + "OOmAtjby3uCWjhmXv1JuDQVdAahST1eCbDtPnpvh18Y6UQzxA6oS8A";
+                String encoding = new String(android.util.Base64.encode(userCredentials.getBytes(), Base64.DEFAULT));
+                encoding = encoding.replaceAll("\\s+","");
+
+                connection.setRequestProperty("Authorization", "Basic " + encoding);
+
+
                 // open connection, set request method
                 connection.setRequestMethod("GET");
 
