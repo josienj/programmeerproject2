@@ -16,5 +16,11 @@
     <string name="question_whichstation">Vanaf welk station reis je?</string>
     <string name="checkin">INCHECKEN</string>
     <string name="info_friends">Check hier in welke trein je vrienden zitten!</string>
+
+    <string-array name="hard_code">
+        <item>Amsterdam Centraal    16.43</item>
+        <item>Rotterdam Centraal    16.45</item>
+    </string-array>
 </resources>
+
 

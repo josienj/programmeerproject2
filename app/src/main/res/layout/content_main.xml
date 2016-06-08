@@ -39,7 +39,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/listViewleavingtrains"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/get_data" />
+        android:layout_below="@+id/get_data"
+        android:entries="@array/hard_code"/>
 
     <ImageView
         android:layout_width="wrap_content"

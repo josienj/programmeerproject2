@@ -31,6 +31,5 @@ dependencies {
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     compile files('libs/json-lib-2.4-jdk15.jar')
     compile files('libs/apache-commons-lang.jar')
-    compile files('libs/json-lib-2.4-jdk15(1).jar')
-    compile files('json-lib-2.4-jdk15-sources.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

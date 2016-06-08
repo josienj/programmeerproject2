@@ -63,9 +63,11 @@ public class Train_AsyncTask extends AsyncTask<String, Integer, String> {
             ArrayList<TrainData> trainData = new ArrayList<>();
 
             try {
-                String xml = result;
-                XMLSerializer xmlSerializer = new XMLSerializer();
-                JSON json = xmlSerializer.read( xml );
+                Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+                //String xml = result;
+                //XMLSerializer xmlSerializer = new XMLSerializer();
+                //JSON json = xmlSerializer.read( xml );
+                //json.toString();
 
                 // Make new JSONArray from result
                 org.json.JSONObject respObj = new org.json.JSONObject(result);

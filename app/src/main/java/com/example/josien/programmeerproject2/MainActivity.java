@@ -1,6 +1,7 @@
 package com.example.josien.programmeerproject2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,11 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 
@@ -26,7 +32,11 @@ public class MainActivity extends AppCompatActivity
 
     ListView items_listview;
     EditText input_station;
-    private  Train_AsyncTask obj;
+    private Train_AsyncTask obj;
+    private static final String TAG_EINDBESTEMMING = "Eindbestemming";
+    private static final String TAG_VERTREKTIJD = "Vertrektijd";
+    private static final String TAG_RITNUMMER = "Ritnummer";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,39 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        ListView lv = getListView();
+
+        // Handles the more information when clicking on a single item
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // Getting values from selected ListItem
+                String eindbestemming = ((TextView) view.findViewById(R.id.eindbestemming))
+                        .getText().toString();
+                String vertrektijd = ((TextView) view.findViewById(R.id.vertrektijd))
+                        .getText().toString();
+                String ritnummer = ((TextView) view.findViewById(R.id.ritnummer))
+                        .getText().toString();
+
+                // Starting the MoreInformationActivity
+                Intent in = new Intent(getApplicationContext(),
+                        CheckIn.class);
+                in.putExtra(TAG_EINDBESTEMMING, eindbestemming);
+                in.putExtra(TAG_VERTREKTIJD, vertrektijd);
+                in.putExtra(TAG_RITNUMMER, ritnummer);
+                startActivity(in);
+
+            }
+        });
+    }
+
+
+    private ListView getListView() {
+        return items_listview;
     }
 
     @Override
@@ -80,7 +123,7 @@ public class MainActivity extends AppCompatActivity
             Intent friendscheckin = new Intent(this, Friends_checkin.class);
             friendscheckin.putExtra("friendscheckin", 500);
             startActivity(friendscheckin);
-        }  else if (id == R.id.nav_instellingen) {
+        } else if (id == R.id.nav_instellingen) {
             Intent instellingen = new Intent(this, Instellingen.class);
             instellingen.putExtra("Instellingen", 500);
             startActivity(instellingen);
@@ -93,14 +136,15 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void get_data(View view){
+    public void get_data(View view) {
         String input = input_station.getText().toString();
         Train_AsyncTask asyncTask = new Train_AsyncTask(this);
         asyncTask.execute(input);
     }
 
-    public void setData(ArrayList<TrainData> traindata){
-        TrainAdapter adapter = new TrainAdapter(this,traindata);
+    public void setData(ArrayList<TrainData> traindata) {
+        TrainAdapter adapter = new TrainAdapter(this, traindata);
         items_listview.setAdapter(adapter);
     }
+
 }
