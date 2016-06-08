@@ -11,6 +11,7 @@ import net.sf.json.JSON;
 import net.sf.json.xml.XMLSerializer;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /*
 This Activity handles the situations the data is going through with the four methods: onPreExecute,
@@ -23,25 +24,25 @@ public class Train_AsyncTask extends AsyncTask<String, Integer, String> {
     MainActivity activity;
 
     // constructor
-    public Train_AsyncTask(MainActivity activity){
+    public Train_AsyncTask(MainActivity activity) {
         this.activity = activity;
         this.context = this.activity.getApplicationContext();
     }
 
     @Override
-    protected void onPreExecute(){
+    protected void onPreExecute() {
         // inform user
         Toast.makeText(context, "Getting data from server", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    protected String doInBackground(String... params){
+    protected String doInBackground(String... params) {
         // fetch data
         return HttpRequestHelper.downloadFromServer(params);
     }
 
     @Override
-    protected void onProgressUpdate(Integer...values){
+    protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
     }
 
@@ -50,55 +51,78 @@ public class Train_AsyncTask extends AsyncTask<String, Integer, String> {
     inform the user and otherwise parse JSON to get the data the right way.
      */
     @Override
-    protected void onPostExecute(String result){
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
         // if nothing was found, inform user
-        if (result.length() == 0){
+        if (result.length() == 0) {
             Toast.makeText(context, "No data was found", Toast.LENGTH_SHORT).show();
-        }
-
-        else {
+        } else {
             // Create new arraylist for Traindata objects
             ArrayList<TrainData> trainData = new ArrayList<>();
 
+            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            String xml = result;
+            XMLSerializer xmlSerializer = new XMLSerializer();
+            JSON json = xmlSerializer.read( xml );
+
+                    // Make new JSONArray from result
+            org.json.JSONObject respObj = new org.json.JSONObject((Map) json);
+            JSONObject ActVertrektijd = null;
             try {
-                Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
-                //String xml = result;
-                //XMLSerializer xmlSerializer = new XMLSerializer();
-                //JSON json = xmlSerializer.read( xml );
-                //json.toString();
-
-                // Make new JSONArray from result
-                org.json.JSONObject respObj = new org.json.JSONObject(result);
-                org.json.JSONObject ActVertrektijd = respObj.getJSONObject("ActueleVertrektijden");
-                org.json.JSONArray VertrekkendeTrein = ActVertrektijd.getJSONArray("VertrekkendeTrein");
-
-
-                // For whole JSONArray
-                for (int i = 0; i < VertrekkendeTrein.length(); i++) {
-                    // Get JSON object
-                    org.json.JSONObject trein = VertrekkendeTrein.getJSONObject(i);
-                    String eindbestemming = trein.getString("EindBestemming");
-                    String vertrektijd = trein.getString("VertrekTijd");
-                    String ritnummer = trein.getString("RitNummer");
-
-                    // Add new MinisterieData object with title and itemcontent to newsData
-                    trainData.add(new TrainData(eindbestemming, vertrektijd, ritnummer));
-
-                    // Set data from newsdata in listview
-                    this.activity.setData(trainData);
-                }
+                ActVertrektijd = respObj.getJSONObject("ActueleVertrektijden");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            JSONArray VertrekkendeTrein = null;
+            try {
+                VertrekkendeTrein = ActVertrektijd.getJSONArray("VertrekkendeTrein");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
+            // For whole JSONArray
+            for (int i = 0; i < VertrekkendeTrein.length(); i++) {
+                // Get JSON object
+                JSONObject trein = null;
+                try {
+                    trein = VertrekkendeTrein.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String eindbestemming = null;
+                try {
+                    eindbestemming = trein.getString("EindBestemming");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String vertrektijd = null;
+                try {
+                    vertrektijd = trein.getString("VertrekTijd");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String ritnummer = null;
+                try {
+                    ritnummer = trein.getString("RitNummer");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Add new MinisterieData object with title and itemcontent to newsData
+                trainData.add(new TrainData(eindbestemming, vertrektijd, ritnummer));
+
+                // Set data from newsdata in listview
+                Toast.makeText(context, eindbestemming, Toast.LENGTH_SHORT).show();
+                this.activity.setData(trainData);
+
+
+            }
+            
         }
 
 
     }
-
-
-        }
+}
 

@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/json-lib-2.4-jdk15/json-lib-2.4-jdk15.iml" filepath="$PROJECT_DIR$/json-lib-2.4-jdk15/json-lib-2.4-jdk15.iml" />
       <module fileurl="file://$PROJECT_DIR$/programmeerproject2.iml" filepath="$PROJECT_DIR$/programmeerproject2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xom-1.0d8/xom-1.0d8.iml" filepath="$PROJECT_DIR$/xom-1.0d8/xom-1.0d8.iml" />
     </modules>
   </component>
 </project>

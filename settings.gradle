@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':json-lib-2.4-jdk15', ':xom-1.0d8'

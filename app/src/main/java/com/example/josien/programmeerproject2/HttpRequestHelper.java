@@ -28,7 +28,6 @@ public class HttpRequestHelper {
         if (basicHeaderValue.endsWith("\n")) {
             basicHeaderValue = basicHeaderValue.substring(0, basicHeaderValue.length() - 1);
         }
-
         HttpHeaders headers = new HttpHeaders();
         headers.setAuthorization(basicHeaderValue);
         httpRequest.setHeaders(headers);
@@ -75,7 +74,9 @@ public class HttpRequestHelper {
                     String line;
                     while ((line = bufferedReader.readLine()) != null) {
                         result = result + line;
+
                     }
+                    Log.d("Result", "downloadFromServer() returned: " + result);
                 }
                 // else, read error stream
                 else {

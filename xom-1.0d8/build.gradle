@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('xom-1.0d8.jar'))

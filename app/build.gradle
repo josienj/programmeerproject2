@@ -29,7 +29,7 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
-    compile files('libs/json-lib-2.4-jdk15.jar')
-    compile files('libs/apache-commons-lang.jar')
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile project(':json-lib-2.4-jdk15')
+    compile project(':xom-1.0d8')
 }
