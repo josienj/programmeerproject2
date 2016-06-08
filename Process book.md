@@ -15,4 +15,9 @@ Proposal en prototype afgemaakt, voorbereidingen presentaties.<br>
 ###Weekend: <br>
 Design Document gemaakt, proposal aangepast. Verder de login via Facebook af, uitloggen kan ook. Zitten nog een paar bugs in, maar ga eerst verder met de API van de NS.<br>
 ###Dag 6:<br>
+Authenticatie van NS API is gelukt, even wat uitzoekwerk. Parsen moet in XML, bleek niet gemakkelijk. Na wat zoeken kwam ik uit op een 'simpele' json-library die XML gemakkelijk naar JSON om kon zetten. Omdat ik wel al wist hoe JSON parsen werkte, heb ik besloten om dat te doen. Veel uitgezocht en gekeken hoe het werkt.<br>
+### Dag 7:<br>
+Library werkt niet zoals ik gehoopt had. Bijft continu een error geven over iets waar in de XMLserializer(class vanuit de JSON-lib). Heel veel gegoogled, geprobeerd en gejammerd en nog niks verder.
+###Dag 8<br>
+Library bleek verkeerd toegevoegd te zijn. Dit opnieuw gedaan, kleine verbetering maar er blijft een error nadat de Search-button geklikt wordt. Ga nog 1 optie proberen met een extra library, als dat niet werkt ben ik er helemaal klaar mee en ga ik toch alles nog omgooien naar XML parsen.... Dat kan nog wel even duren voordat het lukt dus..<br>
 
