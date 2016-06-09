@@ -2,16 +2,17 @@ package com.example.josien.programmeerproject2;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import net.sf.json.JSON;
-import net.sf.json.xml.XMLSerializer;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 /*
 This Activity handles the situations the data is going through with the four methods: onPreExecute,
@@ -22,6 +23,8 @@ public class Train_AsyncTask extends AsyncTask<String, Integer, String> {
 
     Context context;
     MainActivity activity;
+    static File file;
+    private FileOutputStream outputStream;
 
     // constructor
     public Train_AsyncTask(MainActivity activity) {
@@ -38,7 +41,12 @@ public class Train_AsyncTask extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... params) {
         // fetch data
-        return HttpRequestHelper.downloadFromServer(params);
+        try {
+            return HttpRequestHelper.downloadFromServer(params);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override
@@ -53,68 +61,64 @@ public class Train_AsyncTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        Log.d("Result", "onPostExecute() returned: " + result);
+
+        // Maak nou gvd eenfile dan jeweet
+        try {
+            new BufferedWriter(new FileWriter(context.getFilesDir() + "data.xml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        File file = new File(context.getFilesDir() + "data.xml");
+
+        try {
+            outputStream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            outputStream.write(result.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // if nothing was found, inform user
         if (result.length() == 0) {
             Toast.makeText(context, "No data was found", Toast.LENGTH_SHORT).show();
         } else {
+
             // Create new arraylist for Traindata objects
             ArrayList<TrainData> trainData = new ArrayList<>();
 
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
-            String xml = result;
-            XMLSerializer xmlSerializer = new XMLSerializer();
-            JSON json = xmlSerializer.read( xml );
-
-                    // Make new JSONArray from result
-            org.json.JSONObject respObj = new org.json.JSONObject((Map) json);
-            JSONObject ActVertrektijd = null;
+            Xml vertrekkende_trein = null;
             try {
-                ActVertrektijd = respObj.getJSONObject("ActueleVertrektijden");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            JSONArray VertrekkendeTrein = null;
-            try {
-                VertrekkendeTrein = ActVertrektijd.getJSONArray("VertrekkendeTrein");
-            } catch (JSONException e) {
+                vertrekkende_trein = new Xml(context.getFilesDir() + "data.xml","VertrekkendeTrein");
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
+            Xml eindbestemming = vertrekkende_trein.child("EindBestemming");
+            System.out.println("EindBestemming: "+ vertrekkende_trein.child("EindBestemming").content());
 
-            // For whole JSONArray
-            for (int i = 0; i < VertrekkendeTrein.length(); i++) {
-                // Get JSON object
-                JSONObject trein = null;
-                try {
-                    trein = VertrekkendeTrein.getJSONObject(i);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String eindbestemming = null;
-                try {
-                    eindbestemming = trein.getString("EindBestemming");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String vertrektijd = null;
-                try {
-                    vertrektijd = trein.getString("VertrekTijd");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String ritnummer = null;
-                try {
-                    ritnummer = trein.getString("RitNummer");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            Xml ritnummer = vertrekkende_trein.child("RitNummer");
+            System.out.println("RitNummer: "+ vertrekkende_trein.child("RitNummer").content());
+
+            Xml vertrektijd = vertrekkende_trein.child("VertrekTijd");
+            System.out.println("VertrekTijd: "+ vertrekkende_trein.child("VertrekTijd").content());
+
+
 
                 // Add new MinisterieData object with title and itemcontent to newsData
                 trainData.add(new TrainData(eindbestemming, vertrektijd, ritnummer));
 
                 // Set data from newsdata in listview
-                Toast.makeText(context, eindbestemming, Toast.LENGTH_SHORT).show();
                 this.activity.setData(trainData);
 
 
@@ -124,5 +128,5 @@ public class Train_AsyncTask extends AsyncTask<String, Integer, String> {
 
 
     }
-}
+
 

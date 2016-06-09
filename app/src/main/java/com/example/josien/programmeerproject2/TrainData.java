@@ -10,38 +10,28 @@ Universiteit van Amsterdam
 
 public class TrainData {
 
-    private String eindbestemming;
-    private String vertrektijd;
-    private String ritnummer;
+    private Xml eindbestemming;
+    private Xml vertrektijd;
+    private Xml ritnummer;
 
-    public TrainData (String eindbestemming, String vertrektijd, String ritnummer){
+    public TrainData (Xml eindbestemming, Xml vertrektijd, Xml ritnummer){
         super();
         this.eindbestemming = eindbestemming;
         this.vertrektijd = vertrektijd;
         this.ritnummer = ritnummer;
     }
 
-    public String getEindbestemming(){
+    public Xml getEindbestemming(){
         return eindbestemming;
     }
 
-    public void setEindbestemming(String eindbestemming){
-        this.eindbestemming = eindbestemming;
-    }
 
-    public String getVertrektijd(){
+    public Xml getVertrektijd(){
         return vertrektijd;
     }
 
-    public void setVertrektijd(String vertrektijd){
-        this.vertrektijd = vertrektijd;
-    }
-
-    public String getRitnummer(){
+    public Xml getRitnummer(){
         return ritnummer;
     }
 
-    public void setRitnummer(String ritnummer){
-        this.ritnummer = ritnummer;
-    }
 }

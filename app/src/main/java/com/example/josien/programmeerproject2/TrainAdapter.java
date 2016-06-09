@@ -51,9 +51,9 @@ public class TrainAdapter extends BaseAdapter {
         TextView eindbestemming = (TextView) view.findViewById(R.id.eindbestemming);
         TextView vertrektijd = (TextView) view.findViewById(R.id.vertrektijd);
         TextView ritnummer = (TextView) view.findViewById(R.id.ritnummer);
-        eindbestemming.setText(train.getEindbestemming());
-        vertrektijd.setText(train.getVertrektijd());
-        ritnummer.setText(train.getRitnummer());
+        eindbestemming.setText((CharSequence) train.getEindbestemming());
+        vertrektijd.setText((CharSequence) train.getVertrektijd());
+        ritnummer.setText((CharSequence) train.getRitnummer());
         return view;
     }
 }
