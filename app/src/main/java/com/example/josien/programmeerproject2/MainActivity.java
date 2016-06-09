@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,11 +33,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView items_listview;
-    EditText input_station;
     private Train_AsyncTask obj;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
+    AutoCompleteTextView autoCompleteTextView;
+    String[] stations;
 
 
     @Override
@@ -43,10 +46,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        input_station = (EditText) findViewById(R.id.editText);
+        autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autocomplete);
         items_listview = (ListView) findViewById(R.id.listViewleavingtrains);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        stations = getResources().getStringArray(R.array.stations);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, stations);
+        autoCompleteTextView.setAdapter(adapter);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -136,8 +142,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+
     public void get_data(View view) {
-        String input = input_station.getText().toString();
+        String station = autoCompleteTextView.getText().toString();
+        String arr[] = station.split(" ", 2);
+        String input = arr[0];
         Train_AsyncTask asyncTask = new Train_AsyncTask(this);
         asyncTask.execute(input);
     }

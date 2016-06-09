@@ -14,23 +14,21 @@
 
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:layout_marginTop="86dp"
-        android:id="@+id/editText"
-        android:hint="@string/question_whichstation"
-        android:layout_below="@+id/imageView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+<AutoCompleteTextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/imageView2"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:id="@+id/autocomplete"
+    android:hint="@string/question_whichstation"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_trains"
         android:id="@+id/get_data"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/autocomplete"
         android:layout_centerHorizontal="true"
         android:onClick="get_data"/>
 

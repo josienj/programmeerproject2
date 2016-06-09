@@ -17,9 +17,406 @@
     <string name="checkin">INCHECKEN</string>
     <string name="info_friends">Check hier in welke trein je vrienden zitten!</string>
 
-    <string-array name="hard_code">
-        <item>Amsterdam Centraal    16.43</item>
-        <item>Rotterdam Centraal    16.45</item>
+    <string-array name="stations">
+        <item>Ac Abcoude</item>
+        <item>Adh	Leeuwarden Achter de Hoven</item>
+        <item>Ah	Arnhem</item>
+        <item>Ahp	Arnhem Velperpoort</item>
+        <item>Ahpr	Arnhem Presikhaaf</item>
+        <item>Ahz	Arnhem Zuid</item>
+        <item>Akl	Arkel</item>
+        <item>Akm	Akkrum</item>
+        <item>Alm	Almere Centrum</item>
+        <item>Almb	Almere Buiten</item>
+        <item>Almm	Almere Muziekwijk</item>
+        <item>Almo	Almere Oostvaarders</item>
+        <item>Almp	Almere Parkwijk</item>
+        <item>Amf	Amersfoort</item>
+        <item>Amfs	Amersfoort Schothorst</item>
+        <item>Aml	Almelo</item>
+        <item>Ampo	Almere Poort</item>
+        <item>Amr	Alkmaar</item>
+        <item>Amri	Almelo De Riet</item>
+        <item>Amrn	Alkmaar Noord</item>
+        <item>Ana	Anna Paulowna</item>
+        <item>Apd	Apeldoorn</item>
+        <item>Apdm	Apeldoorn De Maten</item>
+        <item>Apdo	Apeldoorn Osseveld</item>
+        <item>Apg	Appingedam</item>
+        <item>Apn	Alphen aan den Rijn</item>
+        <item>Arn	Arnemuiden</item>
+        <item>Asa	Amsterdam Amstel</item>
+        <item>Asb	Amsterdam Bijlmer ArenA</item>
+        <item>Asd	Amsterdam Centraal</item>
+        <item>Asdl	Amsterdam Lelylaan</item>
+        <item>Asdm	Amsterdam Muiderpoort</item>
+        <item>Asdz	Amsterdam Zuid</item>
+        <item>Ashd	Amsterdam Holendrecht</item>
+        <item>Asn	Assen</item>
+        <item>Ass	Amsterdam Sloterdijk</item>
+        <item>Assp	Amsterdam Science Park</item>
+        <item>Atn	Aalten</item>
+        <item>Avat	Amersfoort Vathorst</item>
+        <item>Bd	Breda</item>
+        <item>Bde	Bunde</item>
+        <item>Bdg	Bodegraven</item>
+        <item>Bdm	Bedum</item>
+        <item>Bdpb	Breda-Prinsenbeek</item>
+        <item>Bet	Best</item>
+        <item>Bf	Baflo</item>
+        <item>Bgn	Bergen op Zoom</item>
+        <item>Bhdv	Boven Hardinxveld</item>
+        <item>Bhv	Bilthoven</item>
+        <item>Bk	Beek-Elsloo</item>
+        <item>Bkf	Bovenkarspel Flora</item>
+        <item>Bkg	Bovenkarspel-Grootebroek</item>
+        <item>Bkl	Breukelen</item>
+        <item>Bl	Beilen</item>
+        <item>Bll	Bloemendaal</item>
+        <item>Bmn	Brummen</item>
+        <item>Bmr	Boxmeer</item>
+        <item>Bn	Borne</item>
+        <item>Bnc	Barneveld Centrum</item>
+        <item>Bnk	Bunnik</item>
+        <item>Bnn	Barneveld Noord</item>
+        <item>Bnz	Barneveld Zuid</item>
+        <item>Bp	Buitenpost</item>
+        <item>Br	Blerick</item>
+        <item>Brd	Barendrecht</item>
+        <item>Brn	Baarn</item>
+        <item>Bsd	Beesd</item>
+        <item>Bsk	Boskoop</item>
+        <item>Bsmz	Bussum Zuid</item>
+        <item>Btl	Boxtel</item>
+        <item>Bv	Beverwijk</item>
+        <item>Bzl	Kapelle-Biezelinge</item>
+        <item>Bzm	Hardinxveld Blauwe Zoom</item>
+        <item>Cas	Castricum</item>
+        <item>Ck	Cuijk</item>
+        <item>Cl	Culemborg</item>
+        <item>Co	Coevorden</item>
+        <item>Cps	Capelle Schollevaar</item>
+        <item>Cvm	Chevremont</item>
+        <item>Da	Daarlerveen</item>
+        <item>Db	Driebergen-Zeist</item>
+        <item>Ddn	Delden</item>
+        <item>Ddr	Dordrecht</item>
+        <item>Ddrs	Dordrecht Stadspolders</item>
+        <item>Ddzd	Dordrecht Zuid</item>
+        <item>Dei	Deinum</item>
+        <item>Did	Didam</item>
+        <item>Dl	Dalfsen</item>
+        <item>Dld	Den Dolder</item>
+        <item>Dln	Dalen</item>
+        <item>Dmn	Diemen</item>
+        <item>Dmnz	Diemen Zuid</item>
+        <item>Dn	Deurne</item>
+        <item>Dr	Dieren</item>
+        <item>Drh	Driehuis</item>
+        <item>Dron	Dronten</item>
+        <item>Drp	Dronrijp</item>
+        <item>Dt	Delft</item>
+        <item>Dtc	Doetinchem</item>
+        <item>Dtch	Doetinchem De Huet</item>
+        <item>Dtz	Delft Zuid</item>
+        <item>Dv	Deventer</item>
+        <item>Dvc	Deventer Colmschate</item>
+        <item>Dvd	Duivendrecht</item>
+        <item>Dvn	Duiven</item>
+        <item>Dvnk	De Vink</item>
+        <item>Dz	Delfzijl</item>
+        <item>Dzw	Delfzijl West</item>
+        <item>Ec	Echt</item>
+        <item>Ed	Ede-Wageningen</item>
+        <item>Edc	Ede Centrum</item>
+        <item>Edn	Eijsden</item>
+        <item>Egh	Eygelshoven</item>
+        <item>Eghm	Eygelshoven Markt</item>
+        <item>Ehb	Eindhoven Beukenlaan</item>
+        <item>Ehv	Eindhoven</item>
+        <item>Ekz	Enkhuizen</item>
+        <item>Eml	Ermelo</item>
+        <item>Emn	Emmen</item>
+        <item>Emnz	Emmen Zuid</item>
+        <item>Es	Enschede</item>
+        <item>Esd	Enschede Drienerlo</item>
+        <item>Ese	Enschede De Eschmarke</item>
+        <item>Est	Elst</item>
+        <item>Etn	Etten-Leur</item>
+        <item>Fn	Franeker</item>
+        <item>Gbg	Gramsbergen</item>
+        <item>Gbr	Glanerbrug</item>
+        <item>Gd	Gouda</item>
+        <item>Gdg	Gouda Goverwelle</item>
+        <item>Gdk	Geerdijk</item>
+        <item>Gdm	Geldermalsen</item>
+        <item>Gdr	Gaanderen</item>
+        <item>Gerp	Groningen Europapark</item>
+        <item>Gk	Grijpskerk</item>
+        <item>Gln	Geleen Oost</item>
+        <item>Gn	Groningen</item>
+        <item>Gnd	Hardinxveld-Giessendam</item>
+        <item>Gnn	Groningen Noord</item>
+        <item>Go	Goor</item>
+        <item>Gp	Geldrop</item>
+        <item>Gr	Gorinchem</item>
+        <item>Gs	Goes</item>
+        <item>Gv	Den Haag HS</item>
+        <item>Gvc	Den Haag Centraal</item>
+        <item>Gvm	Den Haag Mariahoeve</item>
+        <item>Gvmw	Den Haag Moerwijk</item>
+        <item>Gw	Grou-Jirnsum</item>
+        <item>Gz	Gilze-Rijen</item>
+        <item>Had	Heemstede-Aerdenhout</item>
+        <item>Hb	Hoensbroek</item>
+        <item>Hd	Harderwijk</item>
+        <item>Hdb	Hardenberg</item>
+        <item>Hde	\'t Harde</item>
+        <item>Hdg	Hurdegaryp</item>
+        <item>Hdr	Den Helder</item>
+        <item>Hdrz	Den Helder Zuid</item>
+        <item>Hfd	Hoofddorp</item>
+        <item>Hgl	Hengelo</item>
+        <item>Hglg	Hengelo Gezondheidspark</item>
+        <item>Hglo	Hengelo Oost</item>
+        <item>Hgv	Hoogeveen</item>
+        <item>Hgz	Hoogezand-Sappemeer</item>
+        <item>Hil	Hillegom</item>
+        <item>Hk	Heemskerk</item>
+        <item>Hks	Hoogkarspel</item>
+        <item>Hld	Hoek van Holland Haven</item>
+        <item>Hlds	Hoek van Holland Strand</item>
+        <item>Hlg	Harlingen</item>
+        <item>Hlgh	Harlingen Haven</item>
+        <item>Hlm	Haarlem</item>
+        <item>Hlms	Haarlem Spaarnwoude</item>
+        <item>Hlo	Heiloo</item>
+        <item>Hm	Helmond</item>
+        <item>Hmbh	Helmond Brouwhuis</item>
+        <item>Hmbv	Helmond Brandevoort</item>
+        <item>Hmh	Helmond \'t Hout</item>
+        <item>Hmn	Hemmen-Dodewaard</item>
+        <item>Hn	Hoorn</item>
+        <item>Hnk	Hoorn Kersenboogerd</item>
+        <item>Hno	Heino</item>
+        <item>Hnp	Hindeloopen</item>
+        <item>Hon	Holten</item>
+        <item>Hor	Hollandsche Rading</item>
+        <item>Hr	Heerenveen</item>
+        <item>Hrl	Heerlen</item>
+        <item>Hrlk	Heerlen De Kissel</item>
+        <item>Hrlw	Heerlen Woonboulevard</item>
+        <item>Hrn	Haren</item>
+        <item>Hrt	Horst-Sevenum</item>
+        <item>Ht	\'s-Hertogenbosch</item>
+        <item>Htn	Houten</item>
+        <item>Htnc	Houten Castellum</item>
+        <item>Hto	\'s-Hertogenbosch Oost</item>
+        <item>Hvl	Hoevelaken</item>
+        <item>Hvs	Hilversum</item>
+        <item>Hvsm	Hilversum Media Park</item>
+        <item>Hvsp	Hilversum Sportpark</item>
+        <item>Hwd	Heerhugowaard</item>
+        <item>Hwzb	Halfweg-Zwanenburg</item>
+        <item>Hze	Heeze</item>
+        <item>IJt	IJlst</item>
+        <item>Kbd	Krabbendijke</item>
+        <item>Kbk	Klarenbeek</item>
+        <item>Kbw	Koog Bloemwijk</item>
+        <item>Klp	Veenendaal-De Klomp</item>
+        <item>Kma	Krommenie-Assendelft</item>
+        <item>Kmr	Klimmen-Ransdaal</item>
+        <item>Kmw	Koudum-Molkwerum</item>
+        <item>Kpn	Kampen</item>
+        <item>Kpnz	Kampen Zuid</item>
+        <item>Krd	Kerkrade Centrum</item>
+        <item>Krg	Kruiningen-Yerseke</item>
+        <item>Ktr	Kesteren</item>
+        <item>Kw	Kropswolde</item>
+        <item>Kzd	Koog-Zaandijk</item>
+        <item>Laa	Den Haag Laan v NOI</item>
+        <item>Lc	Lochem</item>
+        <item>Ldl	Leiden Lammenschans</item>
+        <item>Ldm	Leerdam</item>
+        <item>Ledn	Leiden Centraal</item>
+        <item>Lg	Landgraaf</item>
+        <item>Lls	Lelystad Centrum</item>
+        <item>Lp	Loppersum</item>
+        <item>Ltn	Lunteren</item>
+        <item>Ltv	Lichtenvoorde-Groenlo</item>
+        <item>Lut	Geleen-Lutterade</item>
+        <item>Lw	Leeuwarden</item>
+        <item>Lwc	Leeuwarden Camminghaburen</item>
+        <item>Mas	Maarssen</item>
+        <item>Mdb	Middelburg</item>
+        <item>Mes	Meerssen</item>
+        <item>Mg	Mantgum</item>
+        <item>Mmlh	Mook Molenhoek</item>
+        <item>Mp	Meppel</item>
+        <item>Mrb	Mariënberg</item>
+        <item>Mrn	Maarn</item>
+        <item>Mss	Maassluis</item>
+        <item>Msw	Maassluis West</item>
+        <item>Mt	Maastricht</item>
+        <item>Mth	Martenshoek</item>
+        <item>Mtn	Maastricht Noord</item>
+        <item>Mtr	Maastricht Randwyck</item>
+        <item>Mz	Maarheeze</item>
+        <item>Na	Nieuw Amsterdam</item>
+        <item>Ndb	Naarden-Bussum</item>
+        <item>Nh	Nuth</item>
+        <item>Nkk	Nijkerk</item>
+        <item>Nm	Nijmegen</item>
+        <item>Nmd	Nijmegen Dukenburg</item>
+        <item>Nmh	Nijmegen Heyendaal</item>
+        <item>Nml	Nijmegen Lent</item>
+        <item>Ns	Nunspeet</item>
+        <item>Nsch	Bad Nieuweschans</item>
+        <item>Nvd	Nijverdal</item>
+        <item>Nvp	Nieuw Vennep</item>
+        <item>Nwk	Nieuwerkerk a/d IJssel</item>
+        <item>Nwl	Schiedam Nieuwland</item>
+        <item>O	Oss</item>
+        <item>Obd	Obdam</item>
+        <item>Odb	Oudenbosch</item>
+        <item>Odz	Oldenzaal</item>
+        <item>Omn	Ommen</item>
+        <item>Op	Opheusden</item>
+        <item>Ost	Olst</item>
+        <item>Ot	Oisterwijk</item>
+        <item>Otb	Oosterbeek</item>
+        <item>Ovn	Overveen</item>
+        <item>Ow	Oss West</item>
+        <item>Pmo	Purmerend Overwhere</item>
+        <item>Pmr	Purmerend</item>
+        <item>Pmw	Purmerend Weidevenne</item>
+        <item>Pt	Putten</item>
+        <item>Rai	Amsterdam RAI</item>
+        <item>Rat	Raalte</item>
+        <item>Rb	Rilland-Bath</item>
+        <item>Rd	Roodeschool</item>
+        <item>Rh	Rheden</item>
+        <item>Rhn	Rhenen</item>
+        <item>Rl	Ruurlo</item>
+        <item>Rlb	Rotterdam Lombardijen</item>
+        <item>Rm	Roermond</item>
+        <item>Rs	Rosmalen</item>
+        <item>Rsd	Roosendaal</item>
+        <item>Rsn	Rijssen</item>
+        <item>Rsw	Rijswijk</item>
+        <item>Rta	Rotterdam Alexander</item>
+        <item>Rtb	Rotterdam Blaak</item>
+        <item>Rtd	Rotterdam Centraal</item>
+        <item>Rtn	Rotterdam Noord</item>
+        <item>Rtz	Rotterdam Zuid</item>
+        <item>Rv	Reuver</item>
+        <item>Rvs	Ravenstein</item>
+        <item>Sbk	Spaubeek</item>
+        <item>Sd	Soestdijk</item>
+        <item>Sda	Scheemda</item>
+        <item>Sdm	Schiedam Centrum</item>
+        <item>Sdt	Sliedrecht</item>
+        <item>Sdtb	Sliedrecht Baanhoek</item>
+        <item>Sgl	Houthem-Sint Gerlach</item>
+        <item>Sgn	Schagen</item>
+        <item>Shl	Schiphol</item>
+        <item>Sk	Sneek</item>
+        <item>Sknd	Sneek Noord</item>
+        <item>Sm	Swalmen</item>
+        <item>Sn	Schinnen</item>
+        <item>Sog	Schin op Geul</item>
+        <item>Spm	Sappemeer Oost</item>
+        <item>Sptn	Santpoort Noord</item>
+        <item>Sptz	Santpoort Zuid</item>
+        <item>Srn	Susteren</item>
+        <item>Ssh	Sassenheim</item>
+        <item>St	Soest</item>
+        <item>Std	Sittard</item>
+        <item>Stm	Stedum</item>
+        <item>Stv	Stavoren</item>
+        <item>Stz	Soest Zuid</item>
+        <item>Swd	Sauwerd</item>
+        <item>Swk	Steenwijk</item>
+        <item>Tb	Tilburg</item>
+        <item>Tbg	Terborg</item>
+        <item>Tbr	Tilburg Reeshof</item>
+        <item>Tbu	Tilburg Universiteit</item>
+        <item>Tg	Tegelen</item>
+        <item>Tl	Tiel</item>
+        <item>Tpsw	Tiel Passewaaij</item>
+        <item>Twl	Twello</item>
+        <item>Uhm	Uithuizermeeden</item>
+        <item>Uhz	Uithuizen</item>
+        <item>Ust	Usquert</item>
+        <item>Ut	Utrecht Centraal</item>
+        <item>Utg	Uitgeest</item>
+        <item>Utl	Utrecht Lunetten</item>
+        <item>Utlr	Utrecht Leidsche Rijn</item>
+        <item>Utm	Utrecht Maliebaan</item>
+        <item>Uto	Utrecht Overvecht</item>
+        <item>Utt	Utrecht Terwijde</item>
+        <item>Utzl	Utrecht Zuilen</item>
+        <item>Vb	Voorburg</item>
+        <item>Vd	Vorden</item>
+        <item>Vdg	Vlaardingen Centrum</item>
+        <item>Vdl	Voerendaal</item>
+        <item>Vdm	Veendam</item>
+        <item>Vdo	Vlaardingen Oost</item>
+        <item>Vdw	Vlaardingen West</item>
+        <item>Vem	Voorst-Empe</item>
+        <item>Vg	Vught</item>
+        <item>Vh	Voorhout</item>
+        <item>Vhp	Vroomshoop</item>
+        <item>Vk	Valkenburg</item>
+        <item>Vl	Venlo</item>
+        <item>Vlb	Vierlingsbeek</item>
+        <item>Vndc	Veenendaal Centrum</item>
+        <item>Vndw	Veenendaal West</item>
+        <item>Vp	Velp</item>
+        <item>Vry	Venray</item>
+        <item>Vs	Vlissingen</item>
+        <item>Vss	Vlissingen Souburg</item>
+        <item>Vst	Voorschoten</item>
+        <item>Vsv	Varsseveld</item>
+        <item>Vtn	Vleuten</item>
+        <item>Vwd	Veenwouden</item>
+        <item>Vz	Vriezenveen</item>
+        <item>Wad	Waddinxveen</item>
+        <item>Wadn	Waddinxveen Noord</item>
+        <item>Wc	Wijchen</item>
+        <item>Wd	Woerden</item>
+        <item>Wdn	Wierden</item>
+        <item>Wf	Wolfheze</item>
+        <item>Wfm	Warffum</item>
+        <item>Wh	Wijhe</item>
+        <item>Wk	Workum</item>
+        <item>Wl	Wehl</item>
+        <item>Wm	Wormerveer</item>
+        <item>Wp	Weesp</item>
+        <item>Ws	Winschoten</item>
+        <item>Wsm	Winsum</item>
+        <item>Wt	Weert</item>
+        <item>Wtv	Westervoort</item>
+        <item>Wv	Wolvega</item>
+        <item>Ww	Winterswijk</item>
+        <item>Www	Winterswijk West</item>
+        <item>Wz	Wezep</item>
+        <item>Ypb	Den Haag Ypenburg</item>
+        <item>Za	Zetten-Andelst</item>
+        <item>Zb	Zuidbroek</item>
+        <item>Zbm	Zaltbommel</item>
+        <item>Zd	Zaandam</item>
+        <item>Zdk	Zaandam Kogerveld</item>
+        <item>Zh	Zuidhorn</item>
+        <item>Zl	Zwolle</item>
+        <item>Zlw	Lage Zwaluwe</item>
+        <item>Zp	Zutphen</item>
+        <item>Ztm	Zoetermeer</item>
+        <item>Ztmo	Zoetermeer Oost</item>
+        <item>Zv	Zevenaar</item>
+        <item>Zvb	Zevenbergen</item>
+        <item>Zvt	Zandvoort aan Zee</item>
+        <item>Zwd	Zwijndrecht</item>
     </string-array>
 </resources>
 

@@ -44,6 +44,7 @@ public class HttpRequestHelper {
 
         // complete string for URL
         String complete_URL_string = url + chosenStation;
+        Log.d("HTTP", "downloadFromServer() returned: " + complete_URL_string);
         // turn string into URL
         URL url = null;
 
