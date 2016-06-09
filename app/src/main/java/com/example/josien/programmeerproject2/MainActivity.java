@@ -1,10 +1,7 @@
 package com.example.josien.programmeerproject2;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,20 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.FacebookSdk;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 
@@ -33,7 +23,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView items_listview;
-    private Train_AsyncTask obj;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
@@ -62,7 +51,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         ListView lv = getListView();
 
@@ -145,11 +133,15 @@ public class MainActivity extends AppCompatActivity
 
 
     public void get_data(View view) {
+        TrainApiHandler apiHandler = new TrainApiHandler();
+
         String station = autoCompleteTextView.getText().toString();
         String arr[] = station.split(" ", 2);
         String input = arr[0];
-        Train_AsyncTask asyncTask = new Train_AsyncTask(this);
-        asyncTask.execute(input);
+
+        apiHandler.execute(input);
+        ArrayList<TrainData> data = apiHandler.data;
+
     }
 
     public void setData(ArrayList<TrainData> traindata) {
