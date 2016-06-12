@@ -1,6 +1,7 @@
 package com.example.josien.programmeerproject2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -18,18 +19,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView items_listview;
-    private  TrainAdapter adapter;
+    private TrainAdapter adapter;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
     AutoCompleteTextView autoCompleteTextView;
     String[] stations;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
 
     @Override
@@ -42,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         stations = getResources().getStringArray(R.array.stations);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, stations);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stations);
         autoCompleteTextView.setAdapter(adapter);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -55,6 +65,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         ListView lv = getListView();
+
 
         // Handles the more information when clicking on a single item
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,6 +91,9 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -132,10 +146,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
     public void get_data(View view) {
-        TrainApiHandler apiHandler = new TrainApiHandler();
+        TrainAsyncTask apiHandler = new TrainAsyncTask(MainActivity.this);
 
         String station = autoCompleteTextView.getText().toString();
         String arr[] = station.split(" ", 2);
@@ -143,16 +155,55 @@ public class MainActivity extends AppCompatActivity
 
         apiHandler.execute(input);
 
-        adapter = new TrainAdapter(getApplicationContext(), -1, PullParser.get_data(MainActivity.this));
+
         items_listview.setAdapter(adapter);
     }
 
-   // public void setData(ArrayList<TrainData> traindata) {
-     //   TrainAdapter adapter = new TrainAdapter(this, traindata);
-       // items_listview.setAdapter(adapter);
-    //}
+    public void setData(ArrayList<TrainData> traindata) {
+        //TrainAdapter adapter = new TrainAdapter(this, traindata);
+        items_listview.setAdapter(adapter);
+        //}
 
 
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.josien.programmeerproject2/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.josien.programmeerproject2/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }
