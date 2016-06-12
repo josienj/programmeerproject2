@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".CheckInActivity"
-    android:background="#0431B4">
+    android:background="#81BEF7">
 
 
     <ImageView
@@ -24,7 +24,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView2"
+        android:id="@+id/checkin_listview"
         android:layout_below="@+id/imageView2"
         android:layout_above="@+id/button2" />
 
@@ -38,16 +38,6 @@
         android:layout_centerHorizontal="true"
         android:onClick="check_in_train"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Zit jij zo in de trein naar Amsterdam Centraal van 16.58?"
-        android:textAlignment="center"
-        android:id="@+id/textView3"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"/>
 
 
 </RelativeLayout>

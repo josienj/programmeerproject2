@@ -1,7 +1,9 @@
 package com.example.josien.programmeerproject2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,14 +12,36 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class CheckInActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Context context;
+    ListView items_listview;
+    private TrainAdapterCheckIn adapter;
+    private static final String TAG_EINDBESTEMMING = "Eindbestemming";
+    private static final String TAG_VERTREKTIJD = "Vertrektijd";
+    private static final String TAG_RITNUMMER = "Ritnummer";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // getting intent data
+        Intent in = getIntent();
+
+        // Get JSON values from previous intent
+        String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
+        String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
+        String ritnummer = in.getStringExtra(TAG_RITNUMMER);
+
+        items_listview = (ListView) findViewById(R.id.checkin_listview);
         setContentView(R.layout.activity_checkin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,5 +109,10 @@ public class CheckInActivity extends AppCompatActivity
         startActivity(friends);
     }
 
+    public void parsedata(List<TrainData> traindata) {
+        TrainAdapterCheckIn adapter = new TrainAdapterCheckIn(this, -1, traindata);
+        items_listview.setAdapter(adapter);
+
+    }
 
 }

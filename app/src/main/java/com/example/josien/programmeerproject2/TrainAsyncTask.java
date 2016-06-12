@@ -105,12 +105,17 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
                             if (name.equalsIgnoreCase(KEY_VERTREKKENDETREIN)) {
                                 traindatas.add(traindata);
                             } else if (name.equalsIgnoreCase(KEY_RITNUMMER)) {
+                                assert traindata != null;
                                 traindata.setRitnummer(curtext);
                                 Log.d("Ritnummer", "ParseXml() returned: " + curtext);
                             } else if (name.equalsIgnoreCase(KEY_VERTREKTIJD)) {
+                                assert traindata != null;
+                                String vertrektijd = curtext;
+                                curtext = vertrektijd.substring(11, 16);
                                 traindata.setVertrektijd(curtext);
                                 Log.d("Vertrektijd", "ParseXml() returned: " + curtext);
                             } else if (name.equalsIgnoreCase(KEY_EINDBESTEMMING)) {
+                                assert traindata != null;
                                 traindata.setEindbestemming(curtext);
                                 Log.d("Eindbestemming", "ParseXml() returned: " + curtext);
                             }
@@ -123,7 +128,7 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
             } catch (XmlPullParserException | IOException e) {
                 e.printStackTrace();
             }
-            return;
+            this.activity.setData(traindatas);
         }
 
     }

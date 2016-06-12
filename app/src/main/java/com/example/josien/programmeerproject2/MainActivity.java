@@ -24,11 +24,13 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView items_listview;
+    MainActivity activity;
     private TrainAdapter adapter;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
@@ -87,7 +89,9 @@ public class MainActivity extends AppCompatActivity
                 in.putExtra(TAG_EINDBESTEMMING, eindbestemming);
                 in.putExtra(TAG_VERTREKTIJD, vertrektijd);
                 in.putExtra(TAG_RITNUMMER, ritnummer);
+
                 startActivity(in);
+
 
             }
         });
@@ -155,15 +159,11 @@ public class MainActivity extends AppCompatActivity
 
         apiHandler.execute(input);
 
-
-        items_listview.setAdapter(adapter);
     }
 
-    public void setData(ArrayList<TrainData> traindata) {
-        //TrainAdapter adapter = new TrainAdapter(this, traindata);
+    public void setData(List<TrainData> traindata) {
+        TrainAdapter adapter = new TrainAdapter(this, -1, traindata);
         items_listview.setAdapter(adapter);
-        //}
-
 
     }
 
