@@ -28,7 +28,7 @@ This Activity handles
  */
 
 
-public class MainActivityLogin extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public static final int INDEX_SIMPLE_LOGIN = 0;
 
@@ -82,7 +82,7 @@ public class MainActivityLogin extends AppCompatActivity {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         switch (index){
             case INDEX_SIMPLE_LOGIN:
-                transaction.replace(android.R.id.content, new FragmentSimpleLoginButton(),FRAGMENT_TAG);
+                transaction.replace(android.R.id.content, new LoginButtonFacebook(),FRAGMENT_TAG);
                 break;
         }
         transaction.commit();
@@ -95,7 +95,7 @@ public class MainActivityLogin extends AppCompatActivity {
             Log.d("Niet ingelogd", ">>>" + "Signed Out");
         } else {
             Log.d("Ingelogd", ">>>" + "Signed In");
-            startActivity(new Intent(MainActivityLogin.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             Intent checkin = new Intent(this, MainActivity.class);
             checkin.putExtra("Checkin", 500);
             startActivity(checkin);

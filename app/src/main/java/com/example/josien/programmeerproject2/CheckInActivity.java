@@ -1,15 +1,5 @@
 package com.example.josien.programmeerproject2;
 
-/*
-Josien Jansen
-11162295
-Programmeerproject
-Universiteit van Amsterdam
- */
-
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,19 +9,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.facebook.FacebookSdk;
-
-public class Instellingen extends AppCompatActivity
+public class CheckInActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_instellingen);
+        setContentView(R.layout.activity_checkin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,11 +64,13 @@ public class Instellingen extends AppCompatActivity
             startActivity(checkin);
 
         } else if (id == R.id.nav_friendscheckin) {
-            Intent friendscheckin = new Intent(this, Friends_checkin.class);
+            Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);
             startActivity(friendscheckin);
         }  else if (id == R.id.nav_instellingen) {
-            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
+            Intent instellingen = new Intent(this, SettingsActivity.class);
+            instellingen.putExtra("instellingen", 500);
+            startActivity(instellingen);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -89,17 +78,12 @@ public class Instellingen extends AppCompatActivity
         return true;
     }
 
-    public void log_out (View view){
-        Intent mStartActivity = new Intent(getApplicationContext(), MainActivityLogin.class);
-        int mPendingIntentId = 123456;
-        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis() , mPendingIntent);
-        System.exit(0);
+    public void check_in_train(View view){
+        Toast.makeText(this, "Je bent ingecheckt in deze trein!", Toast.LENGTH_SHORT).show();
+        Intent friends = new Intent(this, FriendsActivity.class);
+        friends.putExtra("friends", 500);
+        startActivity(friends);
     }
-
-
-
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.josien.programmeerproject2;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView items_listview;
+    private  TrainAdapter adapter;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
                 // Starting the MoreInformationActivity
                 Intent in = new Intent(getApplicationContext(),
-                        CheckIn.class);
+                        CheckInActivity.class);
                 in.putExtra(TAG_EINDBESTEMMING, eindbestemming);
                 in.putExtra(TAG_VERTREKTIJD, vertrektijd);
                 in.putExtra(TAG_RITNUMMER, ritnummer);
@@ -114,12 +116,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_checkin) {
             Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_friendscheckin) {
-            Intent friendscheckin = new Intent(this, Friends_checkin.class);
+            Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);
             startActivity(friendscheckin);
         } else if (id == R.id.nav_instellingen) {
-            Intent instellingen = new Intent(this, Instellingen.class);
-            instellingen.putExtra("Instellingen", 500);
+            Intent instellingen = new Intent(this, SettingsActivity.class);
+            instellingen.putExtra("SettingsActivity", 500);
             startActivity(instellingen);
 
         }
@@ -140,13 +142,17 @@ public class MainActivity extends AppCompatActivity
         String input = arr[0];
 
         apiHandler.execute(input);
-        ArrayList<TrainData> data = apiHandler.data;
 
-    }
-
-    public void setData(ArrayList<TrainData> traindata) {
-        TrainAdapter adapter = new TrainAdapter(this, traindata);
+        adapter = new TrainAdapter(getApplicationContext(), -1, PullParser.get_data(MainActivity.this));
         items_listview.setAdapter(adapter);
     }
+
+   // public void setData(ArrayList<TrainData> traindata) {
+     //   TrainAdapter adapter = new TrainAdapter(this, traindata);
+       // items_listview.setAdapter(adapter);
+    //}
+
+
+
 
 }

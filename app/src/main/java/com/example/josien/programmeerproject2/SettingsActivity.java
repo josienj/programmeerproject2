@@ -7,10 +7,11 @@ Programmeerproject
 Universiteit van Amsterdam
  */
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,30 +19,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.facebook.FacebookSdk;
-
-public class Friends_checkin extends AppCompatActivity
+public class SettingsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friendscheckin);
+        setContentView(R.layout.activity_instellingen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "TO DO: start a social interaction", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,12 +72,13 @@ public class Friends_checkin extends AppCompatActivity
             Intent checkin = new Intent(this, MainActivity.class);
             checkin.putExtra("Checkin", 500);
             startActivity(checkin);
+
         } else if (id == R.id.nav_friendscheckin) {
-            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
+            Intent friendscheckin = new Intent(this, FriendsActivity.class);
+            friendscheckin.putExtra("friendscheckin", 500);
+            startActivity(friendscheckin);
         }  else if (id == R.id.nav_instellingen) {
-            Intent instellingen = new Intent(this, Instellingen.class);
-            instellingen.putExtra("instellingen", 500);
-            startActivity(instellingen);
+            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -96,9 +86,17 @@ public class Friends_checkin extends AppCompatActivity
         return true;
     }
 
-    public void next_screen(View view){
-        Intent next_screen = new Intent(this, CheckIn.class);
-        next_screen.putExtra("next_screen", 500);
-        startActivity(next_screen);
+    public void log_out (View view){
+        Intent mStartActivity = new Intent(getApplicationContext(), LoginActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() , mPendingIntent);
+        System.exit(0);
     }
+
+
+
+
+
 }

@@ -10,6 +10,7 @@ Universiteit van Amsterdam
 
 public class TrainData {
 
+    private String data;
     private String ritnummer;
     private String vertrektijd;
     private String eindbestemming;
@@ -18,6 +19,9 @@ public class TrainData {
     private String vervoerder;
     private String vertrekspoor;
 
+    public String getData(){
+        return data;
+    }
 
     public String getRitnummer() {
         return ritnummer;

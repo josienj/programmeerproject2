@@ -11,52 +11,37 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
-public class TrainAdapter extends BaseAdapter {
+public class TrainAdapter extends ArrayAdapter<TrainData> {
 
-    private Context context;
-    private ArrayList<TrainData> trains;
-
-    public TrainAdapter (Context context, ArrayList<TrainData> trains){
-        this.context = context;
-        this.trains = trains;
+    public TrainAdapter(Context ctx, int textView, List<TrainData> trains){
+        super(ctx, textView, trains);
     }
 
-    @Override
-    public int getCount(){
-        return this.trains.size();
-    }
+   @Override
+    public View getView(int pos, View convertView, ViewGroup parent){
+       RelativeLayout row = (RelativeLayout)convertView;
 
-    @Override
-    public Object getItem(int arg0){
-        return null;
-    }
+       if(row == null){
+           LayoutInflater inflater = (LayoutInflater)parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           row = (RelativeLayout)inflater.inflate(R.layout.row_layout, null);
+       }
 
-    @Override
-    public long getItemId(int pos){
-        return pos;
-    }
+       TextView eindbestemming = (TextView)row.findViewById(R.id.eindbestemming);
+       TextView vertrektijd = (TextView)row.findViewById(R.id.vertrektijd);
 
-    @Override
-    public View getView(int pos, View view, ViewGroup parent){
-        if (view == null){
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.row_layout, parent, false);
-        }
+       eindbestemming.setText(getItem(pos).getEindbestemming());
+       vertrektijd.setText(getItem(pos).getVertrektijd());
 
-        TrainData train = trains.get(pos);
-        TextView eindbestemming = (TextView) view.findViewById(R.id.eindbestemming);
-        TextView vertrektijd = (TextView) view.findViewById(R.id.vertrektijd);
-        TextView ritnummer = (TextView) view.findViewById(R.id.ritnummer);
+       return row;
+   }
 
-        eindbestemming.setText(train.getEindbestemming());
-        vertrektijd.setText(train.getVertrektijd());
-        ritnummer.setText(train.getRitnummer());
-
-        return view;
-    }
 }
