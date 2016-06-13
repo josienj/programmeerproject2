@@ -20,4 +20,11 @@ Authenticatie van NS API is gelukt, even wat uitzoekwerk. Parsen moet in XML, bl
 Library werkt niet zoals ik gehoopt had. Bijft continu een error geven over iets waar in de XMLserializer(class vanuit de JSON-lib). Heel veel gegoogled, geprobeerd en gejammerd en nog niks verder.
 ###Dag 8<br>
 Library bleek verkeerd toegevoegd te zijn. Dit opnieuw gedaan, kleine verbetering maar er blijft een error nadat de Search-button geklikt wordt. Ga nog 1 optie proberen met een extra library, als dat niet werkt ben ik er helemaal klaar mee en ga ik toch alles nog omgooien naar XML parsen.... Dat kan nog wel even duren voordat het lukt dus..<br>
+###Dag 9<br>
+Veel geprobeerd met het parsen van XML, ging niet erg lekker. Wel veel tutorials gekeken en meer duidelijkheid erover gekregen, begin staat erin.
+UPDATE: 'savonds gelukt om XML te parsen!! Laat alleen nog niet zien in de ListView.
+###Dag 10<br>
+Presentatie en de geparste data proberen te laten zien in Listview. Lukte nog niet.
+###Weekend<br>
+Heel veel geprobeerd met de Adapter, kostte erg veel tijd en moeite, maar uiteindelijk gelukt om het te laten zien in de ListView. Er kan op geklikt worden en dan ga je naar het volgende scherm. Listview & Adapter voor het volgende scherm moet nog gefixt worden: dit gaat maandag gebeuren.
 
