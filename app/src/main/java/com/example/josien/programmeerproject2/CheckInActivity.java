@@ -3,6 +3,7 @@ package com.example.josien.programmeerproject2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -23,26 +25,35 @@ public class CheckInActivity extends AppCompatActivity
 
     private Context context;
     ListView items_listview;
-    private TrainAdapterCheckIn adapter;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
-
+    List<TrainData> traindata;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_checkin);
 
         // getting intent data
         Intent in = getIntent();
-
-        // Get JSON values from previous intent
         String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
-        items_listview = (ListView) findViewById(R.id.checkin_listview);
-        setContentView(R.layout.activity_checkin);
+        TextView eindbestemming_view = (TextView) findViewById(R.id.eindbestemming);
+        TextView vertrektijd_view = (TextView) findViewById(R.id.vertrektijd);
+        TextView ritnummer_view = (TextView) findViewById(R.id.ritnummer);
+
+        assert eindbestemming_view != null;
+        eindbestemming_view.setText(eindbestemming);
+        assert vertrektijd_view != null;
+        vertrektijd_view.setText(vertrektijd);
+        assert ritnummer_view != null;
+        ritnummer_view.setText(ritnummer);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,6 +62,8 @@ public class CheckInActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -109,10 +122,8 @@ public class CheckInActivity extends AppCompatActivity
         startActivity(friends);
     }
 
-    public void parsedata(List<TrainData> traindata) {
-        TrainAdapterCheckIn adapter = new TrainAdapterCheckIn(this, -1, traindata);
-        items_listview.setAdapter(adapter);
-
+    private ListView getListView() {
+        return items_listview;
     }
 
 }

@@ -41,7 +41,7 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPreExecute(){
         // inform user
-        Toast.makeText(context, "Getting data from server", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
