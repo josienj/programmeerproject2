@@ -28,3 +28,8 @@ Presentatie en de geparste data proberen te laten zien in Listview. Lukte nog ni
 ###Weekend<br>
 Heel veel geprobeerd met de Adapter, kostte erg veel tijd en moeite, maar uiteindelijk gelukt om het te laten zien in de ListView. Er kan op geklikt worden en dan ga je naar het volgende scherm. Listview & Adapter voor het volgende scherm moet nog gefixt worden: dit gaat maandag gebeuren.
 
+###Dag 11<br>
+Dagje weg geweest, niet heel veel kunnen doen. Wel gefixt dat het tweede scherm naar Inchecken helemaal werkt en alles laat zien.
+###Dag 12<br>
+Database geïmplementeerd die de historie van inchecken bijhoudt. Verder bezig met het checken of Fbvrienden ingecheckt zijn in dezelfde trein, dit blijkt lastiger dan gedacht. Tot nu toe kan de app alleen zien welke FBvrienden de app ook gebruiken,maar gebeurt er verder nog niks mee; ook hier zitten al bugs in. Belangrijk dat dit uiterlijk donderdag werkend is.
+###Dag 13<br>
