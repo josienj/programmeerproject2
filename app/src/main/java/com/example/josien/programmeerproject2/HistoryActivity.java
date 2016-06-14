@@ -1,78 +1,51 @@
 package com.example.josien.programmeerproject2;
 
-/*
-Josien Jansen
-11162295
-Programmeerproject
-Universiteit van Amsterdam
- */
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class CheckInActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Created by Josien on 14-6-2016.
+ */
+public class HistoryActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context;
-    ListView items_listview;
+    ListView newList;
+    DBHelper dbHelper;
+    ArrayAdapter<History> listAdapter;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
-    private static final String TAG_RITNUMMER = "Ritnummer";
-    List<TrainData> traindata;
-    DBHelper DBHelper;
-    ArrayAdapter<History> listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkin);
-        DBHelper = new DBHelper(this, null, null, 1);
-
-        // getting intent data
-        Intent in = getIntent();
-        String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
-        String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
-        String ritnummer = in.getStringExtra(TAG_RITNUMMER);
-
-        TextView eindbestemming_view = (TextView) findViewById(R.id.eindbestemming);
-        TextView vertrektijd_view = (TextView) findViewById(R.id.vertrektijd);
-        TextView ritnummer_view = (TextView) findViewById(R.id.ritnummer);
-
-        assert eindbestemming_view != null;
-        eindbestemming_view.setText(eindbestemming);
-        assert vertrektijd_view != null;
-        vertrektijd_view.setText(vertrektijd);
-        assert ritnummer_view != null;
-        ritnummer_view.setText(ritnummer);
-
+        setContentView(R.layout.activity_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        newList = (ListView) findViewById(R.id.historie_listview);
+        dbHelper = new DBHelper(this, null, null, 1);
+
+        setupHistoryListView();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -113,42 +86,50 @@ public class CheckInActivity extends AppCompatActivity
             Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);
             startActivity(friendscheckin);
-        }  else if (id == R.id.nav_instellingen) {
+        } else if (id == R.id.nav_instellingen) {
             Intent instellingen = new Intent(this, SettingsActivity.class);
             instellingen.putExtra("instellingen", 500);
             startActivity(instellingen);
+        } else if (id == R.id.nav_historie) {
+            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     /*
    Add history into database
-     */
-    public void addHistory(View view){
-        Intent in = getIntent();
-        String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
-        String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
 
-        String History = eindbestemming+vertrektijd;
-        DBHelper.addHistory(eindbestemming, vertrektijd);
-        Log.d("LINK", "addHistory() returned: " + History);
-        Log.d("DBHelper", "addHistory() returned: " + DBHelper);
-        //listAdapter.add(history);
+    * Combine the listview and database correctly
+    */
+    public void setupHistoryListView() {
 
-        Log.d("History", "addHistory() returned: " + History);
+        final ArrayList<History> historieArray = dbHelper.retrieveHistorie();
 
+        // Make a new ArrayAdapter to handle the objects, and add them to the view
+        listAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, historieArray);
 
-        Toast.makeText(this, "Je bent ingecheckt in deze trein!", Toast.LENGTH_SHORT).show();
-        Intent friends = new Intent(this, FriendsActivity.class);
-        friends.putExtra("friends", 500);
-        startActivity(friends);
+        // Apply the adapter on the ViewList
+        newList.setAdapter(listAdapter);
+
+        // Add a new on click listener
+        newList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // Clicked item value
+                History item = (History) newList.getItemAtPosition(position);
+                // Delete item from database
+                dbHelper.deleteItem(item.get_id());
+                // Delete item from listView
+                listAdapter.remove(item);
+                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
-
-
-    private ListView getListView() {
-        return items_listview;
-    }
-
 }
+
+

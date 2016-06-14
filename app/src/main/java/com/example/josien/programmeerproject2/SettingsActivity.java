@@ -79,6 +79,10 @@ public class SettingsActivity extends AppCompatActivity
             startActivity(friendscheckin);
         }  else if (id == R.id.nav_instellingen) {
             Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
+        }   else if (id == R.id.nav_historie) {
+            Intent historie = new Intent(this, HistoryActivity.class);
+            historie.putExtra("historie", 500);
+            startActivity(historie);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

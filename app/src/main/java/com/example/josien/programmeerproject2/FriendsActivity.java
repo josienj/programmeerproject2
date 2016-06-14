@@ -86,6 +86,10 @@ public class FriendsActivity extends AppCompatActivity
             Intent instellingen = new Intent(this, SettingsActivity.class);
             instellingen.putExtra("instellingen", 500);
             startActivity(instellingen);
+        }   else if (id == R.id.nav_historie) {
+            Intent historie = new Intent(this, HistoryActivity.class);
+            historie.putExtra("historie", 500);
+            startActivity(historie);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

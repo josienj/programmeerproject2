@@ -11,6 +11,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Check-ins van je vrienden" />
         <item
+            android:id="@+id/nav_historie"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Historie" />
+        <item
             android:id="@+id/nav_instellingen"
             android:icon="@drawable/ic_menu_manage"
             android:title="Instellingen" />
