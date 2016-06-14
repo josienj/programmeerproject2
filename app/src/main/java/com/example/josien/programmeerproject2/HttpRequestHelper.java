@@ -1,5 +1,12 @@
 package com.example.josien.programmeerproject2;
 
+/*
+Josien Jansen
+11162295
+Programmeerproject
+Universiteit van Amsterdam
+ */
+
 import android.util.Base64;
 import android.util.Log;
 
@@ -11,8 +18,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by Josien on 12-6-2016.
+/*
+This class handles the Http-request done by the user.
  */
 public class HttpRequestHelper {
 
@@ -47,7 +54,10 @@ public class HttpRequestHelper {
                 connect.setReadTimeout(10000);
                 connect.setConnectTimeout(15000);
                 connect.setRequestMethod("GET");
+
+                // handles basic authorization of the NS API
                 connect.setRequestProperty("Authorization", "Basic " + getConnectionAuthHeaders());
+
                 // get response code
                 Integer responseCode = connect.getResponseCode();
 
@@ -73,6 +83,10 @@ public class HttpRequestHelper {
         return result;
     }
 
+    /*
+    This method handles the basic Authorization the NS uses for being able to see the data of the
+    APIs.
+     */
     private static String getConnectionAuthHeaders()
     {
         String userCredentials = "josienjansen1@gmail.com" + ":" + "OOmAtjby3uCWjhmXv1JuDQVdAahST1eCbDtPnpvh18Y6UQzxA6oS8A";

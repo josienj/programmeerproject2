@@ -1,5 +1,12 @@
 package com.example.josien.programmeerproject2;
 
+/*
+Josien Jansen
+11162295
+Programmeerproject
+Universiteit van Amsterdam
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

@@ -20,6 +20,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+This class is responsible for showing the right data in the Listview in a user-friendly way.
+ */
+
 public class TrainAdapter extends ArrayAdapter<TrainData> {
 
     public TrainAdapter(Context ctx, int textView, List<TrainData> trains){
@@ -30,14 +34,17 @@ public class TrainAdapter extends ArrayAdapter<TrainData> {
     public View getView(int pos, View convertView, ViewGroup parent){
        RelativeLayout row = (RelativeLayout)convertView;
 
+       // When nothing is found yet, combine xml-layout.
        if(row == null){
            LayoutInflater inflater = (LayoutInflater)parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            row = (RelativeLayout)inflater.inflate(R.layout.row_layout, null);
        }
 
+       // Get the right ids to show in Data.
        TextView eindbestemming = (TextView)row.findViewById(R.id.eindbestemming);
        TextView vertrektijd = (TextView)row.findViewById(R.id.vertrektijd);
 
+       // Set the data into the ListView.
        eindbestemming.setText(getItem(pos).getEindbestemming());
        vertrektijd.setText(getItem(pos).getVertrektijd());
 

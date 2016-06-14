@@ -24,12 +24,13 @@ import com.facebook.appevents.AppEventsLogger;
 
 
 /*
-This Activity handles
+This Activity handles a part of the Login of Facebook.
  */
 
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Declare variables.
     public static final int INDEX_SIMPLE_LOGIN = 0;
 
     private static final String STATE_SELECTED_FRAGMENT_INDEX = "selected_fragment_index";
@@ -88,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    // not used yet
     private void facebookPost() {
         //check login
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -102,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // after succesfully logged in: go to MainActivity.
     public void next_screen2(View view){
         Intent next_screen = new Intent(this, MainActivity.class);
         next_screen.putExtra("next_screen", 500);

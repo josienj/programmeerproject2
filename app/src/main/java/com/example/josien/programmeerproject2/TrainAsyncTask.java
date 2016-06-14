@@ -1,28 +1,33 @@
 package com.example.josien.programmeerproject2;
 
+/*
+Josien Jansen
+11162295
+Programmeerproject
+Universiteit van Amsterdam
+ */
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Josien on 12-6-2016.
+ * This class handles the http-request by getting the real data, parse it and return it the right
+ * way.
  */
 public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
+
+    // Declare variables.
     static final String KEY_VERTREKKENDETREIN = "VertrekkendeTrein";
     static final String KEY_EINDBESTEMMING = "EindBestemming";
     static final String KEY_VERTREKTIJD = "VertrekTijd";
@@ -128,6 +133,7 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
             } catch (XmlPullParserException | IOException e) {
                 e.printStackTrace();
             }
+            // Return the data to be able to show it in ListView.
             this.activity.setData(traindatas);
         }
 
