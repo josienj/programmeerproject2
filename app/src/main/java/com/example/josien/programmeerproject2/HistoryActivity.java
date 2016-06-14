@@ -16,6 +16,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginResult;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 /**
@@ -129,6 +138,29 @@ public class HistoryActivity extends AppCompatActivity
                 return false;
             }
         });
+    }
+
+    public void onSuccess(LoginResult login_result) {
+        GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(
+                login_result.getAccessToken(),
+                //AccessToken.getCurrentAccessToken(),
+                "/me/friends",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        Intent intent = new Intent(HistoryActivity.this, FriendsActivity.class);
+                        try {
+                            JSONArray rawName = response.getJSONObject().getJSONArray("data");
+                            intent.putExtra("jsondata", rawName.toString());
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+
     }
 }
 

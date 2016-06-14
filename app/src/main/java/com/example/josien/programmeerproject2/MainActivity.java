@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // Declare variables.
+    Intent intent2;
     ListView items_listview;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
     /*
     Handles the Navigation bar, so the user can go to different Activities.
      */
@@ -136,6 +138,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_checkin) {
             Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_friendscheckin) {
+
             Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);
             startActivity(friendscheckin);

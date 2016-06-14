@@ -43,15 +43,13 @@
         android:layout_alignParentStart="true"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <com.facebook.login.widget.LoginButton
         android:layout_height="wrap_content"
-        android:id="@+id/logoutbutton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="79dp"
-        android:src="@drawable/logout"
-        android:onClick="log_out"/>
+        android:layout_width="wrap_content"
+        android:id="@+id/login_button"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"/>
 
 
 </RelativeLayout>
