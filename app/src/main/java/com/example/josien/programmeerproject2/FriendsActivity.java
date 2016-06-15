@@ -8,9 +8,12 @@ Universiteit van Amsterdam
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -47,20 +50,24 @@ public class FriendsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Intent intent = getIntent();
-        String jsondata = intent.getStringExtra("jsondata");
+        //Intent intent = getIntent();
+        //String jsondata = intent.getStringExtra("jsondata");
 
-        JSONArray friendslist;
+        //JSONArray friendslist;
         ArrayList<String> friends = new ArrayList<String>();
 
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
         try {
-            friendslist = new JSONArray(jsondata);
-            for (int l=0; l < friendslist.length(); l++) {
-                friends.add(friendslist.getJSONObject(l).getString("name"));
+            JSONArray friendslist = new JSONArray(prefs.getString("key", "[]"));
+            for (int i = 0; i < friendslist.length(); i++) {
+                Log.d("JSonarray", "onCreate() returned: " + friendslist);
+                friends.add(friendslist.getJSONObject(i).getString("name"));
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, friends); // simple textview for list item
         ListView listView = (ListView) findViewById(R.id.listView);

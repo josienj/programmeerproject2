@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <activity
-            android:name=".SecondMainActivity"
+            android:name=".FbLoginActvity"
             android:label="@string/name_app"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

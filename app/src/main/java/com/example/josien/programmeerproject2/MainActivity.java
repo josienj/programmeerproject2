@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_checkin) {
             Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_friendscheckin) {
-
             Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);
             startActivity(friendscheckin);

@@ -1,11 +1,12 @@
 package com.example.josien.programmeerproject2;
 
         import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.preference.PreferenceManager;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
 
-        import com.facebook.AccessToken;
         import com.facebook.CallbackManager;
         import com.facebook.FacebookCallback;
         import com.facebook.FacebookException;
@@ -15,17 +16,13 @@ package com.example.josien.programmeerproject2;
         import com.facebook.GraphResponse;
         import com.facebook.HttpMethod;
         import com.facebook.appevents.AppEventsLogger;
-        import com.facebook.login.LoginManager;
         import com.facebook.login.LoginResult;
         import com.facebook.login.widget.LoginButton;
 
         import org.json.JSONArray;
         import org.json.JSONException;
-        import org.json.JSONObject;
 
-        import java.util.Arrays;
-
-public class SecondMainActivity extends AppCompatActivity {
+public class FbLoginActvity extends AppCompatActivity {
 
     CallbackManager callbackManager;
 
@@ -56,12 +53,18 @@ public class SecondMainActivity extends AppCompatActivity {
                         HttpMethod.GET,
                         new GraphRequest.Callback() {
                             public void onCompleted(GraphResponse response) {
-                                Intent intent = new Intent(SecondMainActivity.this,FriendsActivity.class);
+                                Intent intent = new Intent(FbLoginActvity.this,MainActivity.class);
                                 try {
                                     JSONArray rawName = response.getJSONObject().getJSONArray("data");
-                                    Log.d("Response", "onCompleted() returned: " + response);
-                                    intent.putExtra("jsondata", rawName.toString());
+                                    SharedPreferences prefs = PreferenceManager
+                                            .getDefaultSharedPreferences(getApplicationContext());
+                                    rawName.put(1);
+                                    SharedPreferences.Editor editor = prefs.edit();
+                                    editor.putString("key", rawName.toString());
+                                    System.out.println(rawName.toString());
+                                    editor.apply();
                                     startActivity(intent);
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
