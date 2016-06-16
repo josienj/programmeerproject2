@@ -60,7 +60,8 @@
         android:id="@+id/ritnummer"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        />
 
     <TextView
         android:layout_width="wrap_content"

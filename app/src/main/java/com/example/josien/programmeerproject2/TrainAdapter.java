@@ -16,6 +16,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +45,12 @@ public class TrainAdapter extends ArrayAdapter<TrainData> {
        // Get the right ids to show in Data.
        TextView eindbestemming = (TextView)row.findViewById(R.id.eindbestemming);
        TextView vertrektijd = (TextView)row.findViewById(R.id.vertrektijd);
+       TextView ritnummer = (TextView)row.findViewById(R.id.ritnummer);
 
        // Set the data into the ListView.
        eindbestemming.setText(getItem(pos).getEindbestemming());
        vertrektijd.setText(getItem(pos).getVertrektijd());
+       ritnummer.setText(getItem(pos).getRitnummer());
 
        return row;
    }

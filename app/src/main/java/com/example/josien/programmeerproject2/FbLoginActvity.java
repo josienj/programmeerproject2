@@ -105,6 +105,7 @@ public class FbLoginActvity extends AppCompatActivity {
         login_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult login_result) {
+
                 GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(
                         login_result.getAccessToken(),
 

@@ -26,18 +26,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.shephertz.app42.paas.sdk.android.App42API;
-import com.shephertz.app42.paas.sdk.android.App42Response;
-import com.shephertz.app42.paas.sdk.android.App42Exception;
-import com.shephertz.app42.paas.sdk.android.App42BadParameterException;
-import com.shephertz.app42.paas.sdk.android.App42NotFoundException;
-import com.shephertz.app42.paas.sdk.android.App42CallBack;
-import com.shephertz.app42.paas.sdk.android.user.User;
-import com.shephertz.app42.paas.sdk.android.user.User.Profile;
-import com.shephertz.app42.paas.sdk.android.user.User.UserGender;
-import com.shephertz.app42.paas.sdk.android.user.UserService;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 
 import java.util.ArrayList;
 

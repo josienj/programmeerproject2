@@ -26,6 +26,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shephertz.app42.paas.sdk.android.App42API;
+import com.shephertz.app42.paas.sdk.android.App42CallBack;
+import com.shephertz.app42.paas.sdk.android.storage.Storage;
+import com.shephertz.app42.paas.sdk.android.storage.StorageService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CheckInActivity extends AppCompatActivity
@@ -39,6 +45,7 @@ public class CheckInActivity extends AppCompatActivity
     List<TrainData> traindata;
     DBHelper DBHelper;
     ArrayAdapter<History> listAdapter;
+    String ritnummer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class CheckInActivity extends AppCompatActivity
         String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
+        
 
         TextView eindbestemming_view = (TextView) findViewById(R.id.eindbestemming);
         TextView vertrektijd_view = (TextView) findViewById(R.id.vertrektijd);
@@ -62,6 +70,8 @@ public class CheckInActivity extends AppCompatActivity
         vertrektijd_view.setText(vertrektijd);
         assert ritnummer_view != null;
         ritnummer_view.setText(ritnummer);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -139,6 +149,31 @@ public class CheckInActivity extends AppCompatActivity
 
         Log.d("History", "addHistory() returned: " + History);
 
+        String dbName = "test";
+        String collectionName = "ritnummer";
+        String ritnummer = "{\"ritnummer\":\ritnummer";
+        Log.d("Ritnummer", "addHistory() returned: " + ritnummer);
+/* Below snippet will save JSON object in App42 Cloud */
+        StorageService storageService = App42API.buildStorageService();
+        storageService.insertJSONDocument(dbName,collectionName,ritnummer,new App42CallBack() {
+            public void onSuccess(Object response)
+            {
+                Storage  storage  = (Storage )response;
+                ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+                for(int i=0;i<jsonDocList.size();i++)
+                {
+                    System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+                    //Above line will return object id of saved JSON object
+                    System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+                    System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+                    System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+                }
+            }
+            public void onException(Exception ex)
+            {
+                System.out.println("Exception Message"+ex.getMessage());
+            }
+        });
 
         Toast.makeText(this, "Je bent ingecheckt in deze trein!", Toast.LENGTH_SHORT).show();
         Intent friends = new Intent(this, FriendsActivity.class);
