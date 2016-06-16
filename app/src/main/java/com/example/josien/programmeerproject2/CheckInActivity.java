@@ -31,6 +31,9 @@ import com.shephertz.app42.paas.sdk.android.App42CallBack;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import com.shephertz.app42.paas.sdk.android.storage.StorageService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +48,6 @@ public class CheckInActivity extends AppCompatActivity
     List<TrainData> traindata;
     DBHelper DBHelper;
     ArrayAdapter<History> listAdapter;
-    String ritnummer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class CheckInActivity extends AppCompatActivity
         String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
-        
+
 
         TextView eindbestemming_view = (TextView) findViewById(R.id.eindbestemming);
         TextView vertrektijd_view = (TextView) findViewById(R.id.vertrektijd);
@@ -136,10 +138,11 @@ public class CheckInActivity extends AppCompatActivity
     /*
    Add history into database
      */
-    public void addHistory(View view){
+    public void addHistory(View view) throws JSONException {
         Intent in = getIntent();
         String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
+        String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
         String History = eindbestemming+vertrektijd;
         DBHelper.addHistory(eindbestemming, vertrektijd);
@@ -151,11 +154,15 @@ public class CheckInActivity extends AppCompatActivity
 
         String dbName = "test";
         String collectionName = "ritnummer";
-        String ritnummer = "{\"ritnummer\":\ritnummer";
         Log.d("Ritnummer", "addHistory() returned: " + ritnummer);
+        String employeeJSON = "{\"ritnummer\":\"";
+        String okee ="\"}";
+        String ok = employeeJSON + ritnummer + okee;
+        Log.d("JSONok", "addHistory() returned: " + ok);
+
 /* Below snippet will save JSON object in App42 Cloud */
         StorageService storageService = App42API.buildStorageService();
-        storageService.insertJSONDocument(dbName,collectionName,ritnummer,new App42CallBack() {
+        storageService.insertJSONDocument(dbName,collectionName,ok,new App42CallBack() {
             public void onSuccess(Object response)
             {
                 Storage  storage  = (Storage )response;
