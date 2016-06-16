@@ -25,6 +25,16 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.shephertz.app42.paas.sdk.android.App42API;
+import com.shephertz.app42.paas.sdk.android.App42Response;
+import com.shephertz.app42.paas.sdk.android.App42Exception;
+import com.shephertz.app42.paas.sdk.android.App42BadParameterException;
+import com.shephertz.app42.paas.sdk.android.App42NotFoundException;
+import com.shephertz.app42.paas.sdk.android.App42CallBack;
+import com.shephertz.app42.paas.sdk.android.user.User;
+import com.shephertz.app42.paas.sdk.android.user.User.Profile;
+import com.shephertz.app42.paas.sdk.android.user.User.UserGender;
+import com.shephertz.app42.paas.sdk.android.user.UserService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +50,8 @@ public class FriendsActivity extends AppCompatActivity
         setContentView(R.layout.activity_friendscheckin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        App42API.initialize(getApplicationContext(),"ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9","b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,6 +83,7 @@ public class FriendsActivity extends AppCompatActivity
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, friends); // simple textview for list item
         ListView listView = (ListView) findViewById(R.id.listView);
+        assert listView != null;
         listView.setAdapter(adapter);
     }
 

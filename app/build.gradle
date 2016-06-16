@@ -33,6 +33,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile files('libs/App42_ANDROID_SDK_3.9.jar')
     compile project(':json-lib-2.4-jdk15')
     compile project(':xom-1.0d8')
 }
