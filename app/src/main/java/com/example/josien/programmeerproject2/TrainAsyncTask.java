@@ -69,7 +69,6 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
         super.onPostExecute(result);
 
         // if nothing was found, inform user
-        List<TrainData> trainDatas = null;
         if (result.length() == 0) {
             Toast.makeText(context, "No data was found", Toast.LENGTH_SHORT).show();
         } else {

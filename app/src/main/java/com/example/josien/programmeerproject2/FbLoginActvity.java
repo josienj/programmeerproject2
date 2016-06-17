@@ -44,9 +44,11 @@ public class FbLoginActvity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         facebookSDKInitialize();
         setContentView(R.layout.activity_login);
+
         App42API.initialize(getApplicationContext(),"ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9","b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
         socialService = App42API.buildSocialService();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        assert loginButton != null;
         loginButton.setReadPermissions("user_friends");
         getLoginDetails(loginButton);
     }
@@ -135,6 +137,7 @@ public class FbLoginActvity extends AppCompatActivity {
 
                         }
                 ).executeAsync();
+                Log.d("Graphrequest", "onSuccess() returned: " + graphRequestAsyncTask);
 
                 Log.d("ONsucces", "onSuccess() returned: " + login_result);
             }

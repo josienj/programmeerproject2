@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_simple_login"
-        android:title="Simple Login"
+        android:title="@string/login"
         android:orderInCategory="101"
         app:showAsAction="never" />
 </menu>

@@ -10,46 +10,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".SettingsActivity"
-    android:background="#0431B4">
+    android:background="#81BEF7">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Instellingen"
+        android:text="@string/logout"
         android:id="@+id/textView5"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"/>
+        />
 
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Sta pushberichten toe"
-        android:id="@+id/switch1"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="51dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sta gebruik van locatie toe"
-        android:id="@+id/switch2"
-        android:layout_below="@+id/switch1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <com.facebook.login.widget.LoginButton
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:contentDescription="@string/logout"
         android:layout_width="wrap_content"
-        android:id="@+id/login_button"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:onClick="log_out"
+        android:src="@drawable/logout"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

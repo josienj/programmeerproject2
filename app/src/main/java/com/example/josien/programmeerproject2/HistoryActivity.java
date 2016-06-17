@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,28 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.facebook.GraphRequest;
-import com.facebook.GraphRequestAsyncTask;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.login.LoginResult;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
-/**
- * Created by Josien on 14-6-2016.
- */
+
 public class HistoryActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView newList;
     DBHelper dbHelper;
     ArrayAdapter<History> listAdapter;
-    private static final String TAG_EINDBESTEMMING = "Eindbestemming";
-    private static final String TAG_VERTREKTIJD = "Vertrektijd";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +39,19 @@ public class HistoryActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -75,7 +64,6 @@ public class HistoryActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }
@@ -104,6 +92,7 @@ public class HistoryActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -140,28 +129,6 @@ public class HistoryActivity extends AppCompatActivity
         });
     }
 
-    public void onSuccess(LoginResult login_result) {
-        GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(
-                login_result.getAccessToken(),
-                //AccessToken.getCurrentAccessToken(),
-                "/me/friends",
-                null,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        Intent intent = new Intent(HistoryActivity.this, FriendsActivity.class);
-                        try {
-                            JSONArray rawName = response.getJSONObject().getJSONArray("data");
-                            intent.putExtra("jsondata", rawName.toString());
-                            startActivity(intent);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        ).executeAsync();
-
-    }
 }
 
 

@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // Declare variables.
-    Intent intent2;
     ListView items_listview;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
@@ -53,16 +52,18 @@ public class MainActivity extends AppCompatActivity
 
         // Handles the autoCompleteTextView.
         stations = getResources().getStringArray(R.array.stations);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stations);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, stations);
         autoCompleteTextView.setAdapter(adapter);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         ListView lv = getListView();
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -119,7 +121,6 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

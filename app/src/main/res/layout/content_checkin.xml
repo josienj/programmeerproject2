@@ -14,6 +14,7 @@
 
 
     <ImageView
+        android:contentDescription="@string/checkin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
@@ -35,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Station"
+        android:text="@string/station"
         android:id="@+id/eindbestemming"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -46,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Vertrektijd"
+        android:text="@string/vertrektijd"
         android:id="@+id/vertrektijd"
         android:layout_below="@+id/eindbestemming"
         android:layout_centerHorizontal="true"
@@ -56,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Ritnummer"
+        android:text="@string/ritnummer"
         android:id="@+id/ritnummer"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -67,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="die vertrekt om"
+        android:text="@string/vertrekt_om"
         android:id="@+id/textView8"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -76,10 +77,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Zit je echt in deze trein?"
+        android:text="@string/traincheck"
         android:id="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/imageView2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/richting"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/vertrektijd"
+        android:layout_alignStart="@+id/vertrektijd" />
 
 
 </RelativeLayout>

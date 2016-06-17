@@ -14,6 +14,7 @@
 
 
     <ImageView
+        android:contentDescription="@string/check_out_historie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Check-in Historie"
+        android:text="@string/check_out_historie"
         android:id="@+id/eindbestemming"
         android:layout_below="@+id/imageView2"
         android:layout_alignRight="@+id/imageView2"

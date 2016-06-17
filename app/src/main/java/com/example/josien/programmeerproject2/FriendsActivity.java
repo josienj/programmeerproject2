@@ -11,10 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -47,17 +44,19 @@ public class FriendsActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
         //Intent intent = getIntent();
         //String jsondata = intent.getStringExtra("jsondata");
 
         //JSONArray friendslist;
-        ArrayList<String> friends = new ArrayList<String>();
+        ArrayList<String> friends = new ArrayList<>();
 
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -72,7 +71,7 @@ public class FriendsActivity extends AppCompatActivity
         }
 
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, friends); // simple textview for list item
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, friends); // simple textview for list item
         ListView listView = (ListView) findViewById(R.id.listView);
         assert listView != null;
         listView.setAdapter(adapter);
@@ -82,6 +81,7 @@ public class FriendsActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -94,7 +94,6 @@ public class FriendsActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }
@@ -122,6 +121,7 @@ public class FriendsActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

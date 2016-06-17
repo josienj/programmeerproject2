@@ -7,11 +7,10 @@ Programmeerproject
 Universiteit van Amsterdam
  */
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,9 +19,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,22 +28,17 @@ import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import com.shephertz.app42.paas.sdk.android.storage.StorageService;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CheckInActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Context context;
-    ListView items_listview;
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
-    List<TrainData> traindata;
     DBHelper DBHelper;
-    ArrayAdapter<History> listAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +51,6 @@ public class CheckInActivity extends AppCompatActivity
         String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
-
 
         TextView eindbestemming_view = (TextView) findViewById(R.id.eindbestemming);
         TextView vertrektijd_view = (TextView) findViewById(R.id.vertrektijd);
@@ -81,18 +71,21 @@ public class CheckInActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -105,7 +98,6 @@ public class CheckInActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }
@@ -132,6 +124,7 @@ public class CheckInActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -188,9 +181,5 @@ public class CheckInActivity extends AppCompatActivity
         startActivity(friends);
     }
 
-
-    private ListView getListView() {
-        return items_listview;
-    }
 
 }

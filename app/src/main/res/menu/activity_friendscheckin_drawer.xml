@@ -5,19 +5,19 @@
         <item
             android:id="@+id/nav_checkin"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Check-in" />
+            android:title="@string/check_in" />
         <item
             android:id="@+id/nav_friendscheckin"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Check-ins van je vrienden" />
+            android:title="@string/friends_checkin" />
         <item
             android:id="@+id/nav_historie"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Historie" />
+            android:title="@string/check_out_historie" />
         <item
             android:id="@+id/nav_instellingen"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Instellingen" />
+            android:title="@string/logout_fb" />
     </group>
 
 

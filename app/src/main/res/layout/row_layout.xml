@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Vertrektijd"
+        android:text="@string/vertrektijd"
         android:id="@+id/vertrektijd"
         android:layout_gravity="right"
         android:layout_below="@+id/ritnummer"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Eindbestemming"
+        android:text="@string/station"
         android:id="@+id/eindbestemming"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ritnummer"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ritnummer"
+        android:text="@string/ritnummer"
         android:id="@+id/ritnummer"
         android:visibility="gone"/>
 </RelativeLayout>

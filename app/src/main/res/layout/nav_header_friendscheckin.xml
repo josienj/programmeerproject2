@@ -13,6 +13,7 @@
     android:weightSum="1">
 
     <ImageView
+        android:contentDescription="@string/app_name"
         android:id="@+id/imageView"
         android:layout_width="258dp"
         android:layout_height="81dp"

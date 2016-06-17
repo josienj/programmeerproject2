@@ -8,8 +8,10 @@ Universiteit van Amsterdam
  */
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity
@@ -31,20 +34,23 @@ public class SettingsActivity extends AppCompatActivity
         setContentView(R.layout.activity_instellingen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        ImageButton logout = (ImageButton) findViewById(R.id.imageButton);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert drawer != null;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -57,7 +63,6 @@ public class SettingsActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
     }
@@ -86,17 +91,51 @@ public class SettingsActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+
+
     public void log_out (View view){
-        Intent mStartActivity = new Intent(getApplicationContext(), LoginActivity.class);
-        int mPendingIntentId = 123456;
-        PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis() , mPendingIntent);
-        System.exit(0);
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
+        alertDialog.show();
+        // Setting Dialog Title
+        alertDialog.setTitle("Confirm Logout...");
+
+        // Setting Dialog Message
+        alertDialog.setMessage("Are you sure you want to logout?");
+
+        // Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.logooo);
+
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,int which) {
+
+                // Write your code here to invoke YES event
+                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                Intent mStartActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                int mPendingIntentId = 123456;
+                PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                mgr.set(AlarmManager.RTC, System.currentTimeMillis() , mPendingIntent);
+                System.exit(0);
+            }
+        });
+
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to invoke NO event
+                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+            }
+        });
+
+
     }
 
 

@@ -1,8 +1,5 @@
 package com.example.josien.programmeerproject2;
 
-/**
- * Created by Josien on 14-6-2016.
- */
 public class History {
 
         private int _id;
@@ -11,12 +8,6 @@ public class History {
 
 
         public History () {
-
-        }
-
-        public History(String _eindbestemming, String _vertrektijd) {
-            this._eindbestemming = _eindbestemming;
-            this._vertrektijd = _vertrektijd;
         }
 
         public void set_id(int _id) {
@@ -31,16 +22,8 @@ public class History {
             return _id;
         }
 
-        public String get_vertrektijd(){
-            return _vertrektijd;
-        }
-
         public void set_vertrektijd(String _vertrektijd){
             this._vertrektijd = _vertrektijd;
-        }
-
-        public String get_eindbestemming() {
-            return _eindbestemming;
         }
 
         public String toString() {
