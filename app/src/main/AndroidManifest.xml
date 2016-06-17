@@ -46,14 +46,6 @@
             android:name=".FriendsActivity"
             android:label="@string/name_app"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- Intent filter used for Messenger protocol version 20150314 -->
-            <intent-filter>
-                <action android:name="android.intent.action.PICK" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.facebook.orca.category.PLATFORM_THREAD_20150314" />
-            </intent-filter>
         </activity>
 
         <activity
