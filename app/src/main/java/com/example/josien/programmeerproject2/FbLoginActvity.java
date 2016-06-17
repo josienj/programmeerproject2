@@ -127,6 +127,7 @@ public class FbLoginActvity extends AppCompatActivity {
                                     editor.putString("key", rawName.toString());
                                     System.out.println(rawName.toString());
                                     editor.apply();
+
                                     gotodatabase();
                                     startActivity(intent);
 
