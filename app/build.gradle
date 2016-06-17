@@ -18,6 +18,7 @@ android {
         }
     }
 }
+
 repositories {
     mavenCentral()
 }
@@ -28,7 +29,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
     compile 'com.android.support:design:23.1.1'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'

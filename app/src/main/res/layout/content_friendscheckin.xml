@@ -38,7 +38,7 @@
     <include layout="@layout/messenger_button_send_blue_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/include"
+        android:id="@+id/messenger_send_button"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
@@ -59,6 +59,6 @@
         android:layout_width="wrap_content"
         android:id="@+id/listView"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/include" />
+        android:layout_below="@+id/messenger_send_button" />
 
 </RelativeLayout>

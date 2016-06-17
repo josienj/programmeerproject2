@@ -9,6 +9,7 @@ Universiteit van Amsterdam
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -19,9 +20,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.facebook.messenger.MessengerThreadParams;
+import com.facebook.messenger.MessengerUtils;
+import com.facebook.messenger.ShareToMessengerParams;
 import com.shephertz.app42.paas.sdk.android.App42API;
 
 import org.json.JSONArray;
@@ -32,12 +38,36 @@ import java.util.ArrayList;
 public class FriendsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
+
+    private MessengerThreadParams mThreadParams;
+    private boolean mPicking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friendscheckin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        View mMessengerButton = findViewById(R.id.messenger_send_button);
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_PICK.equals(intent.getAction())) {
+            mThreadParams = MessengerUtils.getMessengerThreadParamsForIntent(intent);
+            mPicking = true;
+
+        }
+
+        assert mMessengerButton != null;
+        mMessengerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onMessengerButtonClicked();
+            }
+        });
+
+
 
         App42API.initialize(getApplicationContext(),"ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9","b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
 
@@ -124,6 +154,29 @@ public class FriendsActivity extends AppCompatActivity
         assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void onMessengerButtonClicked() {
+        Uri uri =
+                Uri.parse("android.resource://com.example.josien.programmeerproject2/" + R.drawable.zelfdetrein);
+
+        // Create the parameters for what want to send to Messenger.
+        ShareToMessengerParams shareToMessengerParams =
+                ShareToMessengerParams.newBuilder(uri, "image/jpeg")
+                        .setMetaData("{ \"image\" : \"zelfdetrein\" }")
+                        .build();
+
+        if (mPicking) {
+            // If launched from Messenger, call MessengerUtils.finishShareToMessenger to return
+            // the content to Messenger.
+            MessengerUtils.finishShareToMessenger(this, shareToMessengerParams);
+        } else {
+            // Otherwise, launch directly
+            MessengerUtils.shareToMessenger(
+                    this,
+                    REQUEST_CODE_SHARE_TO_MESSENGER,
+                    shareToMessengerParams);
+        }
     }
 
 

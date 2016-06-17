@@ -9,7 +9,6 @@
     tools:openDrawer="start"
     tools:context=".FriendsActivity">
 
-
     <include
         layout="@layout/app_bar_friends"
         android:layout_width="match_parent"
