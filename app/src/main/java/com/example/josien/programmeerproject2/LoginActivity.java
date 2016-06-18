@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         assert loginButton != null;
         loginButton.setReadPermissions("user_friends");
         getLoginDetails(loginButton);
+        facebookPost();
     }
 
     public void gotodatabase(){

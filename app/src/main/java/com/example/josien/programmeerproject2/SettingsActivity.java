@@ -28,13 +28,14 @@ import android.widget.Toast;
 public class SettingsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    ImageButton logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instellingen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ImageButton logout = (ImageButton) findViewById(R.id.imageButton);
+        logout = (ImageButton) findViewById(R.id.imageButton);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -45,7 +46,39 @@ public class SettingsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Creates dialog window for confirmation of completion
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder
+                        .setMessage("Weet je zeker dat je uit wilt loggen?")
+                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                                Intent mStartActivity = new Intent(getApplicationContext(), FbLoginActvity.class);
+                                int mPendingIntentId = 123456;
+                                PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                                AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                                mgr.set(AlarmManager.RTC, System.currentTimeMillis(), mPendingIntent);
+                                System.exit(0);
+                            }
+                        })
+
+                        // Nothing is done when "No" is pressed
+                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+            }
+        });
     }
+
 
     @Override
     public void onBackPressed() {
@@ -98,7 +131,7 @@ public class SettingsActivity extends AppCompatActivity
 
 
 
-    public void log_out (View view){
+    /*public void log_out (View view){
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
         alertDialog.show();
@@ -138,7 +171,7 @@ public class SettingsActivity extends AppCompatActivity
 
     }
 
-
+*/
 
 
 

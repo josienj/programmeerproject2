@@ -100,7 +100,7 @@ public class FbLoginActvity extends AppCompatActivity {
 
     /*
      * Register a callback function with LoginButton to respond to the login result.
-     */
+*/
     protected void getLoginDetails(LoginButton login_button){
 
             // Callback registration

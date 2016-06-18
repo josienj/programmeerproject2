@@ -32,11 +32,6 @@
 
 
         <activity
-            android:name=".FriendsList"
-            android:label="@string/name_app"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".CheckInActivity"
             android:label="@string/name_app"
             android:theme="@style/AppTheme.NoActionBar">
