@@ -7,10 +7,8 @@ Programmeerproject
 Universiteit van Amsterdam
  */
 
-import android.app.AlarmManager;
+
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +22,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+
+import com.facebook.FacebookSdk;
+
+import com.facebook.login.LoginManager;
+
 
 public class SettingsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,12 +62,17 @@ public class SettingsActivity extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
-                                Intent mStartActivity = new Intent(getApplicationContext(), FbLoginActvity.class);
-                                int mPendingIntentId = 123456;
-                                PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-                                AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-                                mgr.set(AlarmManager.RTC, System.currentTimeMillis(), mPendingIntent);
-                                System.exit(0);
+                                FacebookSdk.sdkInitialize(getApplicationContext());
+                                LoginManager.getInstance().logOut();
+                                Intent login = new Intent(getApplicationContext(), FbLoginActvity.class);
+                                login.putExtra("login", 500);
+                                startActivity(login);
+                               // Intent mStartActivity = new Intent(getApplicationContext(), FbLoginActvity.class);
+                              //  int mPendingIntentId = 123456;
+                                //PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+                               // AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                               // mgr.set(AlarmManager.RTC, System.currentTimeMillis(), mPendingIntent);
+                               // System.exit(0);
                             }
                         })
 
@@ -128,6 +137,7 @@ public class SettingsActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
 

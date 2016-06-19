@@ -29,6 +29,8 @@ package com.example.josien.programmeerproject2;
         import org.json.JSONArray;
         import org.json.JSONException;
 
+        import java.io.IOException;
+
 
 public class FbLoginActvity extends AppCompatActivity {
 
@@ -45,9 +47,20 @@ public class FbLoginActvity extends AppCompatActivity {
         facebookSDKInitialize();
         setContentView(R.layout.activity_login);
 
-        App42API.initialize(getApplicationContext(),"ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9","b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
+        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
         socialService = App42API.buildSocialService();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        try {
+            String accessToken = AccessToken.getCurrentAccessToken().getToken();
+            if (accessToken != null) {
+                Intent checkin = new Intent(this, MainActivity.class);
+                checkin.putExtra("Checkin", 500);
+                gotodatabase();
+                startActivity(checkin);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         assert loginButton != null;
         loginButton.setReadPermissions("user_friends");
         getLoginDetails(loginButton);
