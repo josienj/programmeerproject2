@@ -64,7 +64,6 @@ public class CheckInActivity extends AppCompatActivity
         ritnummer_view.setText(ritnummer);
 
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -137,6 +136,15 @@ public class CheckInActivity extends AppCompatActivity
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
+
+// Starting the CheckInActivity and get the right values
+        Intent intent = new Intent(getApplicationContext(),
+                FriendsActivity.class);
+
+        intent.putExtra(TAG_RITNUMMER, ritnummer);
+
+        startActivity(intent);
+
         String History = eindbestemming+vertrektijd;
         DBHelper.addHistory(eindbestemming, vertrektijd);
         Log.d("LINK", "addHistory() returned: " + History);
@@ -179,6 +187,7 @@ public class CheckInActivity extends AppCompatActivity
         Intent friends = new Intent(this, FriendsActivity.class);
         friends.putExtra("friends", 500);
         startActivity(friends);
+        finish();
     }
 
 

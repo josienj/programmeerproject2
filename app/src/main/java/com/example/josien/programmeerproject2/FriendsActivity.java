@@ -29,6 +29,10 @@ import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.facebook.messenger.ShareToMessengerParams;
 import com.shephertz.app42.paas.sdk.android.App42API;
+import com.shephertz.app42.paas.sdk.android.App42CallBack;
+import com.shephertz.app42.paas.sdk.android.social.SocialService;
+import com.shephertz.app42.paas.sdk.android.storage.Storage;
+import com.shephertz.app42.paas.sdk.android.storage.StorageService;
 
 import org.json.JSONArray;
 
@@ -42,6 +46,12 @@ public class FriendsActivity extends AppCompatActivity
 
     private MessengerThreadParams mThreadParams;
     private boolean mPicking;
+    StorageService storageService;
+    String dbName = "test";
+    String collectionName = "ritnummer";
+    String key;
+    String value;
+    private static final String TAG_RITNUMMER = "Ritnummer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,8 @@ public class FriendsActivity extends AppCompatActivity
         setContentView(R.layout.activity_friendscheckin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
 
         View mMessengerButton = findViewById(R.id.messenger_send_button);
 
@@ -105,6 +117,7 @@ public class FriendsActivity extends AppCompatActivity
         ListView listView = (ListView) findViewById(R.id.listView);
         assert listView != null;
         listView.setAdapter(adapter);
+        parsenumber();
     }
 
 
@@ -177,6 +190,36 @@ public class FriendsActivity extends AppCompatActivity
                     REQUEST_CODE_SHARE_TO_MESSENGER,
                     shareToMessengerParams);
         }
+    }
+
+    public void parsenumber(){
+        Intent intent = getIntent();
+        value = intent.getStringExtra(TAG_RITNUMMER);
+        Log.d("value", "parsenumber() returned: " + value);
+        key = "ritnummer";
+
+        StorageService storageService = App42API.buildStorageService();
+        Log.d("storageservice", "parsenumber() returned: " + storageService);
+        storageService.findDocumentByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
+            public void onSuccess(Object response)
+            {
+                Storage  storage  = (Storage )response;
+                System.out.println("dbName is " + storage.getDbName());
+                System.out.println("collection Name is " + storage.getCollectionName());
+                ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+                for(int i=0;i<jsonDocList.size();i++)
+                {
+                    System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+                    System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+                    System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+                    System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+                }
+            }
+            public void onException(Exception ex)
+            {
+                System.out.println("Exception Message"+ex.getMessage());
+            }
+        });
     }
 
 

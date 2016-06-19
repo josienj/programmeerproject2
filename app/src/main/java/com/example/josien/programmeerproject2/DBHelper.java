@@ -86,7 +86,7 @@ public class DBHelper extends SQLiteOpenHelper{
                 // Create a new History object and set the correct data
                 History todo = new History();
                 todo.set_id(c.getInt(0));
-                todo.set_eindbestemming(c.getString(1) + "                  ");
+                todo.set_eindbestemming(c.getString(1) + " die vertrekt om ");
                 todo.set_vertrektijd(c.getString(2));
 
                 historieArray.add(todo);

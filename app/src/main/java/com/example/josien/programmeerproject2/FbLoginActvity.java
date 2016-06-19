@@ -56,7 +56,12 @@ public class FbLoginActvity extends AppCompatActivity {
                 Intent checkin = new Intent(this, MainActivity.class);
                 checkin.putExtra("Checkin", 500);
                 gotodatabase();
+                assert loginButton != null;
+                loginButton.setReadPermissions("user_friends");
+                getLoginDetails(loginButton);
+                finish();
                 startActivity(checkin);
+
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -142,6 +147,7 @@ public class FbLoginActvity extends AppCompatActivity {
                                     editor.apply();
 
                                     gotodatabase();
+                                    finish();
                                     startActivity(intent);
 
                                 } catch (JSONException e) {
