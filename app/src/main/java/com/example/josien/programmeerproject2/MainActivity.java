@@ -182,8 +182,15 @@ public class MainActivity extends AppCompatActivity
 
         TrainAsyncTask apiHandler = new TrainAsyncTask(MainActivity.this);
 
+
+
         // Make a string of the Station.
         String station = autoCompleteTextView.getText().toString();
+
+        if (station.matches("")) {
+            Toast.makeText(this, "Vul een station in", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // Split the string and get only the first word (the abbreviation of the station).
         String arr[] = station.split(" ", 2);
         String input = arr[0];

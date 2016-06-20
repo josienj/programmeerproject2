@@ -8,6 +8,7 @@ package com.example.josien.programmeerproject2;
 *  Universiteit van Amsterdam
 */
 
+        import android.content.Context;
         import android.content.Intent;
         import android.content.SharedPreferences;
         import android.preference.PreferenceManager;
@@ -47,6 +48,7 @@ public class FbLoginActvity extends AppCompatActivity {
 
     CallbackManager callbackManager;
     SocialService socialService;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,13 +119,42 @@ public class FbLoginActvity extends AppCompatActivity {
         socialService.getFacebookFriendsFromAccessToken(accessToken, new App42CallBack() {
                     public void onSuccess(Object response) {
                         Social social = (Social) response;
+
                         System.out.println("accessToken is " + social.getFacebookAccessToken());
+                        JSONArray jArray = new JSONArray();
                         for (int i = 0; i < social.getFriendList().size(); i++) {
                             System.out.println("Installed is : " + social.getFriendList().get(i).getInstalled());
                             System.out.println("Id is : " + social.getFriendList().get(i).getId());
                             System.out.println("Picture is :" + social.getFriendList().get(i).getPicture());
                             System.out.println("Name is : " + social.getFriendList().get(i).getName());
+
+                            id = social.getFriendList().get(i).getId();
+
+                            SharedPreferences settings = getSharedPreferences("SETTINGS KEY", 0);
+                            SharedPreferences.Editor editor = settings.edit();
+
+                            jArray.put(id);
+
+                            editor.putString("jArray", jArray.toString());
+                            editor.apply();
                         }
+
+                        /*
+                        for (int j = 0; j <social.getFriendList().size(); j++) {
+                            fbid[j] = social.getFriendList().get(j).getId();
+
+                            Log.d("Fbid", "onSuccess() returned: " + fbid[j]);
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = preferences.edit();
+
+                            editor.putInt("array_size", fbid.length);
+                            for(int i=0;i<fbid.length; i++)
+                                editor.putString("array_" + i, fbid[i]);
+                            editor.apply();
+
+                        }
+                        */
+
                     }
 
                     public void onException(Exception ex) {

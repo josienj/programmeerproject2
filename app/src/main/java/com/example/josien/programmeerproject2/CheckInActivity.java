@@ -9,7 +9,9 @@ package com.example.josien.programmeerproject2;
 */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import android.view.View;
@@ -29,6 +31,7 @@ import com.shephertz.app42.paas.sdk.android.App42CallBack;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import com.shephertz.app42.paas.sdk.android.storage.StorageService;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -47,6 +50,8 @@ public class CheckInActivity extends AppCompatActivity
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
     DBHelper DBHelper;
+    JSONArray jArray;
+    String jsonarray;
 
 
     @Override
@@ -158,7 +163,17 @@ public class CheckInActivity extends AppCompatActivity
 
         DBHelper.addHistory(eindbestemming, vertrektijd);
 
+
         // Store data in online App42 Database.
+        SharedPreferences settings = getSharedPreferences("SETTINGS KEY", 0);
+        try {
+            jArray = new JSONArray(settings.getString("jArray", ""));
+            jsonarray = jArray.toString();
+            Log.d("Array", "addHistory() returned: " + jArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String dbName = "test";
         String collectionName = "ritnummer";
 
@@ -168,9 +183,11 @@ public class CheckInActivity extends AppCompatActivity
         String ritnummers = "{\"ritnummer\":\"";
         String to_json ="\"";
         String FacebookId =",\"facebookid\":\"";
-        String realfacebookId = "\"}";
-        String total = ritnummers + ritnummer + to_json + FacebookId + userName + realfacebookId;
-        Log.d("JSONok", "addHistory() returned: " + total);
+        String realfacebookId = "\"";
+        String fbfriends = ",\"fbfriends\":";
+        String endofjson = "}";
+        String total = ritnummers + ritnummer + to_json + FacebookId + userName + realfacebookId + fbfriends + jsonarray + endofjson;
+        Log.d("TOTAL:", "addHistory() returned: " + total);
 
         // Below snippet will save JSON object in App42 Cloud
         StorageService storageService = App42API.buildStorageService();
