@@ -29,17 +29,11 @@ package com.example.josien.programmeerproject2;
         import org.json.JSONArray;
         import org.json.JSONException;
 
-        import java.io.IOException;
-
 
 public class FbLoginActvity extends AppCompatActivity {
 
     CallbackManager callbackManager;
-    //String accessToken = "1040163589387502|iFO4sc4Fv2FChu5xrWL_RBbXjoU";
-
-   // AccessToken accessToken;
     SocialService socialService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Social Train Journey</string>
+    <string name="app_name">Menu</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,7 +9,7 @@
     <string name="facebook_app_id">1040163589387502</string>
 
     <string name="login">Login</string>
-    <string name="name_app">Menu</string>
+    <string name="name_app">Social Train Journey</string>
     <string name="welcome_text">Connect met je vrienden in de trein!</string>
     <string name="title_nav_bar">Social Train Journey</string>
     <string name="undertitle_nav_bar">Connect met je vrienden in de trein!</string>
