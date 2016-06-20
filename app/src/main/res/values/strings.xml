@@ -32,13 +32,12 @@
     <string name="vertrektijd">VERTREKTIJD</string>
     <string name="ritnummer">RITNUMMER</string>
     <string name="vertrekt_om">die vertrekt om</string>
-    <string name="traincheck">Klopt het dat je in deze trein zit?</string>
-    <string name="richting">richting</string>
+    <string name="traincheck">Klopt het dat je in de trein met de volgende eindbestemming zit?</string>
     <string name="check_in">Check-In</string>
     <string name="friends_checkin">Check-ins van je vrienden</string>
     <string name="logout_fb">Uitloggen</string>
     <string name="historietext">Jij zat in de volgende trein(en) richting:</string>
-
+    <string name="ongeldigstation">Dit station is niet geldig of bestaat niet</string>
     <string-array name="stations">
         <item>Ac Abcoude</item>
         <item>Adh	Leeuwarden Achter de Hoven</item>

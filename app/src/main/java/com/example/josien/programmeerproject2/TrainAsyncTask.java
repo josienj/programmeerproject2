@@ -33,6 +33,8 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
     static final String KEY_EINDBESTEMMING = "EindBestemming";
     static final String KEY_VERTREKTIJD = "VertrekTijd";
     static final String KEY_RITNUMMER = "RitNummer";
+    static final String KEY_ERROR = "error";
+    static final String KEY_MESSAGE = "message";
 
     Context context;
     MainActivity activity;
@@ -107,23 +109,30 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
                             break;
 
                         case XmlPullParser.END_TAG:
-                            if (name.equalsIgnoreCase(KEY_VERTREKKENDETREIN)) {
-                                traindatas.add(traindata);
-                            } else if (name.equalsIgnoreCase(KEY_RITNUMMER)) {
-                                assert traindata != null;
-                                traindata.setRitnummer(curtext);
-                                Log.d("Ritnummer", "ParseXml() returned: " + curtext);
-                            } else if (name.equalsIgnoreCase(KEY_VERTREKTIJD)) {
-                                assert traindata != null;
-                                String vertrektijd = curtext;
-                                curtext = vertrektijd.substring(11, 16);
-                                traindata.setVertrektijd(curtext);
-                                Log.d("Vertrektijd", "ParseXml() returned: " + curtext);
-                            } else if (name.equalsIgnoreCase(KEY_EINDBESTEMMING)) {
-                                assert traindata != null;
-                                traindata.setEindbestemming(curtext);
-                                Log.d("Eindbestemming", "ParseXml() returned: " + curtext);
-                            }
+
+                                if (name.equalsIgnoreCase(KEY_VERTREKKENDETREIN)) {
+                                    traindatas.add(traindata);
+                                } else if (name.equalsIgnoreCase(KEY_RITNUMMER)) {
+                                    assert traindata != null;
+                                    traindata.setRitnummer(curtext);
+                                    Log.d("Ritnummer", "ParseXml() returned: " + curtext);
+                                } else if (name.equalsIgnoreCase(KEY_VERTREKTIJD)) {
+                                    assert traindata != null;
+                                    String vertrektijd = curtext;
+                                    curtext = vertrektijd.substring(11, 16);
+                                    traindata.setVertrektijd(curtext);
+                                    Log.d("Vertrektijd", "ParseXml() returned: " + curtext);
+                                } else if (name.equalsIgnoreCase(KEY_EINDBESTEMMING)) {
+                                    assert traindata != null;
+                                    traindata.setEindbestemming(curtext);
+                                    Log.d("Eindbestemming", "ParseXml() returned: " + curtext);
+                                }
+                                // Error-handling: let the user know of the station is found.
+                                if (name.equalsIgnoreCase(KEY_ERROR))
+                                {
+                                    Toast.makeText(context, R.string.ongeldigstation, Toast.LENGTH_SHORT).show();
+                                }
+
                             break;
                         default:
                             break;

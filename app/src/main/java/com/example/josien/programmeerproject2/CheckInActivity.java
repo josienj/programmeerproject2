@@ -177,7 +177,7 @@ public class CheckInActivity extends AppCompatActivity
         String dbName = "test";
         String collectionName = "ritnummer";
 
-        // Store the ritnummer as JSON.
+        // Store all the data needed as JSON.
         String userName = Profile.getCurrentProfile().getId();
         Log.d("facebookid", "addHistory() returned: " + userName);
         String ritnummers = "{\"ritnummer\":\"";
