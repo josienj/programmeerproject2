@@ -1,11 +1,12 @@
 package com.example.josien.programmeerproject2;
 
 /*
-Josien Jansen
-11162295
-Programmeerproject
-Universiteit van Amsterdam
- */
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +31,6 @@ import com.facebook.messenger.MessengerUtils;
 import com.facebook.messenger.ShareToMessengerParams;
 import com.shephertz.app42.paas.sdk.android.App42API;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
-import com.shephertz.app42.paas.sdk.android.social.SocialService;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import com.shephertz.app42.paas.sdk.android.storage.StorageService;
 
@@ -39,14 +39,19 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
+/*
+* The FriendsActivity shows the Facebookfriends of the user who are also using the app.
+* It also gives the user the possibility to send an image and text to a Facebookfriend when they
+* are in the same train by Facebook Messenger.
+ */
+
 public class FriendsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // Declare variables.
     private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
 
-    private MessengerThreadParams mThreadParams;
     private boolean mPicking;
-    StorageService storageService;
     String dbName = "test";
     String collectionName = "ritnummer";
     String key;
@@ -66,11 +71,12 @@ public class FriendsActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         if (Intent.ACTION_PICK.equals(intent.getAction())) {
-            mThreadParams = MessengerUtils.getMessengerThreadParamsForIntent(intent);
+            MessengerThreadParams mThreadParams = MessengerUtils.getMessengerThreadParamsForIntent(intent);
             mPicking = true;
 
         }
 
+        // Set onClickListener on the Messenger Button.
         assert mMessengerButton != null;
         mMessengerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,9 +86,10 @@ public class FriendsActivity extends AppCompatActivity
         });
 
 
-
+        // Initialize App42 to parse data later in this Activity.
         App42API.initialize(getApplicationContext(),"ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9","b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
 
+        // Handles Navigation Bar.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -94,12 +101,10 @@ public class FriendsActivity extends AppCompatActivity
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Intent intent = getIntent();
-        //String jsondata = intent.getStringExtra("jsondata");
-
-        //JSONArray friendslist;
+        // Get friends of Facebookuser in an ArrayList.
         ArrayList<String> friends = new ArrayList<>();
 
+        // Get friends out of SharedPreferences.
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(this);
         try {
@@ -112,8 +117,8 @@ public class FriendsActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-
-        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, friends); // simple textview for list item
+        // simple textview for list item
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, friends);
         ListView listView = (ListView) findViewById(R.id.listView);
         assert listView != null;
         listView.setAdapter(adapter);
@@ -169,7 +174,15 @@ public class FriendsActivity extends AppCompatActivity
         return true;
     }
 
+    /*
+    * This method handles the onClick on the messenger button. It will send the image of people
+    * sitting in the same train to Facebook Messenger. The user only has to select the right user
+    * and can also add some personal text before sending it.
+     */
+
     private void onMessengerButtonClicked() {
+
+        // Get the right Uri + drawable to send to a Facebook friend.
         Uri uri =
                 Uri.parse("android.resource://com.example.josien.programmeerproject2/" + R.drawable.zelfdetrein);
 
@@ -191,6 +204,11 @@ public class FriendsActivity extends AppCompatActivity
                     shareToMessengerParams);
         }
     }
+
+    /*
+    *  This method doesn't work correctly, but it is assumed that this method will parse the data
+    *  from App42 correctly.
+     */
 
     public void parsenumber(){
         Intent intent = getIntent();

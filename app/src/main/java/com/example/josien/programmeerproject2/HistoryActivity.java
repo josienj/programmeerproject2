@@ -1,5 +1,13 @@
 package com.example.josien.programmeerproject2;
 
+/*
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,10 +25,16 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/*
+* This Activity shows the SQLiteDatabase of the check-in history of the user. There is also a
+* possibility for the user to delete a single item from the History.
+ */
 
 public class HistoryActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    // Declare variables.
     ListView newList;
     DBHelper dbHelper;
     ArrayAdapter<History> listAdapter;
@@ -32,15 +46,18 @@ public class HistoryActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         newList = (ListView) findViewById(R.id.historie_listview);
         dbHelper = new DBHelper(this, null, null, 1);
 
         setupHistoryListView();
+
+        // Handles Navigation bar.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         assert drawer != null;
-        drawer.setDrawerListener(toggle);
+
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -98,32 +115,31 @@ public class HistoryActivity extends AppCompatActivity
     }
 
     /*
-   Add history into database
-
-    * Combine the listview and database correctly
+    * Add history into database.
+    * Combine the listview and database correctly.
     */
     public void setupHistoryListView() {
 
         final ArrayList<History> historieArray = dbHelper.retrieveHistorie();
 
-        // Make a new ArrayAdapter to handle the objects, and add them to the view
+        // Make a new ArrayAdapter to handle the objects, and add them to the view.
         listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, historieArray);
 
-        // Apply the adapter on the ViewList
+        // Apply the adapter on the ViewList.
         newList.setAdapter(listAdapter);
 
-        // Add a new on click listener
+        // Add a new on click listener.
         newList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                // Clicked item value
+                // Clicked item value.
                 History item = (History) newList.getItemAtPosition(position);
-                // Delete item from database
+                // Delete item from database.
                 dbHelper.deleteItem(item.get_id());
-                // Delete item from listView
+                // Delete item from listView.
                 listAdapter.remove(item);
-                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Verwijderd", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

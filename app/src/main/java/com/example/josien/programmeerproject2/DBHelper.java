@@ -1,7 +1,10 @@
 package com.example.josien.programmeerproject2;
 
-/* Josien Jansen
+/*
+*  Josien Jansen
 *  11162295
+*  Programmeerproject
+*  06-2016
 *  Universiteit van Amsterdam
 */
 
@@ -14,8 +17,9 @@ import android.database.Cursor;
 import java.util.ArrayList;
 
 /*
-*  Create a SQLdatabase
+*  Create a SQLdatabase to store the local check-ins of the user.
 */
+
 public class DBHelper extends SQLiteOpenHelper{
 
     private static final int DATABASE_VERSION = 2;
@@ -46,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     /*
-    * Add a new row to the database
+    * Add a new row to the database.
     */
     public void addHistory(String eindbestemming, String vertrektijd){
         ContentValues values = new ContentValues();
@@ -60,7 +64,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     /*
-    * Delete an item from the database
+    * Delete an item from the database when the user long-clicked on it.
     */
     public void deleteItem (int id){
         SQLiteDatabase db = getWritableDatabase();
@@ -69,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
     /*
-    * Get all history items from the database
+    * Get all history items from the database.
     */
     public ArrayList<History> retrieveHistorie(){
         ArrayList<History> historieArray = new ArrayList<>();
@@ -79,11 +83,13 @@ public class DBHelper extends SQLiteOpenHelper{
 
         Cursor c = db.rawQuery(query, null);
 
-        // Move to the first row in your results
+        // Move to the first row in your results.
         if (c.moveToFirst()) {
-            // Loop through all results
+
+            // Loop through all results.
             do {
-                // Create a new History object and set the correct data
+
+                // Create a new History object and set the correct data.
                 History todo = new History();
                 todo.set_id(c.getInt(0));
                 todo.set_eindbestemming(c.getString(1) + " die vertrekt om ");
@@ -93,6 +99,7 @@ public class DBHelper extends SQLiteOpenHelper{
             } while (c.moveToNext()) ;
         }
 
+        // Close the database and cursor and return the right data.
         db.close();
         c.close();
         return historieArray;

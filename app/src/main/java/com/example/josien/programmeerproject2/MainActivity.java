@@ -1,11 +1,12 @@
 package com.example.josien.programmeerproject2;
 
 /*
-Josien Jansen
-11162295
-Programmeerproject
-Universiteit van Amsterdam
- */
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+/*
+*  MainActivity handles the first screen of the app after the Facebook Login. In this screen, the
+*  user can search for a station he/she is leaving from. After hitting the search-button, all
+*  leaving trains for at least the upcoming hour will be shown. The user can click on a single item
+*  and then go to the next screen.
+ */
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, stations);
         autoCompleteTextView.setAdapter(adapter);
 
+        // Handles the Navigation bar.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -69,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         ListView lv = getListView();
 
 
-        // Handles the next Activity when clicking on a single item
+        // Handles the next Activity when clicking on a single item.
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -83,7 +92,7 @@ public class MainActivity extends AppCompatActivity
                 String ritnummer = ((TextView) view.findViewById(R.id.ritnummer))
                         .getText().toString();
 
-                // Starting the CheckInActivity and get the right values
+                // Starting the CheckInActivity and get the right values.
                 Intent in = new Intent(getApplicationContext(),
                         CheckInActivity.class);
                 in.putExtra(TAG_EINDBESTEMMING, eindbestemming);
@@ -166,7 +175,9 @@ public class MainActivity extends AppCompatActivity
     public void get_data(View view) {
         TrainAsyncTask apiHandler = new TrainAsyncTask(MainActivity.this);
 
+        // Make a string of the Station.
         String station = autoCompleteTextView.getText().toString();
+        // Split the string and get only the first word (the abbreviation of the station).
         String arr[] = station.split(" ", 2);
         String input = arr[0];
 

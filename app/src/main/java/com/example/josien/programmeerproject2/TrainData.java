@@ -1,12 +1,17 @@
 package com.example.josien.programmeerproject2;
 
 /*
-Josien Jansen
-11162295
-Programmeerproject
-Universiteit van Amsterdam
- */
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
 
+
+/*
+* This class contains the data for the TrainAdapter by declaring the getters and setters.
+ */
 
 public class TrainData {
 

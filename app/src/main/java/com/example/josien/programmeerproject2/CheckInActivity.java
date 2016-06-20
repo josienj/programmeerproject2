@@ -1,11 +1,12 @@
 package com.example.josien.programmeerproject2;
 
 /*
-Josien Jansen
-11162295
-Programmeerproject
-Universiteit van Amsterdam
- */
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,9 +32,16 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+/*
+* This Activity handles the real Check-In of the user. The data will come from the previous
+* activity: MainActivity, and by clicking on the button, the data will be stored in the SQLite-
+* Database and the ritnummer will also be stored online.
+ */
+
 public class CheckInActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    // Declare variables.
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private static final String TAG_VERTREKTIJD = "Vertrektijd";
     private static final String TAG_RITNUMMER = "Ritnummer";
@@ -46,16 +54,18 @@ public class CheckInActivity extends AppCompatActivity
         setContentView(R.layout.activity_checkin);
         DBHelper = new DBHelper(this, null, null, 1);
 
-        // getting intent data
+        // Getting intent data from MainActivity.
         Intent in = getIntent();
         String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
+        // Combine the code with xml.
         TextView eindbestemming_view = (TextView) findViewById(R.id.eindbestemming);
         TextView vertrektijd_view = (TextView) findViewById(R.id.vertrektijd);
         TextView ritnummer_view = (TextView) findViewById(R.id.ritnummer);
 
+        // Set the data into the right TextView.
         assert eindbestemming_view != null;
         eindbestemming_view.setText(eindbestemming);
         assert vertrektijd_view != null;
@@ -63,7 +73,7 @@ public class CheckInActivity extends AppCompatActivity
         assert ritnummer_view != null;
         ritnummer_view.setText(ritnummer);
 
-
+        // Handles the navigation bar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,8 +83,6 @@ public class CheckInActivity extends AppCompatActivity
         assert drawer != null;
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
@@ -111,7 +119,6 @@ public class CheckInActivity extends AppCompatActivity
             Intent checkin = new Intent(this, MainActivity.class);
             checkin.putExtra("Checkin", 500);
             startActivity(checkin);
-
         } else if (id == R.id.nav_friendscheckin) {
             Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);
@@ -127,41 +134,40 @@ public class CheckInActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
     /*
-   Add history into database
-     */
+    * When the 'Check-In' -button is clicked, addHistory will add the data into the SQLiteDatabase
+    * and shows it in History. It also stores the ritnummers into the online App42 Database.
+    */
+
     public void addHistory(View view) throws JSONException {
+
+        // Get the right data from the previous Activity.
         Intent in = getIntent();
         String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
         String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
-
-// Starting the CheckInActivity and get the right values
+        // Send the ritnummer to FriendsActivity too.
         Intent intent = new Intent(getApplicationContext(),
                 FriendsActivity.class);
 
         intent.putExtra(TAG_RITNUMMER, ritnummer);
 
-        startActivity(intent);
-
-        String History = eindbestemming+vertrektijd;
         DBHelper.addHistory(eindbestemming, vertrektijd);
-        Log.d("LINK", "addHistory() returned: " + History);
-        Log.d("DBHelper", "addHistory() returned: " + DBHelper);
-        //listAdapter.add(history);
 
-        Log.d("History", "addHistory() returned: " + History);
-
+        // Store data in online App42 Database.
         String dbName = "test";
         String collectionName = "ritnummer";
-        Log.d("Ritnummer", "addHistory() returned: " + ritnummer);
-        String employeeJSON = "{\"ritnummer\":\"";
-        String okee ="\"}";
-        String ok = employeeJSON + ritnummer + okee;
+
+        // Store the ritnummer as JSON.
+        String ritnummers = "{\"ritnummer\":\"";
+        String to_json ="\"}";
+        String ok = ritnummers + ritnummer + to_json;
         Log.d("JSONok", "addHistory() returned: " + ok);
 
-/* Below snippet will save JSON object in App42 Cloud */
+        // Below snippet will save JSON object in App42 Cloud
         StorageService storageService = App42API.buildStorageService();
         storageService.insertJSONDocument(dbName,collectionName,ok,new App42CallBack() {
             public void onSuccess(Object response)
@@ -183,12 +189,15 @@ public class CheckInActivity extends AppCompatActivity
             }
         });
 
+        // Let the user know that the Check-In is succesfull.
         Toast.makeText(this, "Je bent ingecheckt in deze trein!", Toast.LENGTH_SHORT).show();
+
+        // Go to next activity.
         Intent friends = new Intent(this, FriendsActivity.class);
         friends.putExtra("friends", 500);
         startActivity(friends);
+        // User may not go back to this Activity, so the Activity has to be finished.
         finish();
+
     }
-
-
 }

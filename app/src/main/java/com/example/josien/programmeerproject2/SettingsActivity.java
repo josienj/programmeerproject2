@@ -1,11 +1,12 @@
 package com.example.josien.programmeerproject2;
 
 /*
-Josien Jansen
-11162295
-Programmeerproject
-Universiteit van Amsterdam
- */
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
 
 
 import android.app.AlertDialog;
@@ -23,16 +24,21 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-
 import com.facebook.FacebookSdk;
 
 import com.facebook.login.LoginManager;
+
+/*
+* This Activity handles the Settings of the app. The only setting is that the user can log-out from
+* the app by logging out with Facebook.
+ */
 
 
 public class SettingsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ImageButton logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,8 @@ public class SettingsActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         logout = (ImageButton) findViewById(R.id.imageButton);
+
+        // Handles Navigation Bar.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,10 +59,11 @@ public class SettingsActivity extends AppCompatActivity
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Creates dialog window for confirmation of completion
+                // Creates dialog window for confirmation of logout
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                 builder
                         .setMessage("Weet je zeker dat je uit wilt loggen?")
@@ -62,21 +71,17 @@ public class SettingsActivity extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                                // Logout from Facebook.
                                 FacebookSdk.sdkInitialize(getApplicationContext());
                                 LoginManager.getInstance().logOut();
                                 Intent login = new Intent(getApplicationContext(), FbLoginActvity.class);
                                 login.putExtra("login", 500);
+                                // Go back to loginscreen.
                                 startActivity(login);
-                               // Intent mStartActivity = new Intent(getApplicationContext(), FbLoginActvity.class);
-                              //  int mPendingIntentId = 123456;
-                                //PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-                               // AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-                               // mgr.set(AlarmManager.RTC, System.currentTimeMillis(), mPendingIntent);
-                               // System.exit(0);
                             }
                         })
 
-                        // Nothing is done when "No" is pressed
+                        // Nothing is done when "No" is pressed.
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
@@ -137,52 +142,6 @@ public class SettingsActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
-
-    /*public void log_out (View view){
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this);
-        alertDialog.show();
-        // Setting Dialog Title
-        alertDialog.setTitle("Confirm Logout...");
-
-        // Setting Dialog Message
-        alertDialog.setMessage("Are you sure you want to logout?");
-
-        // Setting Icon to Dialog
-        alertDialog.setIcon(R.drawable.logooo);
-
-        // Setting Positive "Yes" Button
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-
-                // Write your code here to invoke YES event
-                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
-                Intent mStartActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                int mPendingIntentId = 123456;
-                PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-                AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-                mgr.set(AlarmManager.RTC, System.currentTimeMillis() , mPendingIntent);
-                System.exit(0);
-            }
-        });
-
-        // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // Write your code here to invoke NO event
-                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
-                dialog.cancel();
-            }
-        });
-
-
-    }
-
-*/
-
 
 
 }

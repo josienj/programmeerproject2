@@ -1,5 +1,13 @@
 package com.example.josien.programmeerproject2;
 
+/*
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
+
         import android.content.Intent;
         import android.content.SharedPreferences;
         import android.preference.PreferenceManager;
@@ -25,9 +33,14 @@ package com.example.josien.programmeerproject2;
         import com.shephertz.app42.paas.sdk.android.social.Social;
         import com.shephertz.app42.paas.sdk.android.social.SocialService;
 
-
         import org.json.JSONArray;
         import org.json.JSONException;
+
+/*
+* This Activity is the very first screen of the app: every user has to log in with their Facebook-
+* account. By logging in, the Facebookfriends of the user who are also using this app will be
+* stored and showed in the FriendsActivity. Once the user has logged-in, this screen will be skipped.
+ */
 
 
 public class FbLoginActvity extends AppCompatActivity {
@@ -41,9 +54,12 @@ public class FbLoginActvity extends AppCompatActivity {
         facebookSDKInitialize();
         setContentView(R.layout.activity_login);
 
+        // Initialize App42 for storage of every Facebooklogin
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
         socialService = App42API.buildSocialService();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+
+        // Check whether the user has already logged-in, then move to next Activity.
         try {
             String accessToken = AccessToken.getCurrentAccessToken().getToken();
             if (accessToken != null) {
@@ -53,6 +69,7 @@ public class FbLoginActvity extends AppCompatActivity {
                 assert loginButton != null;
                 loginButton.setReadPermissions("user_friends");
                 getLoginDetails(loginButton);
+                // User may not be able to go back to this screen without first logging out.
                 finish();
                 startActivity(checkin);
 
@@ -65,6 +82,10 @@ public class FbLoginActvity extends AppCompatActivity {
         getLoginDetails(loginButton);
     }
 
+    /*
+    * This method stores the Facebookusers into the online Database from App42. It is stored by
+    * Facebook_id, profile picture and other public information.
+     */
     public void gotodatabase(){
         String userName = Profile.getCurrentProfile().getId();
         String accessToken = AccessToken.getCurrentAccessToken().getToken();
@@ -88,6 +109,9 @@ public class FbLoginActvity extends AppCompatActivity {
         });
     }
 
+    /*
+    * This method get the Friends of the Facebookusers who are also using this app.
+     */
     public void getfriends(){
         String accessToken = AccessToken.getCurrentAccessToken().getToken();
         socialService.getFacebookFriendsFromAccessToken(accessToken, new App42CallBack() {
@@ -112,18 +136,17 @@ public class FbLoginActvity extends AppCompatActivity {
 
     /*
      * Register a callback function with LoginButton to respond to the login result.
-*/
+    */
     protected void getLoginDetails(LoginButton login_button){
 
-            // Callback registration
+            // Callback registration.
         login_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult login_result) {
 
+                // Get result of Facebooklogin and get the friends of the Facebookuser.
                 GraphRequestAsyncTask graphRequestAsyncTask = new GraphRequest(
                         login_result.getAccessToken(),
-
-                        //AccessToken.getCurrentAccessToken(),
                         "/me/friends",
                         null,
                         HttpMethod.GET,
@@ -132,6 +155,8 @@ public class FbLoginActvity extends AppCompatActivity {
                                 Intent intent = new Intent(FbLoginActvity.this,MainActivity.class);
                                 try {
                                     JSONArray rawName = response.getJSONObject().getJSONArray("data");
+                                    // Save the friends also using the app in SharedPreferences, so
+                                    // you can access it in every Activity.
                                     SharedPreferences prefs = PreferenceManager
                                             .getDefaultSharedPreferences(getApplicationContext());
                                     rawName.put(1);
@@ -174,8 +199,11 @@ public class FbLoginActvity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    protected void facebookSDKInitialize() {
+    /*
+    * Initialize the FacebookSDK so data can be accessed.
+     */
 
+    protected void facebookSDKInitialize() {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
     }

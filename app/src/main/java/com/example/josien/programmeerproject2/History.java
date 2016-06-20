@@ -1,5 +1,18 @@
 package com.example.josien.programmeerproject2;
 
+/*
+*  Josien Jansen
+*  11162295
+*  Programmeerproject
+*  06-2016
+*  Universiteit van Amsterdam
+*/
+
+
+/*
+* This class creates the getters and setters for the SQLiteDatabase of the check-in history of the
+* user.
+ */
 public class History {
 
         private int _id;
