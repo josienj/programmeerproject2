@@ -39,3 +39,5 @@ App42 blijkt goed te werken. Na inloggen met Facebookaccount stored App42 dit oo
 ###Dag 15<br>
 Ritnummer wordt goed opgeslagen in de online database in JSON-format. Van het weekend druk bezig met het parsen van het ritnummer/fb-id en de fb-vrienden. Verder de FBmessenger geintegreerd, via de button kun je een afbeelding versturen waarin je aangeeft dat je in dezelfde trein zit, zo kun je gelijk verder praten via messenger en is de social integration ook geimplementeerd.
 ###Weekend<br>
+Alle Facebook-bugs zijn weg, layout is verbeterd en code is gecleaned. Enige wat niet lukt is het juist parsen van de data van de online database App42.
+###Dag 16<br>
