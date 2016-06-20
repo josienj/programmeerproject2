@@ -47,7 +47,7 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPreExecute(){
         // inform user
-        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.laden, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -71,7 +71,7 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
 
         // if nothing was found, inform user
         if (result.length() == 0) {
-            Toast.makeText(context, "No data was found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.nodata, Toast.LENGTH_SHORT).show();
         } else {
             // Parse XML
 

@@ -38,9 +38,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/station"
         android:id="@+id/eindbestemming"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="211dp" />
+        android:layout_marginTop="92dp" />
 
 
     <TextView
@@ -49,9 +49,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/vertrektijd"
         android:id="@+id/vertrektijd"
-        android:layout_below="@+id/eindbestemming"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp" />
+        android:layout_below="@+id/textView8"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,7 +69,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/vertrekt_om"
         android:id="@+id/textView8"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/eindbestemming"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -89,8 +88,7 @@
         android:text="@string/richting"
         android:id="@+id/textView6"
         android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/vertrektijd"
-        android:layout_alignStart="@+id/vertrektijd" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

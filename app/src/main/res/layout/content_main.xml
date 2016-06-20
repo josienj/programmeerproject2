@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/listViewleavingtrains"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/get_data"/>
+        android:layout_below="@+id/richting" />
 
     <ImageView
         android:contentDescription="@string/app_name"
@@ -48,7 +48,27 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Richting"
+        android:id="@+id/richting"
+        android:layout_below="@+id/get_data"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Vertrektijd"
+        android:id="@+id/vertrektijd"
+        android:layout_above="@+id/listViewleavingtrains"
+        android:layout_alignRight="@+id/listViewleavingtrains"
+        android:layout_alignEnd="@+id/listViewleavingtrains"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

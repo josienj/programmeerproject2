@@ -1,8 +1,16 @@
 <resources>
-    <string name="app_name">Menu</string>
+    <string name="app_name">Social Train Journey</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="laden">laden…</string>
+    <string name="zelfdepagina">Je bent al op deze pagina</string>
+    <string name="log_out">Uitgelogd</string>
+    <string name="nodata">Geen treinen gevonden</string>
+    <string name="ingecheckt">Je bent ingecheckt in de trein</string>
+    <string name="deleted">Verwijderd</string>
+    <string name="vraag_uitloggen">Weet je zeker dat je uit wilt loggen?</string>
 
     <string name="action_settings">Settings</string>
 

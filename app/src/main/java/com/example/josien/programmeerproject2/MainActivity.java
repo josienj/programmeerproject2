@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_checkin) {
-            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.zelfdepagina, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_friendscheckin) {
             Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);
@@ -173,6 +173,13 @@ public class MainActivity extends AppCompatActivity
     station behind the Http-request, and execute it to TrainAsyncTask.
      */
     public void get_data(View view) {
+        TextView richting = (TextView) findViewById(R.id.richting);
+        assert richting != null;
+        richting.setVisibility(View.VISIBLE);
+        TextView vertrektijd = (TextView) findViewById(R.id.vertrektijd);
+        assert vertrektijd != null;
+        vertrektijd.setVisibility(View.VISIBLE);
+
         TrainAsyncTask apiHandler = new TrainAsyncTask(MainActivity.this);
 
         // Make a string of the Station.

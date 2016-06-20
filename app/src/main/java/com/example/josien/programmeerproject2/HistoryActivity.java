@@ -105,7 +105,7 @@ public class HistoryActivity extends AppCompatActivity
             instellingen.putExtra("instellingen", 500);
             startActivity(instellingen);
         } else if (id == R.id.nav_historie) {
-            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.zelfdepagina, Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,7 +139,7 @@ public class HistoryActivity extends AppCompatActivity
                 dbHelper.deleteItem(item.get_id());
                 // Delete item from listView.
                 listAdapter.remove(item);
-                Toast.makeText(getApplicationContext(), "Verwijderd", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

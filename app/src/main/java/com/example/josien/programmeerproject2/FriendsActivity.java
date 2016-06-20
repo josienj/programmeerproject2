@@ -157,7 +157,7 @@ public class FriendsActivity extends AppCompatActivity
             checkin.putExtra("Checkin", 500);
             startActivity(checkin);
         } else if (id == R.id.nav_friendscheckin) {
-            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.zelfdepagina, Toast.LENGTH_SHORT).show();
         }  else if (id == R.id.nav_instellingen) {
             Intent instellingen = new Intent(this, SettingsActivity.class);
             instellingen.putExtra("instellingen", 500);

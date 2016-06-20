@@ -66,11 +66,11 @@ public class SettingsActivity extends AppCompatActivity
                 // Creates dialog window for confirmation of logout
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                 builder
-                        .setMessage("Weet je zeker dat je uit wilt loggen?")
+                        .setMessage(R.string.vraag_uitloggen)
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), R.string.log_out, Toast.LENGTH_SHORT).show();
                                 // Logout from Facebook.
                                 FacebookSdk.sdkInitialize(getApplicationContext());
                                 LoginManager.getInstance().logOut();
@@ -130,7 +130,7 @@ public class SettingsActivity extends AppCompatActivity
             friendscheckin.putExtra("friendscheckin", 500);
             startActivity(friendscheckin);
         }  else if (id == R.id.nav_instellingen) {
-            Toast.makeText(this, "Je bent al op deze pagina", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.zelfdepagina, Toast.LENGTH_SHORT).show();
         }   else if (id == R.id.nav_historie) {
             Intent historie = new Intent(this, HistoryActivity.class);
             historie.putExtra("historie", 500);

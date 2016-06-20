@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Profile;
 import com.shephertz.app42.paas.sdk.android.App42API;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
@@ -162,14 +163,18 @@ public class CheckInActivity extends AppCompatActivity
         String collectionName = "ritnummer";
 
         // Store the ritnummer as JSON.
+        String userName = Profile.getCurrentProfile().getId();
+        Log.d("facebookid", "addHistory() returned: " + userName);
         String ritnummers = "{\"ritnummer\":\"";
-        String to_json ="\"}";
-        String ok = ritnummers + ritnummer + to_json;
-        Log.d("JSONok", "addHistory() returned: " + ok);
+        String to_json ="\"";
+        String FacebookId =",\"facebookid\":\"";
+        String realfacebookId = "\"}";
+        String total = ritnummers + ritnummer + to_json + FacebookId + userName + realfacebookId;
+        Log.d("JSONok", "addHistory() returned: " + total);
 
         // Below snippet will save JSON object in App42 Cloud
         StorageService storageService = App42API.buildStorageService();
-        storageService.insertJSONDocument(dbName,collectionName,ok,new App42CallBack() {
+        storageService.insertJSONDocument(dbName,collectionName,total,new App42CallBack() {
             public void onSuccess(Object response)
             {
                 Storage  storage  = (Storage )response;
@@ -190,7 +195,7 @@ public class CheckInActivity extends AppCompatActivity
         });
 
         // Let the user know that the Check-In is succesfull.
-        Toast.makeText(this, "Je bent ingecheckt in deze trein!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.ingecheckt, Toast.LENGTH_SHORT).show();
 
         // Go to next activity.
         Intent friends = new Intent(this, FriendsActivity.class);
