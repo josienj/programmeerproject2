@@ -115,17 +115,14 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
                                 } else if (name.equalsIgnoreCase(KEY_RITNUMMER)) {
                                     assert traindata != null;
                                     traindata.setRitnummer(curtext);
-                                    Log.d("Ritnummer", "ParseXml() returned: " + curtext);
                                 } else if (name.equalsIgnoreCase(KEY_VERTREKTIJD)) {
                                     assert traindata != null;
                                     String vertrektijd = curtext;
                                     curtext = vertrektijd.substring(11, 16);
                                     traindata.setVertrektijd(curtext);
-                                    Log.d("Vertrektijd", "ParseXml() returned: " + curtext);
                                 } else if (name.equalsIgnoreCase(KEY_EINDBESTEMMING)) {
                                     assert traindata != null;
                                     traindata.setEindbestemming(curtext);
-                                    Log.d("Eindbestemming", "ParseXml() returned: " + curtext);
                                 }
                                 // Error-handling: let the user know of the station is found.
                                 if (name.equalsIgnoreCase(KEY_ERROR))

@@ -91,17 +91,12 @@ public class FbLoginActvity extends AppCompatActivity {
     public void gotodatabase(){
         String userName = Profile.getCurrentProfile().getId();
         String accessToken = AccessToken.getCurrentAccessToken().getToken();
-        Log.d("accestoken", "gotodatabase() returned: " + accessToken);
-        Log.d("username", "gotodatabase() returned: " + userName);
 
         socialService.linkUserFacebookAccount(userName, accessToken, new App42CallBack() {
             public void onSuccess(Object response)
             {
                 Social social  = (Social)response;
-                System.out.println("userName is " + social.getUserName());
-                System.out.println("fb Access Token is " + social.getFacebookAccessToken());
                 String jsonResponse = social.toString();
-                Log.d("jsonResponse", "onSuccess() returned: " + jsonResponse);
                 getfriends();
             }
             public void onException(Exception ex)
@@ -207,9 +202,6 @@ public class FbLoginActvity extends AppCompatActivity {
 
                         }
                 ).executeAsync();
-                Log.d("Graphrequest", "onSuccess() returned: " + graphRequestAsyncTask);
-
-                Log.d("ONsucces", "onSuccess() returned: " + login_result);
             }
 
             @Override

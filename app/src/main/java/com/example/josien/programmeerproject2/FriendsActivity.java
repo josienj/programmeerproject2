@@ -23,21 +23,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.Profile;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.facebook.messenger.ShareToMessengerParams;
 import com.shephertz.app42.paas.sdk.android.App42API;
 import com.shephertz.app42.paas.sdk.android.App42CallBack;
+import com.shephertz.app42.paas.sdk.android.social.Social;
 import com.shephertz.app42.paas.sdk.android.storage.Storage;
 import com.shephertz.app42.paas.sdk.android.storage.StorageService;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /*
 * The FriendsActivity shows the Facebookfriends of the user who are also using the app.
@@ -57,6 +64,12 @@ public class FriendsActivity extends AppCompatActivity
     String key;
     String value;
     private static final String TAG_RITNUMMER = "Ritnummer";
+    ArrayList<String> checkInList;
+    String userName;
+    int listnumber;
+    String ownRitnummer;
+    private static FriendsActivity parent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +77,7 @@ public class FriendsActivity extends AppCompatActivity
         setContentView(R.layout.activity_friendscheckin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        userName = Profile.getCurrentProfile().getId();
 
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
 
@@ -110,7 +124,6 @@ public class FriendsActivity extends AppCompatActivity
         try {
             JSONArray friendslist = new JSONArray(prefs.getString("key", "[]"));
             for (int i = 0; i < friendslist.length(); i++) {
-                Log.d("JSonarray", "onCreate() returned: " + friendslist);
                 friends.add(friendslist.getJSONObject(i).getString("name"));
             }
         } catch (Exception e) {
@@ -122,7 +135,8 @@ public class FriendsActivity extends AppCompatActivity
         ListView listView = (ListView) findViewById(R.id.listView);
         assert listView != null;
         listView.setAdapter(adapter);
-        parsenumber();
+
+        parsedata();
     }
 
 
@@ -210,20 +224,19 @@ public class FriendsActivity extends AppCompatActivity
     *  from App42 correctly.
      */
 
-    public void parsenumber(){
-        Intent intent = getIntent();
-        value = intent.getStringExtra(TAG_RITNUMMER);
-        Log.d("value", "parsenumber() returned: " + value);
-        key = "ritnummer";
 
+    public void parsedata(){
+        String dbName = "test";
+        String collectionName = "ritnummer";
+        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
         StorageService storageService = App42API.buildStorageService();
-        Log.d("storageservice", "parsenumber() returned: " + storageService);
-        storageService.findDocumentByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
+        storageService.findAllDocuments(dbName, collectionName, new App42CallBack() {
             public void onSuccess(Object response)
             {
                 Storage  storage  = (Storage )response;
                 System.out.println("dbName is " + storage.getDbName());
                 System.out.println("collection Name is " + storage.getCollectionName());
+                ArrayList<String> checkInList = new ArrayList<>();
                 ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
                 for(int i=0;i<jsonDocList.size();i++)
                 {
@@ -231,13 +244,83 @@ public class FriendsActivity extends AppCompatActivity
                     System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
                     System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
                     System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+                    String jsondoc = jsonDocList.get(i).getJsonDoc();
+                    checkInList.add(jsondoc);
+
                 }
+                Log.d("checkInlist", "onSuccess() returned: " + checkInList.toString());
+
+                for(int j=0; j<checkInList.size();j++){
+                    String checkIn = checkInList.get(j);
+                    Log.d("checkin", "onSuccess() returned: " + checkIn);
+                    try {
+                        JSONObject object = new JSONObject(checkIn);
+                        String fbId = object.getString("facebookid");
+                        Log.d("fbid", "onSuccess() returned: " + fbId);
+
+                        if (fbId.equalsIgnoreCase(userName)){
+                            ownRitnummer = object.getString("ritnummer");
+                            int listnumber = j;
+                            Log.d("eigenritnummer", "onSuccess() returned: " + ownRitnummer);
+                            JSONArray ownFriends = object.getJSONArray("fbfriends");
+                            Log.d("jsonarray own friends", "onSuccess() returned: " + ownFriends);
+
+                            ArrayList<String> ownFriendsList = new ArrayList<>();
+                            for (int k=0; k<ownFriends.length(); k++) {
+                                if (k == listnumber) {
+                                    Log.d("listnumber", "onSuccess() returned: " + listnumber);
+                                    continue;
+                                }
+                                ownFriendsList.add(ownFriends.getString(k));
+                            }
+                            Log.d("eigenfriendslijst", "onSuccess() returned: " + ownFriendsList);
+
+                            for (int k=0; k<ownFriends.length(); k++) {
+                                String friend = ownFriends.getString(k);
+                                Log.d("friend", "onSuccess() returned: " + friend);
+
+                                for(int l=0; l<checkInList.size();l++) {
+
+                                    String friendCheckIn = checkInList.get(l);
+
+                                    try {
+                                        JSONObject friendObject = new JSONObject(friendCheckIn);
+                                        String friendId = friendObject.getString("facebookid");
+                                        Log.d("FriendID", "onSuccess() returned: " + friendId);
+
+                                        if (ownFriendsList != null) {
+                                            if (ownFriendsList.contains(friendId)) {
+                                                String friendRitnummer =friendObject.getString("ritnummer");
+                                                Log.d("friendritnummer", "onSuccess() returned: " + friendRitnummer);
+
+                                                if (friendRitnummer.equalsIgnoreCase(ownRitnummer)){
+                                                    Toast.makeText(FriendsActivity.this, "Awesome", Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
             }
             public void onException(Exception ex)
             {
                 System.out.println("Exception Message"+ex.getMessage());
             }
         });
+    }
+    public void toast(){
+        Toast.makeText(FriendsActivity.this, "This is amazing", Toast.LENGTH_SHORT).show();
     }
 
 
