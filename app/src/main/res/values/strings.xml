@@ -24,7 +24,6 @@
     <string name="search_trains">ZOEK</string>
     <string name="question_whichstation">Vanaf welk station reis je?</string>
     <string name="checkin">INCHECKEN</string>
-    <string name="info_friends">Check hier in welke trein je vrienden zitten!</string>
     <string name="logout">Logout</string>
     <string name="check_out_historie">Check-In Historie</string>
     <string name="friends">Deze vrienden gebruiken de app ook!</string>
@@ -38,6 +37,7 @@
     <string name="logout_fb">Uitloggen</string>
     <string name="historietext">Jij zat in de volgende trein(en) richting:</string>
     <string name="ongeldigstation">Dit station is niet geldig of bestaat niet</string>
+    <string name="checkfriends">Check hier of je in dezelfde trein als je vrienden zit!</string>
     <string-array name="stations">
         <item>Ac Abcoude</item>
         <item>Adh	Leeuwarden Achter de Hoven</item>

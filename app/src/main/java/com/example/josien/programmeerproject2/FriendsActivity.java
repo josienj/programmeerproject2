@@ -9,11 +9,13 @@ package com.example.josien.programmeerproject2;
 */
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -63,8 +65,7 @@ public class FriendsActivity extends AppCompatActivity
     final static ArrayList<String[]> array = new ArrayList<>();
     String friendId;
     Boolean zelfdetrein = false;
-    SharedPreferences prefs = this.getSharedPreferences(
-            "com.example.josien.programmeerproject2", Context.MODE_PRIVATE);
+    SharedPreferences bool;
 
 
 
@@ -76,6 +77,9 @@ public class FriendsActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         userName = Profile.getCurrentProfile().getId();
 
+        bool = getSharedPreferences("Boolean", 0);
+        zelfdetrein = false;
+        bool.edit().putBoolean("key",zelfdetrein).apply();
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
 
         View mMessengerButton = findViewById(R.id.messenger_send_button);
@@ -139,7 +143,6 @@ public class FriendsActivity extends AppCompatActivity
         //retrieveNames();
         Log.d("listoffriends", "onCreate() returned: " + array);
         parsedata();
-        check();
 
     }
 
@@ -221,6 +224,11 @@ public class FriendsActivity extends AppCompatActivity
                     REQUEST_CODE_SHARE_TO_MESSENGER,
                     shareToMessengerParams);
         }
+
+    }
+
+    public void check_friends(View view){
+        check();
     }
 
     /*
@@ -236,6 +244,7 @@ public class FriendsActivity extends AppCompatActivity
         String collectionName = "ritnummer";
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
         StorageService storageService = App42API.buildStorageService();
+
         storageService.findAllDocuments(dbName, collectionName, new App42CallBack() {
             public void onSuccess(Object response)
             {
@@ -279,8 +288,11 @@ public class FriendsActivity extends AppCompatActivity
                                         String friendRitnummer = friendObject.getString("ritnummer");
 
                                         if (friendRitnummer.equalsIgnoreCase(ownRitnummer)) {
+                                            bool = getSharedPreferences("Boolean", 0);
                                             zelfdetrein = true;
-                                            prefs.edit().putBoolean("key",zelfdetrein).apply();
+                                            bool.edit().putBoolean("key",zelfdetrein).apply();
+                                            Log.d("bool", "onSuccess() returned: " + bool);
+                                            Log.d("ikbenhier", "onSuccess() returned: " + zelfdetrein);
 
                                         }
                                         }
@@ -295,8 +307,6 @@ public class FriendsActivity extends AppCompatActivity
                         e.printStackTrace();
                     }
                 }
-
-
             }
             public void onException(Exception ex)
             {
@@ -307,12 +317,34 @@ public class FriendsActivity extends AppCompatActivity
     }
 
     public void check() {
-        boolean zelfdetrein = prefs.getBoolean("key", false);
+        boolean zelfdetrein = bool.getBoolean("key", false);
         Log.d("Zelfdetrein", "check() returned: " + zelfdetrein);
         if (zelfdetrein) {
-            Toast.makeText(getApplicationContext(), "Je zit in dezelfde trein met" + friendId, Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Je zit in dezelfde trein met " + friendId)
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        if (!zelfdetrein){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Helaas, geen van je vrienden zit in dezelfde trein. Succes met een saaie treinreis!")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
         }
     }
 
 
-}
+

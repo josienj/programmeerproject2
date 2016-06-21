@@ -14,7 +14,7 @@
 
 
     <ImageView
-        android:contentDescription="@string/info_friends"
+        android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
@@ -22,18 +22,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/info_friends"
-        android:id="@+id/textView4"
-        android:textColor="#FFFFFF"
-        android:textAlignment="center"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        tools:targetApi="jelly_bean_mr1" />
 
     <include layout="@layout/messenger_button_send_blue_round"
         android:layout_width="wrap_content"
@@ -59,16 +47,27 @@
         android:id="@+id/textView"
         android:text="@string/friends"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true"
         android:textAlignment="center"
-        tools:targetApi="jelly_bean_mr1" />
+        tools:targetApi="jelly_bean_mr1"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/listView"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/messenger_send_button" />
+        android:layout_below="@+id/messenger_send_button"
+        android:layout_above="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkfriends"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="check_friends"/>
 
 </RelativeLayout>
