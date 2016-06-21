@@ -49,6 +49,7 @@ public class FbLoginActvity extends AppCompatActivity {
     CallbackManager callbackManager;
     SocialService socialService;
     String id;
+    String friendsname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
