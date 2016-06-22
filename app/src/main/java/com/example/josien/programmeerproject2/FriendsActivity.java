@@ -78,7 +78,6 @@ public class FriendsActivity extends AppCompatActivity
         parseforcheckbox();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
         boolean checkin = pref.getBoolean("check", false);
         Log.d("checkin", "onCreate() returned: " + checkin);
 
@@ -382,7 +381,7 @@ public class FriendsActivity extends AppCompatActivity
         Log.d("Zelfdetrein", "check() returned: " + zelfdetrein);
         if (zelfdetrein) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Gezellig, je kunt samen reizen met " + friend + "!")
+            builder.setMessage("Gezellig, je kunt samen reizen met " + friendId + "!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {

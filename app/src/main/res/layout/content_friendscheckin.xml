@@ -59,7 +59,7 @@
         android:id="@+id/listView"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/checkBox"
-        android:layout_above="@+id/button" />
+        android:layout_above="@+id/refreshbutton" />
 
     <Button
         android:layout_width="wrap_content"
@@ -79,5 +79,13 @@
         android:layout_centerHorizontal="true"
         android:onClick="checkbox_checkin"/>
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refreshbutton"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/refreshbutton"
+        android:layout_above="@+id/button"
+        android:onClick="refresh_activity"/>
 
 </RelativeLayout>
