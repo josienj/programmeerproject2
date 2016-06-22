@@ -42,9 +42,9 @@ Ritnummer wordt goed opgeslagen in de online database in JSON-format. Van het we
 Alle Facebook-bugs zijn weg, layout is verbeterd en code is gecleaned. Enige wat niet lukt is het juist parsen van de data van de online database App42.
 ###Dag 16, 17 en 18<br>
 Flinke vorderingen gemaakt, hele app nu volledig werkend. Uiteraard ruimte voor verbetering, maar gezien de tijd besloten om het hierbij te laten qua functionaliteit en layout. De volgende dingen zijn werkend gekregen in de afgelopen dagen:<br>
--Parsen van de juiste data is gelukt
--Het is mogelijk om te checken of je met je FBvrienden in de trein zit: dit werkt ook volledig.
--Soms is het nodig om het scherm handmatig te refreshen, om dit zo makkelijk mogelijk te maken is er een aparte refreshknop aangemaakt.
--Het is mogelijk om uit te checken in een trein, zodat de informatie up-to-date blijft.
+-Parsen van de juiste data is gelukt<br>
+-Het is mogelijk om te checken of je met je FBvrienden in de trein zit: dit werkt ook volledig.<br>
+-Soms is het nodig om het scherm handmatig te refreshen, om dit zo makkelijk mogelijk te maken is er een aparte refreshknop aangemaakt.<br>
+-Het is mogelijk om uit te checken in een trein, zodat de informatie up-to-date blijft.<br>
 -Het is enkel mogelijk om in één trein tegelijk ingecheckt te zijn (een persoon kan altijd maar in één trein tegelijk zitten), hierdoor wordt er dus ook geen onjuiste informatie naar de FBvrienden verzonden.<br>
-Nu is het tijd voor het verslag en het cleanen van de code!
+Nu is het tijd voor het verslag en het cleanen van de code!<br>
