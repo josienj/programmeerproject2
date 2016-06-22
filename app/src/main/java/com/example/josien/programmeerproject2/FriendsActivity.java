@@ -42,7 +42,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import java.util.ArrayList;
 
 /*
@@ -56,9 +55,7 @@ public class FriendsActivity extends AppCompatActivity
 
     // Declare variables.
     private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
-
     private boolean mPicking;
-
     String userName;
     String ownRitnummer;
     String friendId;
@@ -82,7 +79,6 @@ public class FriendsActivity extends AppCompatActivity
 
         try {
             boolean checkin = pref.getBoolean("check", false);
-            Log.d("checkin", "onCreate() returned: " + checkin);
 
             checkbox = (CheckBox) findViewById(R.id.checkBox);
             if (!checkin) {
@@ -99,8 +95,6 @@ public class FriendsActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         userName = Profile.getCurrentProfile().getName();
 
-
-
         View mMessengerButton = findViewById(R.id.messenger_send_button);
 
         Intent intent = getIntent();
@@ -111,7 +105,6 @@ public class FriendsActivity extends AppCompatActivity
 
         }
 
-
         // Set onClickListener on the Messenger Button.
         assert mMessengerButton != null;
         mMessengerButton.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +113,6 @@ public class FriendsActivity extends AppCompatActivity
                 onMessengerButtonClicked();
             }
         });
-
 
         // Initialize App42 to parse data later in this Activity.
         App42API.initialize(getApplicationContext(),"ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9","b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
@@ -163,7 +155,6 @@ public class FriendsActivity extends AppCompatActivity
         parsedata();
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -260,7 +251,6 @@ public class FriendsActivity extends AppCompatActivity
     *  This method doesn't work correctly, but it is assumed that this method will parse the data
     *  from App42 correctly.
      */
-
     public void parseforcheckbox(){
         String dbName = "test";
         String collectionName = "ritnummer";
@@ -367,7 +357,6 @@ public class FriendsActivity extends AppCompatActivity
                                 }
                             }
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -441,6 +430,7 @@ public class FriendsActivity extends AppCompatActivity
                                     storageService.deleteDocumentsByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
                                         public void onSuccess(Object response)
                                         {
+                                            startActivity(getIntent());
                                             pref = getSharedPreferences("Boolean", 0);
                                             checkin = false;
                                             pref.edit().putBoolean("check",checkin).apply();
@@ -450,7 +440,7 @@ public class FriendsActivity extends AppCompatActivity
                                             checkout = true;
                                             check.edit().putBoolean("checkout",checkout).apply();
                                             Log.d("Boolcheckout", "onSuccess() returned: " + checkout);
-                                            startActivity(getIntent());
+
                                         }
                                         public void onException(Exception ex)
                                         {
@@ -475,8 +465,6 @@ public class FriendsActivity extends AppCompatActivity
                             .show();
                 }
                 }
-
-
     }
 
     public void refresh_activity(View view){
@@ -484,7 +472,3 @@ public class FriendsActivity extends AppCompatActivity
         startActivity(getIntent());
     }
     }
-
-
-
-

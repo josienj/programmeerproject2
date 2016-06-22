@@ -165,6 +165,8 @@ public class CheckInActivity extends AppCompatActivity
 
     public void addHistory(View view) throws JSONException {
 
+
+
         checkout = check.getBoolean("checkout", true);
         Log.d("LOGLOGLOG", "addHistory() returned: " + checkout);
         if (!checkout){
