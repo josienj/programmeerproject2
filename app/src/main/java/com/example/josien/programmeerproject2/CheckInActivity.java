@@ -56,7 +56,7 @@ public class CheckInActivity extends AppCompatActivity
     Boolean checkin = false;
     SharedPreferences pref;
     SharedPreferences check;
-    Boolean checkout;
+    Boolean checkout = true;
 
 
 
@@ -69,11 +69,11 @@ public class CheckInActivity extends AppCompatActivity
         check = PreferenceManager
                 .getDefaultSharedPreferences(this);
 
-        if (checkout == null){
-            check = getSharedPreferences("Boolz", 0);
-            checkout = true;
-            check.edit().putBoolean("check",checkout).apply();
-        }
+
+        check = getSharedPreferences("Boolz", 0);
+        checkout = true;
+        check.edit().putBoolean("check",checkout).apply();
+
 
 
         // Getting intent data from MainActivity.
@@ -165,7 +165,7 @@ public class CheckInActivity extends AppCompatActivity
 
     public void addHistory(View view) throws JSONException {
 
-        checkout = check.getBoolean("checkout", false);
+        checkout = check.getBoolean("checkout", true);
         Log.d("LOGLOGLOG", "addHistory() returned: " + checkout);
         if (!checkout){
             Toast.makeText(CheckInActivity.this, "Log eerst uit ", Toast.LENGTH_SHORT).show();
@@ -197,9 +197,10 @@ public class CheckInActivity extends AppCompatActivity
             checkin = true;
             pref.edit().putBoolean("check",checkin).apply();
 
-            checkout = false;
+
             check = getSharedPreferences("Boolz", 0);
-            check.edit().putBoolean("checkout", false).apply();
+            checkout = false;
+            check.edit().putBoolean("checkout", checkout).apply();
             Log.d("sharedpref check", "addHistory() returned: " + checkout);
 
             String dbName = "test";
