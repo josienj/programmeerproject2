@@ -22,6 +22,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,8 @@ public class CheckInActivity extends AppCompatActivity
     DBHelper DBHelper;
     JSONArray jArray;
     String jsonarray;
+    Boolean checkin = false;
+    SharedPreferences pref;
 
 
 
@@ -170,6 +173,10 @@ public class CheckInActivity extends AppCompatActivity
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        pref = getSharedPreferences("Boolean", 0);
+        checkin = true;
+        pref.edit().putBoolean("check",checkin).apply();
 
         String dbName = "test";
         String collectionName = "ritnummer";

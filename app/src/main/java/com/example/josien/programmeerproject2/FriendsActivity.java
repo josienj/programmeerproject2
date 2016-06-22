@@ -340,17 +340,20 @@ public class FriendsActivity extends AppCompatActivity
                                     JSONObject friendObject = new JSONObject(checkInList.get(l));
                                     friendId = friendObject.getString("facebookid");
                                     Log.d("friendid", "onSuccess() returned: " + friendId);
+                                    Log.d("ownfriendlist", "onSuccess() returned: " + ownFriendsList);
+
 
                                     if (ownFriendsList.contains(friendId)) {
                                         String friendRitnummer = friendObject.getString("ritnummer");
+                                        Log.d("friendritnummer", "onSuccess() returned: " + friendRitnummer);
 
                                         if (friendRitnummer.equalsIgnoreCase(ownRitnummer)) {
-                                            friend = friendId;
+                                            Log.d("ikbenhier", "onSuccess() returned: " + zelfdetrein);
                                             bool = getSharedPreferences("Boolean", 0);
                                             zelfdetrein = true;
                                             bool.edit().putBoolean("key",zelfdetrein).apply();
                                             Log.d("bool", "onSuccess() returned: " + bool);
-                                            Log.d("ikbenhier", "onSuccess() returned: " + zelfdetrein);
+
 
                                         }
                                         }
@@ -409,6 +412,9 @@ public class FriendsActivity extends AppCompatActivity
             case R.id.checkBox:
                 if (checked){
                     Toast.makeText(FriendsActivity.this, "Je moet eerst inchecken in een trein", Toast.LENGTH_SHORT).show();
+                    pref = getSharedPreferences("Boolean", 0);
+                    checkin = false;
+                    pref.edit().putBoolean("check",checkin).apply();
                     checkbox.setChecked(false);
                     Intent checkin = new Intent(this, MainActivity.class);
                     checkin.putExtra("Checkin", 500);
@@ -430,6 +436,9 @@ public class FriendsActivity extends AppCompatActivity
                                     storageService.deleteDocumentsByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
                                         public void onSuccess(Object response)
                                         {
+                                            pref = getSharedPreferences("Boolean", 0);
+                                            checkin = false;
+                                            pref.edit().putBoolean("check",checkin).apply();
                                             checkbox.setChecked(false);
                                         }
                                         public void onException(Exception ex)
@@ -445,14 +454,23 @@ public class FriendsActivity extends AppCompatActivity
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
+                                    pref = getSharedPreferences("Boolean", 0);
+                                    checkin = true;
+                                    pref.edit().putBoolean("check",checkin).apply();
+                                    checkbox.setChecked(true);
                                 }
                             })
                             .show();
                 }
-                break;
+
                 }
 
 
+    }
+
+    public void refresh_activity(View view){
+        finish();
+        startActivity(getIntent());
     }
     }
 
