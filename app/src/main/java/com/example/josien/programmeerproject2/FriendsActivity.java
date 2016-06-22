@@ -64,7 +64,7 @@ public class FriendsActivity extends AppCompatActivity
     String friendId;
     Boolean zelfdetrein = false;
     SharedPreferences bool;
-    String friend;
+    String friend="";
     private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     String eindbestemming;
     Boolean checkin = false;
@@ -78,17 +78,21 @@ public class FriendsActivity extends AppCompatActivity
         parseforcheckbox();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        boolean checkin = pref.getBoolean("check", false);
-        Log.d("checkin", "onCreate() returned: " + checkin);
+        try {
+            boolean checkin = pref.getBoolean("check", false);
+            Log.d("checkin", "onCreate() returned: " + checkin);
 
-        checkbox = (CheckBox) findViewById(R.id.checkBox);
-        if (!checkin){
-            assert checkbox != null;
+            checkbox = (CheckBox) findViewById(R.id.checkBox);
+            if (!checkin) {
+                assert checkbox != null;
+                checkbox.setChecked(false);
+            }
+            if (checkin) {
+                assert checkbox != null;
+                checkbox.setChecked(true);
+            }
+        } catch (Exception e){
             checkbox.setChecked(false);
-        }
-        if (checkin){
-            assert checkbox != null;
-            checkbox.setChecked(true);
         }
         setSupportActionBar(toolbar);
         userName = Profile.getCurrentProfile().getName();
@@ -326,9 +330,6 @@ public class FriendsActivity extends AppCompatActivity
 
                             ArrayList<String> ownFriendsList = new ArrayList<>();
                             for (int k=0; k<ownFriends.length(); k++) {
-                                if (k == j) {
-                                    continue;
-                                }
                                 ownFriendsList.add(ownFriends.getString(k));
                             }
 
@@ -347,11 +348,14 @@ public class FriendsActivity extends AppCompatActivity
                                         Log.d("friendritnummer", "onSuccess() returned: " + friendRitnummer);
 
                                         if (friendRitnummer.equalsIgnoreCase(ownRitnummer)) {
+                                            // get facebookid where ritnummer is the same as yourself
+                                            Log.d("fbfriend", "onSuccess() returned: " + friend);
                                             Log.d("ikbenhier", "onSuccess() returned: " + zelfdetrein);
                                             bool = getSharedPreferences("Boolean", 0);
                                             zelfdetrein = true;
                                             bool.edit().putBoolean("key",zelfdetrein).apply();
                                             Log.d("bool", "onSuccess() returned: " + bool);
+                                            friend = friend.concat(" ").concat(friendId);
 
 
                                         }
@@ -381,13 +385,14 @@ public class FriendsActivity extends AppCompatActivity
         Log.d("Zelfdetrein", "check() returned: " + zelfdetrein);
         if (zelfdetrein) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Gezellig, je kunt samen reizen met " + friendId + "!")
+            builder.setMessage("Gezellig, je kunt samen reizen met " + friend + "!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                         }
                     });
+            friend = "";
             AlertDialog alert = builder.create();
             alert.show();
         }
@@ -439,6 +444,7 @@ public class FriendsActivity extends AppCompatActivity
                                             checkin = false;
                                             pref.edit().putBoolean("check",checkin).apply();
                                             checkbox.setChecked(false);
+                                            startActivity(getIntent());
                                         }
                                         public void onException(Exception ex)
                                         {
@@ -446,6 +452,7 @@ public class FriendsActivity extends AppCompatActivity
                                         }
                                     });
                                 }
+
                             })
 
                             // Nothing is done when "No" is pressed.
@@ -461,7 +468,6 @@ public class FriendsActivity extends AppCompatActivity
                             })
                             .show();
                 }
-
                 }
 
 
