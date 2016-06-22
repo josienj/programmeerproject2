@@ -54,6 +54,7 @@ public class CheckInActivity extends AppCompatActivity
     String jsonarray;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,10 +157,6 @@ public class CheckInActivity extends AppCompatActivity
         String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
         // Send the ritnummer to FriendsActivity too.
-        Intent intent = new Intent(getApplicationContext(),
-                FriendsActivity.class);
-
-        intent.putExtra(TAG_RITNUMMER, ritnummer);
 
         DBHelper.addHistory(eindbestemming, vertrektijd);
 
@@ -178,7 +175,7 @@ public class CheckInActivity extends AppCompatActivity
         String collectionName = "ritnummer";
 
         // Store all the data needed as JSON.
-        String userName = Profile.getCurrentProfile().getId();
+        String userName = Profile.getCurrentProfile().getName();
         Log.d("facebookid", "addHistory() returned: " + userName);
         String ritnummers = "{\"ritnummer\":\"";
         String to_json ="\"";
@@ -210,6 +207,7 @@ public class CheckInActivity extends AppCompatActivity
                 System.out.println("Exception Message"+ex.getMessage());
             }
         });
+
 
         // Let the user know that the Check-In is succesfull.
         Toast.makeText(this, R.string.ingecheckt, Toast.LENGTH_SHORT).show();

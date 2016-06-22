@@ -70,4 +70,13 @@
         android:layout_centerHorizontal="true"
         android:onClick="check_friends"/>
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingecheckt in trein"
+        android:id="@+id/checkBox"
+        android:layout_below="@+id/messenger_send_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="checkbox_checkin"/>
+
 </RelativeLayout>

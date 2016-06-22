@@ -8,7 +8,6 @@ package com.example.josien.programmeerproject2;
 *  Universiteit van Amsterdam
 */
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -61,35 +61,51 @@ public class FriendsActivity extends AppCompatActivity
 
     String userName;
     String ownRitnummer;
-    private static FriendsActivity parent;
-    final static ArrayList<String[]> array = new ArrayList<>();
     String friendId;
     Boolean zelfdetrein = false;
     SharedPreferences bool;
-
-
+    String friend;
+    private static final String TAG_EINDBESTEMMING = "Eindbestemming";
+    String eindbestemming;
+    Boolean checkin = false;
+    CheckBox checkbox;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friendscheckin);
+        parseforcheckbox();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        userName = Profile.getCurrentProfile().getId();
 
-        bool = getSharedPreferences("Boolean", 0);
-        zelfdetrein = false;
-        bool.edit().putBoolean("key",zelfdetrein).apply();
-        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
+
+        boolean checkin = pref.getBoolean("check", false);
+        Log.d("checkin", "onCreate() returned: " + checkin);
+
+        checkbox = (CheckBox) findViewById(R.id.checkBox);
+        if (!checkin){
+            assert checkbox != null;
+            checkbox.setChecked(false);
+        }
+        if (checkin){
+            assert checkbox != null;
+            checkbox.setChecked(true);
+        }
+        setSupportActionBar(toolbar);
+        userName = Profile.getCurrentProfile().getName();
+
+
 
         View mMessengerButton = findViewById(R.id.messenger_send_button);
 
         Intent intent = getIntent();
+        eindbestemming = intent.getStringExtra(TAG_EINDBESTEMMING);
         if (Intent.ACTION_PICK.equals(intent.getAction())) {
             MessengerThreadParams mThreadParams = MessengerUtils.getMessengerThreadParamsForIntent(intent);
             mPicking = true;
 
         }
+
 
         // Set onClickListener on the Messenger Button.
         assert mMessengerButton != null;
@@ -139,9 +155,6 @@ public class FriendsActivity extends AppCompatActivity
         assert listView != null;
         listView.setAdapter(adapter);
 
-        Log.d("before retrieve", "before retrieve");
-        //retrieveNames();
-        Log.d("listoffriends", "onCreate() returned: " + array);
         parsedata();
 
     }
@@ -228,6 +241,13 @@ public class FriendsActivity extends AppCompatActivity
     }
 
     public void check_friends(View view){
+        userName = Profile.getCurrentProfile().getName();
+
+        bool = getSharedPreferences("Boolean", 0);
+        bool.edit().putBoolean("key",zelfdetrein).apply();
+        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
+
+        parsedata();
         check();
     }
 
@@ -235,6 +255,40 @@ public class FriendsActivity extends AppCompatActivity
     *  This method doesn't work correctly, but it is assumed that this method will parse the data
     *  from App42 correctly.
      */
+
+    public void parseforcheckbox(){
+        String dbName = "test";
+        String collectionName = "ritnummer";
+        String key = "facebookid";
+        String value = Profile.getCurrentProfile().getName();
+
+        pref = getSharedPreferences("Boolean", 0);
+        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
+        StorageService storageService = App42API.buildStorageService();
+        storageService.findDocumentByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
+            public void onSuccess(Object response)
+            {
+                Storage  storage  = (Storage )response;
+
+                ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+                for(int i=0;i<jsonDocList.size();i++)
+                {
+                    pref = getSharedPreferences("Boolean", 0);
+                    checkin = true;
+                    pref.edit().putBoolean("check",checkin).apply();
+                    Log.d("NIET EMPTY", "onSuccess: ik ben hier blijkaar");
+                }
+
+            }
+            public void onException(Exception ex)
+            {
+                pref = getSharedPreferences("Boolean", 0);
+                checkin = false;
+                pref.edit().putBoolean("check",checkin).apply();
+                Log.d("EMPTY", "onSuccess: ik ben hier");
+            }
+        });
+    }
 
 
     public void parsedata(){
@@ -255,6 +309,7 @@ public class FriendsActivity extends AppCompatActivity
                 {
                     String jsondoc = jsonDocList.get(i).getJsonDoc();
                     checkInList.add(jsondoc);
+                    Log.d("jsondoclist", "onSuccess() returned: " + jsonDocList);
 
                 }
 
@@ -263,10 +318,12 @@ public class FriendsActivity extends AppCompatActivity
                     try {
                         JSONObject object = new JSONObject(checkIn);
                         String fbId = object.getString("facebookid");
+                        Log.d("fbid", "onSuccess() returned: " + fbId);
 
                         if (fbId.equalsIgnoreCase(userName)){
                             ownRitnummer = object.getString("ritnummer");
                             JSONArray ownFriends = object.getJSONArray("fbfriends");
+                            Log.d("ownfriends", "onSuccess() returned: " + ownFriends);
 
                             ArrayList<String> ownFriendsList = new ArrayList<>();
                             for (int k=0; k<ownFriends.length(); k++) {
@@ -282,12 +339,13 @@ public class FriendsActivity extends AppCompatActivity
                                 try {
                                     JSONObject friendObject = new JSONObject(checkInList.get(l));
                                     friendId = friendObject.getString("facebookid");
+                                    Log.d("friendid", "onSuccess() returned: " + friendId);
 
                                     if (ownFriendsList.contains(friendId)) {
-
                                         String friendRitnummer = friendObject.getString("ritnummer");
 
                                         if (friendRitnummer.equalsIgnoreCase(ownRitnummer)) {
+                                            friend = friendId;
                                             bool = getSharedPreferences("Boolean", 0);
                                             zelfdetrein = true;
                                             bool.edit().putBoolean("key",zelfdetrein).apply();
@@ -321,7 +379,7 @@ public class FriendsActivity extends AppCompatActivity
         Log.d("Zelfdetrein", "check() returned: " + zelfdetrein);
         if (zelfdetrein) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Je zit in dezelfde trein met " + friendId)
+            builder.setMessage("Gezellig, je kunt samen reizen met " + friend + "!")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -344,7 +402,60 @@ public class FriendsActivity extends AppCompatActivity
             alert.show();
         }
         }
+
+    public void checkbox_checkin(View view){
+        boolean checked = ((CheckBox) view).isChecked();
+        switch(view.getId()) {
+            case R.id.checkBox:
+                if (checked){
+                    Toast.makeText(FriendsActivity.this, "Je moet eerst inchecken in een trein", Toast.LENGTH_SHORT).show();
+                    checkbox.setChecked(false);
+                    Intent checkin = new Intent(this, MainActivity.class);
+                    checkin.putExtra("Checkin", 500);
+                    startActivity(checkin);
+                }
+                else{
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FriendsActivity.this);
+                    builder
+                            .setMessage("Ben je uit de trein gestapt? Als je op 'Ja' klikt word je definitief uitgecheckt")
+                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String dbName = "test";
+                                    String collectionName = "ritnummer";
+                                    String key = "facebookid";
+                                    String value = Profile.getCurrentProfile().getName();
+                                    App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
+                                    StorageService storageService = App42API.buildStorageService();
+                                    storageService.deleteDocumentsByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
+                                        public void onSuccess(Object response)
+                                        {
+                                            checkbox.setChecked(false);
+                                        }
+                                        public void onException(Exception ex)
+                                        {
+                                            System.out.println("Exception Message"+ex.getMessage());
+                                        }
+                                    });
+                                }
+                            })
+
+                            // Nothing is done when "No" is pressed.
+                            .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+                }
+                break;
+                }
+
+
     }
+    }
+
 
 
 

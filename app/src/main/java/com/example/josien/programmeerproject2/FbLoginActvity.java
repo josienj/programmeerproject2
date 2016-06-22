@@ -124,7 +124,7 @@ public class FbLoginActvity extends AppCompatActivity {
                             System.out.println("Picture is :" + social.getFriendList().get(i).getPicture());
                             System.out.println("Name is : " + social.getFriendList().get(i).getName());
 
-                            id = social.getFriendList().get(i).getId();
+                            id = social.getFriendList().get(i).getName();
 
                             SharedPreferences settings = getSharedPreferences("SETTINGS KEY", 0);
                             SharedPreferences.Editor editor = settings.edit();
