@@ -8,6 +8,7 @@ package com.example.josien.programmeerproject2;
 *  Universiteit van Amsterdam
 */
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,7 +23,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +55,8 @@ public class CheckInActivity extends AppCompatActivity
     String jsonarray;
     Boolean checkin = false;
     SharedPreferences pref;
+    SharedPreferences check;
+    Boolean checkout;
 
 
 
@@ -63,6 +65,16 @@ public class CheckInActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkin);
         DBHelper = new DBHelper(this, null, null, 1);
+
+        check = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        if (checkout == null){
+            check = getSharedPreferences("Boolz", 0);
+            checkout = true;
+            check.edit().putBoolean("check",checkout).apply();
+        }
+
 
         // Getting intent data from MainActivity.
         Intent in = getIntent();
@@ -153,78 +165,97 @@ public class CheckInActivity extends AppCompatActivity
 
     public void addHistory(View view) throws JSONException {
 
-        // Get the right data from the previous Activity.
-        Intent in = getIntent();
-        String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
-        String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
-        String ritnummer = in.getStringExtra(TAG_RITNUMMER);
-
-        // Send the ritnummer to FriendsActivity too.
-
-        DBHelper.addHistory(eindbestemming, vertrektijd);
-
-
-        // Store data in online App42 Database.
-        SharedPreferences settings = getSharedPreferences("SETTINGS KEY", 0);
-        try {
-            jArray = new JSONArray(settings.getString("jArray", ""));
-            jsonarray = jArray.toString();
-            Log.d("Array", "addHistory() returned: " + jArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        checkout = check.getBoolean("checkout", false);
+        Log.d("LOGLOGLOG", "addHistory() returned: " + checkout);
+        if (!checkout){
+            Toast.makeText(CheckInActivity.this, "Log eerst uit ", Toast.LENGTH_SHORT).show();
         }
 
-        pref = getSharedPreferences("Boolean", 0);
-        checkin = true;
-        pref.edit().putBoolean("check",checkin).apply();
+        if (checkout){
+            // Get the right data from the previous Activity.
+            Intent in = getIntent();
+            String eindbestemming = in.getStringExtra(TAG_EINDBESTEMMING);
+            String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
+            String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
-        String dbName = "test";
-        String collectionName = "ritnummer";
+            // Send the ritnummer to FriendsActivity too.
 
-        // Store all the data needed as JSON.
-        String userName = Profile.getCurrentProfile().getName();
-        Log.d("facebookid", "addHistory() returned: " + userName);
-        String ritnummers = "{\"ritnummer\":\"";
-        String to_json ="\"";
-        String FacebookId =",\"facebookid\":\"";
-        String realfacebookId = "\"";
-        String fbfriends = ",\"fbfriends\":";
-        String endofjson = "}";
-        String total = ritnummers + ritnummer + to_json + FacebookId + userName + realfacebookId + fbfriends + jsonarray + endofjson;
-        Log.d("TOTAL:", "addHistory() returned: " + total);
+            DBHelper.addHistory(eindbestemming, vertrektijd);
 
-        // Below snippet will save JSON object in App42 Cloud
-        StorageService storageService = App42API.buildStorageService();
-        storageService.insertJSONDocument(dbName,collectionName,total,new App42CallBack() {
-            public void onSuccess(Object response)
-            {
-                Storage  storage  = (Storage )response;
-                ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
-                for(int i=0;i<jsonDocList.size();i++)
+
+            // Store data in online App42 Database.
+            SharedPreferences settings = getSharedPreferences("SETTINGS KEY", 0);
+            try {
+                jArray = new JSONArray(settings.getString("jArray", ""));
+                jsonarray = jArray.toString();
+                Log.d("Array", "addHistory() returned: " + jArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            pref = getSharedPreferences("Boolean", 0);
+            checkin = true;
+            pref.edit().putBoolean("check",checkin).apply();
+
+            checkout = false;
+            check = getSharedPreferences("Boolz", 0);
+            check.edit().putBoolean("checkout", false).apply();
+            Log.d("sharedpref check", "addHistory() returned: " + checkout);
+
+            String dbName = "test";
+            String collectionName = "ritnummer";
+
+            // Store all the data needed as JSON.
+            String userName = Profile.getCurrentProfile().getName();
+            Log.d("facebookid", "addHistory() returned: " + userName);
+            String ritnummers = "{\"ritnummer\":\"";
+            String to_json ="\"";
+            String FacebookId =",\"facebookid\":\"";
+            String realfacebookId = "\"";
+            String fbfriends = ",\"fbfriends\":";
+            String endofjson = "}";
+            String total = ritnummers + ritnummer + to_json + FacebookId + userName + realfacebookId + fbfriends + jsonarray + endofjson;
+            Log.d("TOTAL:", "addHistory() returned: " + total);
+
+            // Below snippet will save JSON object in App42 Cloud
+            StorageService storageService = App42API.buildStorageService();
+            storageService.insertJSONDocument(dbName,collectionName,total,new App42CallBack() {
+                public void onSuccess(Object response)
                 {
-                    System.out.println("objectId is " + jsonDocList.get(i).getDocId());
-                    //Above line will return object id of saved JSON object
-                    System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
-                    System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
-                    System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+                    Storage  storage  = (Storage )response;
+                    ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+                    for(int i=0;i<jsonDocList.size();i++)
+                    {
+                        System.out.println("objectId is " + jsonDocList.get(i).getDocId());
+                        //Above line will return object id of saved JSON object
+                        System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
+                        System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
+                        System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
+                    }
                 }
-            }
-            public void onException(Exception ex)
-            {
-                System.out.println("Exception Message"+ex.getMessage());
-            }
-        });
+                public void onException(Exception ex)
+                {
+                    System.out.println("Exception Message"+ex.getMessage());
+                }
+            });
+
+            // Let the user know that the Check-In is succesfull.
+            Toast.makeText(this, R.string.ingecheckt, Toast.LENGTH_SHORT).show();
+
+            // Go to next activity.
+            Intent friends = new Intent(this, FriendsActivity.class);
+            friends.putExtra("friends", 500);
+            startActivity(friends);
 
 
-        // Let the user know that the Check-In is succesfull.
-        Toast.makeText(this, R.string.ingecheckt, Toast.LENGTH_SHORT).show();
 
-        // Go to next activity.
-        Intent friends = new Intent(this, FriendsActivity.class);
-        friends.putExtra("friends", 500);
-        startActivity(friends);
-        // User may not go back to this Activity, so the Activity has to be finished.
-        finish();
+            // User may not go back to this Activity, so the Activity has to be finished.
+            finish();
 
-    }
+        }
+        }
+
+
+
+
 }

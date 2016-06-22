@@ -70,6 +70,8 @@ public class FriendsActivity extends AppCompatActivity
     Boolean checkin = false;
     CheckBox checkbox;
     SharedPreferences pref;
+    SharedPreferences check;
+    Boolean checkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -348,7 +350,6 @@ public class FriendsActivity extends AppCompatActivity
                                         Log.d("friendritnummer", "onSuccess() returned: " + friendRitnummer);
 
                                         if (friendRitnummer.equalsIgnoreCase(ownRitnummer)) {
-                                            // get facebookid where ritnummer is the same as yourself
                                             Log.d("fbfriend", "onSuccess() returned: " + friend);
                                             Log.d("ikbenhier", "onSuccess() returned: " + zelfdetrein);
                                             bool = getSharedPreferences("Boolean", 0);
@@ -444,6 +445,11 @@ public class FriendsActivity extends AppCompatActivity
                                             checkin = false;
                                             pref.edit().putBoolean("check",checkin).apply();
                                             checkbox.setChecked(false);
+
+                                            check = getSharedPreferences("Boolz", 0);
+                                            checkout = true;
+                                            check.edit().putBoolean("checkout",checkout).apply();
+                                            Log.d("Boolcheckout", "onSuccess() returned: " + checkout);
                                             startActivity(getIntent());
                                         }
                                         public void onException(Exception ex)

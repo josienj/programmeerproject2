@@ -86,6 +86,8 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/refreshbutton"
         android:layout_above="@+id/button"
-        android:onClick="refresh_activity"/>
+        android:onClick="refresh_activity"
+        android:background="@null"
+        />
 
 </RelativeLayout>
