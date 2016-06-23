@@ -48,3 +48,7 @@ Flinke vorderingen gemaakt, hele app nu volledig werkend. Uiteraard ruimte voor 
 -Het is mogelijk om uit te checken in een trein, zodat de informatie up-to-date blijft.<br>
 -Het is enkel mogelijk om in één trein tegelijk ingecheckt te zijn (een persoon kan altijd maar in één trein tegelijk zitten), hierdoor wordt er dus ook geen onjuiste informatie naar de FBvrienden verzonden.<br>
 Nu is het tijd voor het verslag en het cleanen van de code!<br>
+###Dag 19<br>
+Toch nog een bug in de code na het cleanen, weer tijd kwijt om te fixen. Nog code gecleaned en verslag afgemaakt.
+###Dag 20<br>
+Presentaties & VAKANTIE
