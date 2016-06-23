@@ -28,9 +28,13 @@ There will probably also a SQLite Database in this app, to store at which trains
 <br>
 The implementation of the Plugin of Facebook can be a little bit problematic, because it works with complex stuff and it has to work confidentially.  Furthermore, the API of the NS works also not so easy. Instead of a key, NS works with basic authorization. That means that there is a lot more code necessary to get this API working.The combination of the Facebook accounts and the check-in will also be somewhat complex to do. The addition of doing some social interaction with the Facebook friends can be difficult too, because it needs more external features or there  has to be a database that can store social interactions. 
 
+### LICENSE
+Copyright  ©  Josien Jansen 2016<br>
+All rights reserved.
+
 ###ACKNOWLEDGEMENT
-for FacebookSDK usage:
-https://github.com/facebook/facebook-android-sdk/tree/master/samples/MessengerSendSample (FriendsActivity, method onMessengerButtonClicked)
-https://www.numetriclabz.com/get-facebook-friends-list-in-android-list-view/ (FbLoginActivity, method getLoginDetails)
+for FacebookSDK usage:<br>
+- https://github.com/facebook/facebook-android-sdk/tree/master/samples/MessengerSendSample (FriendsActivity, method onMessengerButtonClicked)<br>
+- https://www.numetriclabz.com/get-facebook-friends-list-in-android-list-view/ (FbLoginActivity, method getLoginDetails)
 
 
