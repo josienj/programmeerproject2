@@ -394,14 +394,13 @@ public class FriendsActivity extends AppCompatActivity
     /*
     * This method checks the boolean of people in the same train.
      */
-
     public void check() {
         // Get status of the boolean out of SharedPreferences.
         boolean zelfdetrein = bool.getBoolean("key", false);
         // If boolean is true, show the following AlertDialog.
         if (zelfdetrein) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.gezellig_reizen + friend + "!")
+            builder.setMessage("Gezellig, je kunt samen reizen met " + friend + "!")
                     .setCancelable(false)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -414,6 +413,10 @@ public class FriendsActivity extends AppCompatActivity
         }
         // If boolean is false, show the following AlertDialog.
         if (!zelfdetrein){
+            if (!checkbox.isChecked()){
+            Toast.makeText(FriendsActivity.this, R.string.nietingecheckt, Toast.LENGTH_SHORT).show();
+                return;
+            }
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.saai_reizen)
                     .setCancelable(false)
@@ -425,6 +428,8 @@ public class FriendsActivity extends AppCompatActivity
             AlertDialog alert = builder.create();
             alert.show();
         }
+
+
     }
 
     /*
