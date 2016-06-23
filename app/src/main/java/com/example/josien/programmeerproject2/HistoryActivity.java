@@ -46,7 +46,6 @@ public class HistoryActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         newList = (ListView) findViewById(R.id.historie_listview);
         dbHelper = new DBHelper(this, null, null, 1);
 
@@ -146,5 +145,3 @@ public class HistoryActivity extends AppCompatActivity
     }
 
 }
-
-

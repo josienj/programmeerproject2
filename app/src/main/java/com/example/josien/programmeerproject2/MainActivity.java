@@ -182,8 +182,6 @@ public class MainActivity extends AppCompatActivity
 
         TrainAsyncTask apiHandler = new TrainAsyncTask(MainActivity.this);
 
-
-
         // Make a string of the Station.
         String station = autoCompleteTextView.getText().toString();
 

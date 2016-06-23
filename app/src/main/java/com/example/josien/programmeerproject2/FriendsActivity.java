@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -140,11 +139,9 @@ public class FriendsActivity extends AppCompatActivity
             for (int i = 0; i < friendslist.length(); i++) {
                 friends.add(friendslist.getJSONObject(i).getString("name"));
             }
-            Log.d("shared prefs", "onCreate() returned: " + friendslist);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         // simple textview for list item
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, friends);
@@ -153,7 +150,6 @@ public class FriendsActivity extends AppCompatActivity
         listView.setAdapter(adapter);
 
         parsedata();
-
     }
 
     @Override
@@ -271,7 +267,6 @@ public class FriendsActivity extends AppCompatActivity
                     pref = getSharedPreferences("Boolean", 0);
                     checkin = true;
                     pref.edit().putBoolean("check",checkin).apply();
-                    Log.d("NIET EMPTY", "onSuccess: ik ben hier blijkaar");
                 }
 
             }
@@ -280,15 +275,12 @@ public class FriendsActivity extends AppCompatActivity
                 pref = getSharedPreferences("Boolean", 0);
                 checkin = false;
                 pref.edit().putBoolean("check",checkin).apply();
-                Log.d("EMPTY", "onSuccess: ik ben hier");
             }
         });
     }
 
 
     public void parsedata(){
-
-        Log.d("start of parse", "start of parse");
         String dbName = "test";
         String collectionName = "ritnummer";
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
@@ -304,8 +296,6 @@ public class FriendsActivity extends AppCompatActivity
                 {
                     String jsondoc = jsonDocList.get(i).getJsonDoc();
                     checkInList.add(jsondoc);
-                    Log.d("jsondoclist", "onSuccess() returned: " + jsonDocList);
-
                 }
 
                 for(int j=0; j<checkInList.size();j++){
@@ -313,12 +303,10 @@ public class FriendsActivity extends AppCompatActivity
                     try {
                         JSONObject object = new JSONObject(checkIn);
                         String fbId = object.getString("facebookid");
-                        Log.d("fbid", "onSuccess() returned: " + fbId);
 
                         if (fbId.equalsIgnoreCase(userName)){
                             ownRitnummer = object.getString("ritnummer");
                             JSONArray ownFriends = object.getJSONArray("fbfriends");
-                            Log.d("ownfriends", "onSuccess() returned: " + ownFriends);
 
                             ArrayList<String> ownFriendsList = new ArrayList<>();
                             for (int k=0; k<ownFriends.length(); k++) {
@@ -331,26 +319,17 @@ public class FriendsActivity extends AppCompatActivity
                                 try {
                                     JSONObject friendObject = new JSONObject(checkInList.get(l));
                                     friendId = friendObject.getString("facebookid");
-                                    Log.d("friendid", "onSuccess() returned: " + friendId);
-                                    Log.d("ownfriendlist", "onSuccess() returned: " + ownFriendsList);
-
 
                                     if (ownFriendsList.contains(friendId)) {
                                         String friendRitnummer = friendObject.getString("ritnummer");
-                                        Log.d("friendritnummer", "onSuccess() returned: " + friendRitnummer);
 
                                         if (friendRitnummer.equalsIgnoreCase(ownRitnummer)) {
-                                            Log.d("fbfriend", "onSuccess() returned: " + friend);
-                                            Log.d("ikbenhier", "onSuccess() returned: " + zelfdetrein);
                                             bool = getSharedPreferences("Boolean", 0);
                                             zelfdetrein = true;
                                             bool.edit().putBoolean("key",zelfdetrein).apply();
-                                            Log.d("bool", "onSuccess() returned: " + bool);
                                             friend = friend.concat(" ").concat(friendId);
-
-
                                         }
-                                        }
+                                    }
                                     }
                                  catch (JSONException e) {
                                     e.printStackTrace();
@@ -372,7 +351,6 @@ public class FriendsActivity extends AppCompatActivity
 
     public void check() {
         boolean zelfdetrein = bool.getBoolean("key", false);
-        Log.d("Zelfdetrein", "check() returned: " + zelfdetrein);
         if (zelfdetrein) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Gezellig, je kunt samen reizen met " + friend + "!")
@@ -439,8 +417,6 @@ public class FriendsActivity extends AppCompatActivity
                                             check = getSharedPreferences("Boolz", 0);
                                             checkout = true;
                                             check.edit().putBoolean("checkout",checkout).apply();
-                                            Log.d("Boolcheckout", "onSuccess() returned: " + checkout);
-
                                         }
                                         public void onException(Exception ex)
                                         {

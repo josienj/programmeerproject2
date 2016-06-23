@@ -124,7 +124,6 @@ public class SettingsActivity extends AppCompatActivity
             Intent checkin = new Intent(this, MainActivity.class);
             checkin.putExtra("Checkin", 500);
             startActivity(checkin);
-
         } else if (id == R.id.nav_friendscheckin) {
             Intent friendscheckin = new Intent(this, FriendsActivity.class);
             friendscheckin.putExtra("friendscheckin", 500);

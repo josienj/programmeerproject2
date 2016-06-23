@@ -8,12 +8,10 @@ package com.example.josien.programmeerproject2;
 *  Universiteit van Amsterdam
 */
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -69,12 +67,9 @@ public class CheckInActivity extends AppCompatActivity
         check = PreferenceManager
                 .getDefaultSharedPreferences(this);
 
-
         check = getSharedPreferences("Boolz", 0);
         checkout = true;
         check.edit().putBoolean("check",checkout).apply();
-
-
 
         // Getting intent data from MainActivity.
         Intent in = getIntent();
@@ -164,11 +159,7 @@ public class CheckInActivity extends AppCompatActivity
     */
 
     public void addHistory(View view) throws JSONException {
-
-
-
         checkout = check.getBoolean("checkout", true);
-        Log.d("LOGLOGLOG", "addHistory() returned: " + checkout);
         if (!checkout){
             Toast.makeText(CheckInActivity.this, "Log eerst uit ", Toast.LENGTH_SHORT).show();
         }
@@ -180,17 +171,13 @@ public class CheckInActivity extends AppCompatActivity
             String vertrektijd = in.getStringExtra(TAG_VERTREKTIJD);
             String ritnummer = in.getStringExtra(TAG_RITNUMMER);
 
-            // Send the ritnummer to FriendsActivity too.
-
             DBHelper.addHistory(eindbestemming, vertrektijd);
-
 
             // Store data in online App42 Database.
             SharedPreferences settings = getSharedPreferences("SETTINGS KEY", 0);
             try {
                 jArray = new JSONArray(settings.getString("jArray", ""));
                 jsonarray = jArray.toString();
-                Log.d("Array", "addHistory() returned: " + jArray);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -198,19 +185,15 @@ public class CheckInActivity extends AppCompatActivity
             pref = getSharedPreferences("Boolean", 0);
             checkin = true;
             pref.edit().putBoolean("check",checkin).apply();
-
-
             check = getSharedPreferences("Boolz", 0);
             checkout = false;
             check.edit().putBoolean("checkout", checkout).apply();
-            Log.d("sharedpref check", "addHistory() returned: " + checkout);
 
             String dbName = "test";
             String collectionName = "ritnummer";
 
             // Store all the data needed as JSON.
             String userName = Profile.getCurrentProfile().getName();
-            Log.d("facebookid", "addHistory() returned: " + userName);
             String ritnummers = "{\"ritnummer\":\"";
             String to_json ="\"";
             String FacebookId =",\"facebookid\":\"";
@@ -218,7 +201,6 @@ public class CheckInActivity extends AppCompatActivity
             String fbfriends = ",\"fbfriends\":";
             String endofjson = "}";
             String total = ritnummers + ritnummer + to_json + FacebookId + userName + realfacebookId + fbfriends + jsonarray + endofjson;
-            Log.d("TOTAL:", "addHistory() returned: " + total);
 
             // Below snippet will save JSON object in App42 Cloud
             StorageService storageService = App42API.buildStorageService();
@@ -231,9 +213,6 @@ public class CheckInActivity extends AppCompatActivity
                     {
                         System.out.println("objectId is " + jsonDocList.get(i).getDocId());
                         //Above line will return object id of saved JSON object
-                        System.out.println("CreatedAt is " + jsonDocList.get(i).getCreatedAt());
-                        System.out.println("UpdatedAtis " + jsonDocList.get(i).getUpdatedAt());
-                        System.out.println("Jsondoc is " + jsonDocList.get(i).getJsonDoc());
                     }
                 }
                 public void onException(Exception ex)
@@ -250,15 +229,8 @@ public class CheckInActivity extends AppCompatActivity
             friends.putExtra("friends", 500);
             startActivity(friends);
 
-
-
             // User may not go back to this Activity, so the Activity has to be finished.
             finish();
-
         }
-        }
-
-
-
-
+    }
 }

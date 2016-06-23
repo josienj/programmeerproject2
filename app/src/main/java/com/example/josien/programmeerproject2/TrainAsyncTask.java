@@ -10,7 +10,6 @@ package com.example.josien.programmeerproject2;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -34,7 +33,6 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
     static final String KEY_VERTREKTIJD = "VertrekTijd";
     static final String KEY_RITNUMMER = "RitNummer";
     static final String KEY_ERROR = "error";
-    static final String KEY_MESSAGE = "message";
 
     Context context;
     MainActivity activity;
@@ -48,8 +46,7 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPreExecute(){
-        // inform user
-        Toast.makeText(context, R.string.laden, Toast.LENGTH_SHORT).show();
+        // no need to inform the user
     }
 
     @Override
@@ -76,14 +73,12 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
             Toast.makeText(context, R.string.nodata, Toast.LENGTH_SHORT).show();
         } else {
             // Parse XML
-
             List<TrainData> traindatas;
             traindatas = new ArrayList<>();
 
             TrainData traindata = null;
 
             String curtext = "";
-
 
             try {
 
@@ -144,4 +139,4 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
         }
 
     }
-    }
+}
