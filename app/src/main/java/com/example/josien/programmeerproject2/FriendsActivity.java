@@ -149,7 +149,7 @@ public class FriendsActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        // simple textview for list item
+        // Textview for list item.
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, friends);
         ListView listView = (ListView) findViewById(R.id.listView_friends);
         assert listView != null;
@@ -189,11 +189,11 @@ public class FriendsActivity extends AppCompatActivity
             startActivity(checkin);
         } else if (id == R.id.nav_friendscheckin) {
             Toast.makeText(this, R.string.zelfdepagina, Toast.LENGTH_SHORT).show();
-        }  else if (id == R.id.nav_instellingen) {
+        } else if (id == R.id.nav_instellingen) {
             Intent instellingen = new Intent(this, SettingsActivity.class);
             instellingen.putExtra("instellingen", 500);
             startActivity(instellingen);
-        }   else if (id == R.id.nav_historie) {
+        } else if (id == R.id.nav_historie) {
             Intent historie = new Intent(this, HistoryActivity.class);
             historie.putExtra("historie", 500);
             startActivity(historie);
@@ -261,53 +261,9 @@ public class FriendsActivity extends AppCompatActivity
     }
 
     /*
-    *  This method will check whether there is data from the user in the App42 database, when there
-    *  is data found, set checkbox Checked. Otherwise, the user is not checked in a train, so the
-    *  checkbox will be Unchecked.
-     */
-    public void parseforcheckbox(){
-        // Declare how the data is stored in App42 so they know what you are looking for.
-        String dbName = "test";
-        String collectionName = "ritnummer";
-        String key = "facebookid";
-        userName = Profile.getCurrentProfile().getName();
-
-        // Get SharedPrefs for pref.
-        pref = getSharedPreferences("Boolean", 0);
-
-        // Initialize App42 and check whether there is data of the user in the database
-        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
-        StorageService storageService = App42API.buildStorageService();
-        storageService.findDocumentByKeyValue(dbName, collectionName, key, userName, new App42CallBack() {
-            // onSuccess means there is data found.
-            public void onSuccess(Object response)
-            {
-                Storage  storage  = (Storage )response;
-
-                ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
-                for(int i=0;i<jsonDocList.size();i++)
-                {
-                    // When there is data, the user is checked in so boolean is true.
-                    pref = getSharedPreferences("Boolean", 0);
-                    checkin = true;
-                    pref.edit().putBoolean("check",checkin).apply();
-                }
-
-            }
-            public void onException(Exception ex)
-            {
-                // In this case, there is no data found so the boolean is false.
-                pref = getSharedPreferences("Boolean", 0);
-                checkin = false;
-                pref.edit().putBoolean("check",checkin).apply();
-            }
-        });
-    }
-
-    /*
     * This method parses the data from App42, whereby the combination of Facebookfriends and the
     * check-in of train can be made.
-     */
+    */
     public void parsedata(){
         // Declare names of data in the online database so you can look for it.
         String dbName = "test";
@@ -373,8 +329,8 @@ public class FriendsActivity extends AppCompatActivity
                                             friend = friend.concat(" ").concat(friendId);
                                         }
                                     }
-                                    }
-                                 catch (JSONException e) {
+                                }
+                                catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
@@ -412,9 +368,9 @@ public class FriendsActivity extends AppCompatActivity
             alert.show();
         }
         // If boolean is false, show the following AlertDialog.
-        if (!zelfdetrein){
+        else{
             if (!checkbox.isChecked()){
-            Toast.makeText(FriendsActivity.this, R.string.nietingecheckt, Toast.LENGTH_SHORT).show();
+                Toast.makeText(FriendsActivity.this, R.string.nietingecheckt, Toast.LENGTH_SHORT).show();
                 return;
             }
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -428,8 +384,50 @@ public class FriendsActivity extends AppCompatActivity
             AlertDialog alert = builder.create();
             alert.show();
         }
+    }
 
+    /*
+    *  This method will check whether there is data from the user in the App42 database, when there
+    *  is data found, set checkbox Checked. Otherwise, the user is not checked in a train, so the
+    *  checkbox will be Unchecked.
+     */
+    public void parseforcheckbox(){
+        // Declare how the data is stored in App42 so they know what you are looking for.
+        String dbName = "test";
+        String collectionName = "ritnummer";
+        String key = "facebookid";
+        userName = Profile.getCurrentProfile().getName();
 
+        // Get SharedPrefs for pref.
+        pref = getSharedPreferences("Boolean", 0);
+
+        // Initialize App42 and check whether there is data of the user in the database
+        App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
+        StorageService storageService = App42API.buildStorageService();
+        storageService.findDocumentByKeyValue(dbName, collectionName, key, userName, new App42CallBack() {
+            // onSuccess means there is data found.
+            public void onSuccess(Object response)
+            {
+                Storage  storage  = (Storage )response;
+
+                ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+                for(int i=0;i<jsonDocList.size();i++)
+                {
+                    // When there is data, the user is checked in so boolean is true.
+                    pref = getSharedPreferences("Boolean", 0);
+                    checkin = true;
+                    pref.edit().putBoolean("check",checkin).apply();
+                }
+
+            }
+            public void onException(Exception ex)
+            {
+                // In this case, there is no data found so the boolean is false.
+                pref = getSharedPreferences("Boolean", 0);
+                checkin = false;
+                pref.edit().putBoolean("check",checkin).apply();
+            }
+        });
     }
 
     /*
@@ -505,7 +503,7 @@ public class FriendsActivity extends AppCompatActivity
                             })
                             .show();
                 }
-                }
+        }
     }
 
     /*
@@ -516,4 +514,4 @@ public class FriendsActivity extends AppCompatActivity
         finish();
         startActivity(getIntent());
     }
-    }
+}

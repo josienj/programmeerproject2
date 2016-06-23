@@ -13,6 +13,7 @@ package com.example.josien.programmeerproject2;
         import android.preference.PreferenceManager;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
+        import android.widget.Toast;
 
         import com.facebook.AccessToken;
         import com.facebook.CallbackManager;
@@ -182,12 +183,12 @@ public class FbLoginActvity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                // code for cancellation
+                Toast.makeText(FbLoginActvity.this,R.string.cancel , Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                //  code to handle error
+                Toast.makeText(FbLoginActvity.this, R.string.error, Toast.LENGTH_SHORT).show();
             }
         });
     }

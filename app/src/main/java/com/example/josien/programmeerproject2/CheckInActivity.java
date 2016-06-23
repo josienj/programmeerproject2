@@ -54,9 +54,9 @@ public class CheckInActivity extends AppCompatActivity
     JSONArray jArray;
     String jsonarray;
     Boolean checkin = false;
+    Boolean checkout;
     SharedPreferences pref;
     SharedPreferences check;
-    Boolean checkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

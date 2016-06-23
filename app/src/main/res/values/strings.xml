@@ -22,6 +22,8 @@
     <string name="nee">Nee</string>
     <string name="vulstationin">Vul je vertrekstation in</string>
     <string name="nietingecheckt">Je bent zelf niet ingecheckt, check eerst in!</string>
+    <string name="error">Error</string>
+    <string name="cancel">Cancel</string>
 
 
     <string name="facebook_app_id">1040163589387502</string>
