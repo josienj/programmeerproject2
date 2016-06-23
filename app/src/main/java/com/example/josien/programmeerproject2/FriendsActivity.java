@@ -54,47 +54,54 @@ public class FriendsActivity extends AppCompatActivity
 
     // Declare variables.
     private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
+    private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     private boolean mPicking;
     String userName;
     String ownRitnummer;
     String friendId;
-    Boolean zelfdetrein = false;
-    SharedPreferences bool;
     String friend="";
-    private static final String TAG_EINDBESTEMMING = "Eindbestemming";
     String eindbestemming;
+    Boolean zelfdetrein = false;
     Boolean checkin = false;
-    CheckBox checkbox;
+    Boolean checkout;
+    SharedPreferences bool;
     SharedPreferences pref;
     SharedPreferences check;
-    Boolean checkout;
+    CheckBox checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friendscheckin);
-        parseforcheckbox();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        // Call this method because that method checks whether the boolean for parsing is true of false.
+        parseforcheckbox();
+
+
+        // Get the boolean of the check-in, so you know the checkbox must be checked or not.
         try {
             boolean checkin = pref.getBoolean("check", false);
 
             checkbox = (CheckBox) findViewById(R.id.checkBox);
+            // If checkin = false, checkbox must not be checked.
             if (!checkin) {
                 assert checkbox != null;
                 checkbox.setChecked(false);
             }
+            // If checkin = true, checkbox must be checked.
             if (checkin) {
                 assert checkbox != null;
                 checkbox.setChecked(true);
             }
         } catch (Exception e){
+            // When nothing is found, there is no checkin so checkbox must not be checked.
             checkbox.setChecked(false);
         }
-        setSupportActionBar(toolbar);
-        userName = Profile.getCurrentProfile().getName();
 
-        View mMessengerButton = findViewById(R.id.messenger_send_button);
+        // Set toolbar for navigationbar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         Intent intent = getIntent();
         eindbestemming = intent.getStringExtra(TAG_EINDBESTEMMING);
@@ -105,6 +112,7 @@ public class FriendsActivity extends AppCompatActivity
         }
 
         // Set onClickListener on the Messenger Button.
+        View mMessengerButton = findViewById(R.id.messenger_send_button);
         assert mMessengerButton != null;
         mMessengerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +153,7 @@ public class FriendsActivity extends AppCompatActivity
 
         // simple textview for list item
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, friends);
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.listView_friends);
         assert listView != null;
         listView.setAdapter(adapter);
 
@@ -168,7 +176,6 @@ public class FriendsActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -232,31 +239,48 @@ public class FriendsActivity extends AppCompatActivity
 
     }
 
+    /*
+    * When the user clicked on the 'Check for your Social Train Journey'-button, this method will
+    * start. It get the Name of the Facebook user, create the SharedPref bool and initialize App42
+    * Within this method, two other methods will be called: parsedata, whereby the real check of
+    * facebookfriends in the same train will take place, and check, whereby it get the right boolean
+    * and show the right message.
+     */
     public void check_friends(View view){
+        // Get username of the Facebookuser, so you know who is doing what.
         userName = Profile.getCurrentProfile().getName();
 
+        // Get SharedPref bool.
         bool = getSharedPreferences("Boolean", 0);
         bool.edit().putBoolean("key",zelfdetrein).apply();
+
+        // Initialize App42, so data can be stored and parsed from it.
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
 
+        // Call the other methods to do their work.
         parsedata();
         check();
     }
 
     /*
-    *  This method doesn't work correctly, but it is assumed that this method will parse the data
-    *  from App42 correctly.
+    *  This method will check whether there is data from the user in the App42 database, when there
+    *  is data found, set checkbox Checked. Otherwise, the user is not checked in a train, so the
+    *  checkbox will be Unchecked.
      */
     public void parseforcheckbox(){
+        // Declare how the data is stored in App42 so they know what you are looking for.
         String dbName = "test";
         String collectionName = "ritnummer";
         String key = "facebookid";
-        String value = Profile.getCurrentProfile().getName();
 
+        // Get SharedPrefs for pref.
         pref = getSharedPreferences("Boolean", 0);
+
+        // Initialize App42 and check whether there is data of the user in the database
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
         StorageService storageService = App42API.buildStorageService();
-        storageService.findDocumentByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
+        storageService.findDocumentByKeyValue(dbName, collectionName, key, userName, new App42CallBack() {
+            // onSuccess means there is data found.
             public void onSuccess(Object response)
             {
                 Storage  storage  = (Storage )response;
@@ -264,6 +288,7 @@ public class FriendsActivity extends AppCompatActivity
                 ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
                 for(int i=0;i<jsonDocList.size();i++)
                 {
+                    // When there is data, the user is checked in so boolean is true.
                     pref = getSharedPreferences("Boolean", 0);
                     checkin = true;
                     pref.edit().putBoolean("check",checkin).apply();
@@ -272,6 +297,7 @@ public class FriendsActivity extends AppCompatActivity
             }
             public void onException(Exception ex)
             {
+                // In this case, there is no data found so the boolean is false.
                 pref = getSharedPreferences("Boolean", 0);
                 checkin = false;
                 pref.edit().putBoolean("check",checkin).apply();
@@ -279,54 +305,72 @@ public class FriendsActivity extends AppCompatActivity
         });
     }
 
-
+    /*
+    * This method parses the data from App42, whereby the combination of Facebookfriends and the
+    * check-in of train can be made.
+     */
     public void parsedata(){
+        // Declare names of data in the online database so you can look for it.
         String dbName = "test";
         String collectionName = "ritnummer";
         App42API.initialize(getApplicationContext(), "ad9a5dcb7cd3013f200ba0f4b38528f6dd14401bb2afe526d11ff947c154d7a9", "b92836c9f828c8e7cbf153b4510ecf8fc3ac49be1c696f1bc057cc3bb3663591");
         StorageService storageService = App42API.buildStorageService();
 
         storageService.findAllDocuments(dbName, collectionName, new App42CallBack() {
+            // There is data found.
             public void onSuccess(Object response)
             {
+                // Store it in an ArrayList.
                 Storage  storage  = (Storage )response;
                 ArrayList<String> checkInList = new ArrayList<>();
                 ArrayList<Storage.JSONDocument> jsonDocList = storage.getJsonDocList();
+                // For as long as there is data.
                 for(int i=0;i<jsonDocList.size();i++)
                 {
+                    // Check every item.
                     String jsondoc = jsonDocList.get(i).getJsonDoc();
                     checkInList.add(jsondoc);
                 }
 
+                // For as long as the list is.
                 for(int j=0; j<checkInList.size();j++){
                     String checkIn = checkInList.get(j);
                     try {
+                        // Get the Name of the Facebookuser who created the check-in.
                         JSONObject object = new JSONObject(checkIn);
                         String fbId = object.getString("facebookid");
 
+                        // If the Facebookuser of the check-in is the same as the current user.
                         if (fbId.equalsIgnoreCase(userName)){
+                            // Get 'ritnummer' out of the data.
                             ownRitnummer = object.getString("ritnummer");
                             JSONArray ownFriends = object.getJSONArray("fbfriends");
 
+                            // As long as the list of your own Facebookfriends.
                             ArrayList<String> ownFriendsList = new ArrayList<>();
                             for (int k=0; k<ownFriends.length(); k++) {
+                                //Add ownFriends to the list.
                                 ownFriendsList.add(ownFriends.getString(k));
                             }
 
-
                             for(int l=0; l<checkInList.size();l++) {
-
+                                // Get the other Facebooknames out of database.
                                 try {
                                     JSONObject friendObject = new JSONObject(checkInList.get(l));
                                     friendId = friendObject.getString("facebookid");
 
+                                    // If your friendlist contains the name of the other Facebookusers, it means you are FBfriends.
                                     if (ownFriendsList.contains(friendId)) {
                                         String friendRitnummer = friendObject.getString("ritnummer");
 
+                                        // Check if the 'ritnummer' is the same.
                                         if (friendRitnummer.equalsIgnoreCase(ownRitnummer)) {
+                                            // When it is the same, they are in the same train.
                                             bool = getSharedPreferences("Boolean", 0);
+                                            // Set boolean true and save it in SharedPreferences.
                                             zelfdetrein = true;
                                             bool.edit().putBoolean("key",zelfdetrein).apply();
+                                            // Get the name of the friend who is in the same train.
                                             friend = friend.concat(" ").concat(friendId);
                                         }
                                     }
@@ -346,11 +390,16 @@ public class FriendsActivity extends AppCompatActivity
                 System.out.println("Exception Message"+ex.getMessage());
             }
         });
-
     }
 
+    /*
+    * This method checks the boolean of people in the same train.
+     */
+
     public void check() {
+        // Get status of the boolean out of SharedPreferences.
         boolean zelfdetrein = bool.getBoolean("key", false);
+        // If boolean is true, show the following AlertDialog.
         if (zelfdetrein) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.gezellig_reizen + friend + "!")
@@ -364,6 +413,7 @@ public class FriendsActivity extends AppCompatActivity
             AlertDialog alert = builder.create();
             alert.show();
         }
+        // If boolean is false, show the following AlertDialog.
         if (!zelfdetrein){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.saai_reizen)
@@ -376,28 +426,36 @@ public class FriendsActivity extends AppCompatActivity
             AlertDialog alert = builder.create();
             alert.show();
         }
-        }
+    }
 
+    /*
+    * This method handles the status of the Checkbox.
+     */
     public void checkbox_checkin(View view){
         boolean checked = ((CheckBox) view).isChecked();
         switch(view.getId()) {
             case R.id.checkBox:
+                // When you want to check the Checkbox, user has to check-in a train
                 if (checked){
                     Toast.makeText(FriendsActivity.this, R.string.eerst_inchecken, Toast.LENGTH_SHORT).show();
+                    // Store check-in as false in SharedPref, because user is not checked in a train.
                     pref = getSharedPreferences("Boolean", 0);
                     checkin = false;
                     pref.edit().putBoolean("check",checkin).apply();
                     checkbox.setChecked(false);
+                    // Help the user and go to MainActivity to let the user check-in a train.
                     Intent checkin = new Intent(this, MainActivity.class);
                     checkin.putExtra("Checkin", 500);
                     startActivity(checkin);
                 }
                 else{
+                    // Checkbox is checked, so ask the user they want to check-out of the train.
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FriendsActivity.this);
                     builder
                             .setMessage(R.string.uitchecken)
                             .setPositiveButton(R.string.ja, new DialogInterface.OnClickListener() {
                                 @Override
+                                // When the user say yes, delete all the data the user has in the database.
                                 public void onClick(DialogInterface dialog, int id) {
                                     String dbName = "test";
                                     String collectionName = "ritnummer";
@@ -408,6 +466,8 @@ public class FriendsActivity extends AppCompatActivity
                                     storageService.deleteDocumentsByKeyValue(dbName, collectionName, key, value, new App42CallBack() {
                                         public void onSuccess(Object response)
                                         {
+                                            // When deleting the data is succesfull, set checkin on false,
+                                            // and checkout on true and store it in SharedPreferences.
                                             startActivity(getIntent());
                                             pref = getSharedPreferences("Boolean", 0);
                                             checkin = false;
@@ -443,6 +503,10 @@ public class FriendsActivity extends AppCompatActivity
                 }
     }
 
+    /*
+    * This method handles the refresh of the Activity when clicking on the button. Sometimes it is
+    * necessary to get the most up-to-date data.
+     */
     public void refresh_activity(View view){
         finish();
         startActivity(getIntent());

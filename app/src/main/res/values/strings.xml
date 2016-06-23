@@ -17,7 +17,7 @@
     <string name="gezellig_reizen">Gezellig, je kunt samen reizen met </string>
     <string name="saai_reizen">Helaas, geen van je vrienden zit in dezelfde trein. Succes met een saaie treinreis!</string>
     <string name="eerst_inchecken">Je moet eerst inchecken in een trein</string>
-    <string name="uitchecken">Wil je uitchecken van de trein waarin je zat? Klik dan 'Ja'</string>
+    <string name="uitchecken">Wil je uitchecken van de trein waarin je zat? Klik dan Ja</string>
     <string name="ja">Ja</string>
     <string name="nee">Nee</string>
     <string name="vulstationin">Vul je vertrekstation in</string>
@@ -42,7 +42,7 @@
     <string name="vertrekt_om">die vertrekt om</string>
     <string name="traincheck">Klopt het dat je in de trein met de volgende eindbestemming zit?</string>
     <string name="check_in">Check-In</string>
-    <string name="friends_checkin">Check-out en vrienden</string>
+    <string name="friends_checkin">Checkout en Vrienden </string>
     <string name="logout_fb">Uitloggen</string>
     <string name="historietext">Jij zat in de volgende trein(en) richting:</string>
     <string name="ongeldigstation">Dit station is niet geldig of bestaat niet</string>

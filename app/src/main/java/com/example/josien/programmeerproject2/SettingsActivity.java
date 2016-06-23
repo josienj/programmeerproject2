@@ -45,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity
         setContentView(R.layout.activity_instellingen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        logout = (ImageButton) findViewById(R.id.imageButton);
+        logout = (ImageButton) findViewById(R.id.logout);
 
         // Handles Navigation Bar.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

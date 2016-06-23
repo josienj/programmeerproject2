@@ -93,8 +93,6 @@ public class FbLoginActvity extends AppCompatActivity {
         socialService.linkUserFacebookAccount(userName, accessToken, new App42CallBack() {
             public void onSuccess(Object response)
             {
-                Social social  = (Social)response;
-                String jsonResponse = social.toString();
                 getfriends();
             }
             public void onException(Exception ex)
@@ -115,7 +113,9 @@ public class FbLoginActvity extends AppCompatActivity {
 
                         System.out.println("accessToken is " + social.getFacebookAccessToken());
                         JSONArray jArray = new JSONArray();
+                        // As long as there are Friends.
                         for (int i = 0; i < social.getFriendList().size(); i++) {
+                            // Get names of the Facebookfriends also using the app.
                             id = social.getFriendList().get(i).getName();
 
                             SharedPreferences settings = getSharedPreferences("SETTINGS KEY", 0);

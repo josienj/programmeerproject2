@@ -57,17 +57,17 @@ public class CheckInActivity extends AppCompatActivity
     SharedPreferences check;
     Boolean checkout = true;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkin);
         DBHelper = new DBHelper(this, null, null, 1);
 
+        // Make sure SharedPref exist.
         check = PreferenceManager
                 .getDefaultSharedPreferences(this);
 
+        // When Activity is started for the first time, checkout is true.
         check = getSharedPreferences("Boolz", 0);
         checkout = true;
         check.edit().putBoolean("check",checkout).apply();
@@ -123,7 +123,6 @@ public class CheckInActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -156,7 +155,7 @@ public class CheckInActivity extends AppCompatActivity
 
     /*
     * When the 'Check-In' -button is clicked, addHistory will add the data into the SQLiteDatabase
-    * and shows it in History. It also stores the ritnummers into the online App42 Database.
+    * and shows it in History. It also stores the right data into the online App42 Database.
     */
 
     public void addHistory(View view) throws JSONException {
@@ -183,6 +182,7 @@ public class CheckInActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
+            // When checked-in, checkin is true and checkout is false. Store it in SharedPref.
             pref = getSharedPreferences("Boolean", 0);
             checkin = true;
             pref.edit().putBoolean("check",checkin).apply();
@@ -190,6 +190,7 @@ public class CheckInActivity extends AppCompatActivity
             checkout = false;
             check.edit().putBoolean("checkout", checkout).apply();
 
+            // This will be the names of the database in App42.
             String dbName = "test";
             String collectionName = "ritnummer";
 
@@ -213,7 +214,6 @@ public class CheckInActivity extends AppCompatActivity
                     for(int i=0;i<jsonDocList.size();i++)
                     {
                         System.out.println("objectId is " + jsonDocList.get(i).getDocId());
-                        //Above line will return object id of saved JSON object
                     }
                 }
                 public void onException(Exception ex)

@@ -37,7 +37,7 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
     Context context;
     MainActivity activity;
 
-    // constructor
+    // Constructor.
     public TrainAsyncTask(MainActivity activity){
         this.activity = activity;
         this.context = this.activity.getApplicationContext();
@@ -51,7 +51,6 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... params){
-        // fetch data
         return HttpRequestHelper.downloadFromServer(params);
     }
 
@@ -68,11 +67,11 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        // if nothing was found, inform user
+        // If nothing was found, inform user.
         if (result.length() == 0) {
             Toast.makeText(context, R.string.nodata, Toast.LENGTH_SHORT).show();
         } else {
-            // Parse XML
+            // Parse XML.
             List<TrainData> traindatas;
             traindatas = new ArrayList<>();
 
