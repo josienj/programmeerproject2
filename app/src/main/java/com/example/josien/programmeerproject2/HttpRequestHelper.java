@@ -10,7 +10,6 @@ package com.example.josien.programmeerproject2;
 */
 
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
