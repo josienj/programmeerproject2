@@ -17,46 +17,35 @@
         android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
+        android:id="@+id/logo_app"
         android:src="@drawable/logooo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
 
     <include layout="@layout/messenger_button_send_blue_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/messenger_send_button"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/friends"
         android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logooo"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="67dp"
-        android:visibility="invisible"
-        android:id="@+id/check"/>
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textStyle="bold"
-        android:id="@+id/textView"
+        android:id="@+id/friends"
         android:text="@string/friends"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
         tools:targetApi="jelly_bean_mr1"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/logo_app"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:id="@+id/listView"
+        android:id="@+id/listView_friends"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/checkBox"
         android:layout_above="@+id/refreshbutton" />
@@ -65,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/checkfriends"
-        android:id="@+id/button"
+        android:id="@+id/check_friends"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="check_friends"/>
@@ -73,19 +62,20 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingecheckt in trein"
+        android:text="@string/checkbox_text"
         android:id="@+id/checkBox"
         android:layout_below="@+id/messenger_send_button"
         android:layout_centerHorizontal="true"
         android:onClick="checkbox_checkin"/>
 
     <ImageButton
+        android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/refreshbutton"
         android:layout_centerHorizontal="true"
         android:src="@drawable/refreshbutton"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/check_friends"
         android:onClick="refresh_activity"
         android:background="@null"
         />

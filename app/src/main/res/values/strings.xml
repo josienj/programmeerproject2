@@ -33,11 +33,15 @@
     <string name="vertrekt_om">die vertrekt om</string>
     <string name="traincheck">Klopt het dat je in de trein met de volgende eindbestemming zit?</string>
     <string name="check_in">Check-In</string>
-    <string name="friends_checkin">Check-ins van je vrienden</string>
+    <string name="friends_checkin">Check-out en vrienden</string>
     <string name="logout_fb">Uitloggen</string>
     <string name="historietext">Jij zat in de volgende trein(en) richting:</string>
     <string name="ongeldigstation">Dit station is niet geldig of bestaat niet</string>
     <string name="checkfriends">Check hier voor een Social Train Journey!</string>
+    <string name="checkbox_text">Ingecheckt in trein</string>
+    <string name="richting">Richting</string>
+    <string name="vertrektijd_low">Vertrektijd</string>
+
     <string-array name="stations">
         <item>Ac Abcoude</item>
         <item>Adh	Leeuwarden Achter de Hoven</item>

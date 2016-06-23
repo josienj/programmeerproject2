@@ -12,12 +12,10 @@
     tools:context="com.example.josien.programmeerproject2.MainActivity"
     android:background="#81BEF7">
 
-
-
 <AutoCompleteTextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/imageView2"
+    android:layout_below="@+id/logo_app"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:id="@+id/autocomplete"
@@ -43,7 +41,7 @@
         android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
+        android:id="@+id/logo_app"
         android:src="@drawable/logooo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -52,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Richting"
+        android:text="@string/richting"
         android:id="@+id/richting"
         android:layout_below="@+id/get_data"
         android:layout_alignParentLeft="true"
@@ -63,12 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Vertrektijd"
+        android:text="@string/vertrektijd_low"
         android:id="@+id/vertrektijd"
         android:layout_above="@+id/listViewleavingtrains"
         android:layout_alignRight="@+id/listViewleavingtrains"
         android:layout_alignEnd="@+id/listViewleavingtrains"
         android:visibility="invisible"/>
-
-
 </RelativeLayout>

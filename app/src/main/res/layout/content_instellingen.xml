@@ -17,20 +17,16 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/logout"
-        android:id="@+id/textView5"
+        android:id="@+id/log_out"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:contentDescription="@string/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:onClick="log_out"
+        android:id="@+id/logout"
         android:src="@drawable/logoutfacebook"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
-
-
 </RelativeLayout>

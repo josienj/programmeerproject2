@@ -14,10 +14,10 @@
 
 
     <ImageView
-        android:contentDescription="@string/checkin"
+        android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
+        android:id="@+id/logo_app"
         android:src="@drawable/logooo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -26,7 +26,7 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:text="@string/checkin"
-        android:id="@+id/button2"
+        android:id="@+id/checkin_button"
         android:layout_marginBottom="69dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -38,7 +38,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/station"
         android:id="@+id/eindbestemming"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/vraag_check"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="92dp"
         android:textStyle="bold"/>
@@ -50,7 +50,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/vertrektijd"
         android:id="@+id/vertrektijd"
-        android:layout_below="@+id/textView8"
+        android:layout_below="@+id/vertrektom"
         android:textStyle="bold"
         android:layout_centerHorizontal="true" />
 
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/vertrekt_om"
-        android:id="@+id/textView8"
+        android:id="@+id/vertrektom"
         android:layout_below="@+id/eindbestemming"
         android:layout_centerHorizontal="true" />
 
@@ -80,9 +80,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/traincheck"
         android:textAlignment="center"
-        android:id="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageView2"/>
+        android:id="@+id/vraag_check"
+        android:layout_below="@+id/logo_app"
+        android:layout_toRightOf="@+id/ritnummer"
+        android:layout_toEndOf="@+id/ritnummer" />
 
 
 
