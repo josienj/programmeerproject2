@@ -21,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -62,7 +63,7 @@ public class FriendsActivity extends AppCompatActivity
     String friend="";
     String eindbestemming;
     Boolean zelfdetrein = false;
-    Boolean checkin = false;
+    Boolean checkin;
     Boolean checkout;
     SharedPreferences bool;
     SharedPreferences pref;
@@ -76,23 +77,20 @@ public class FriendsActivity extends AppCompatActivity
 
         // Call this method because that method checks whether the boolean for parsing is true of false.
         parseforcheckbox();
-
-
         // Get the boolean of the check-in, so you know the checkbox must be checked or not.
         try {
-            boolean checkin = pref.getBoolean("check", false);
+            checkin = pref.getBoolean("check", false);
 
             checkbox = (CheckBox) findViewById(R.id.checkBox);
-            // If checkin = false, checkbox must not be checked.
-            if (!checkin) {
-                assert checkbox != null;
-                checkbox.setChecked(false);
-            }
             // If checkin = true, checkbox must be checked.
             if (checkin) {
                 assert checkbox != null;
                 checkbox.setChecked(true);
+            } else {
+                assert checkbox != null;
+                checkbox.setChecked(false);
             }
+
         } catch (Exception e){
             // When nothing is found, there is no checkin so checkbox must not be checked.
             checkbox.setChecked(false);
@@ -272,6 +270,7 @@ public class FriendsActivity extends AppCompatActivity
         String dbName = "test";
         String collectionName = "ritnummer";
         String key = "facebookid";
+        userName = Profile.getCurrentProfile().getName();
 
         // Get SharedPrefs for pref.
         pref = getSharedPreferences("Boolean", 0);
@@ -468,15 +467,16 @@ public class FriendsActivity extends AppCompatActivity
                                         {
                                             // When deleting the data is succesfull, set checkin on false,
                                             // and checkout on true and store it in SharedPreferences.
-                                            startActivity(getIntent());
                                             pref = getSharedPreferences("Boolean", 0);
                                             checkin = false;
                                             pref.edit().putBoolean("check",checkin).apply();
                                             checkbox.setChecked(false);
 
+
                                             check = getSharedPreferences("Boolz", 0);
                                             checkout = true;
                                             check.edit().putBoolean("checkout",checkout).apply();
+                                            startActivity(getIntent());
                                         }
                                         public void onException(Exception ex)
                                         {

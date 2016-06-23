@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -55,7 +56,7 @@ public class CheckInActivity extends AppCompatActivity
     Boolean checkin = false;
     SharedPreferences pref;
     SharedPreferences check;
-    Boolean checkout = true;
+    Boolean checkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,8 @@ public class CheckInActivity extends AppCompatActivity
 
         // When Activity is started for the first time, checkout is true.
         check = getSharedPreferences("Boolz", 0);
-        checkout = true;
-        check.edit().putBoolean("check",checkout).apply();
+        //checkout = true;
+        //check.edit().putBoolean("checkout",checkout).apply();
 
         // Getting intent data from MainActivity.
         Intent in = getIntent();
@@ -160,9 +161,6 @@ public class CheckInActivity extends AppCompatActivity
 
     public void addHistory(View view) throws JSONException {
         checkout = check.getBoolean("checkout", true);
-        if (!checkout){
-            Toast.makeText(CheckInActivity.this, R.string.haveto_logout, Toast.LENGTH_SHORT).show();
-        }
 
         if (checkout){
             // Get the right data from the previous Activity.
@@ -232,6 +230,8 @@ public class CheckInActivity extends AppCompatActivity
 
             // User may not go back to this Activity, so the Activity has to be finished.
             finish();
+        }   else {
+            Toast.makeText(CheckInActivity.this, R.string.haveto_logout, Toast.LENGTH_SHORT).show();
         }
     }
 }
