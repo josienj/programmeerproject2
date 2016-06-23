@@ -67,7 +67,7 @@ public class SettingsActivity extends AppCompatActivity
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                 builder
                         .setMessage(R.string.vraag_uitloggen)
-                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.ja, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(getApplicationContext(), R.string.log_out, Toast.LENGTH_SHORT).show();
@@ -82,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity
                         })
 
                         // Nothing is done when "No" is pressed.
-                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.nee, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -141,6 +141,4 @@ public class SettingsActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }

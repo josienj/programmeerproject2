@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -161,7 +162,7 @@ public class CheckInActivity extends AppCompatActivity
     public void addHistory(View view) throws JSONException {
         checkout = check.getBoolean("checkout", true);
         if (!checkout){
-            Toast.makeText(CheckInActivity.this, "Log eerst uit ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CheckInActivity.this, R.string.haveto_logout, Toast.LENGTH_SHORT).show();
         }
 
         if (checkout){

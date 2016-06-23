@@ -37,7 +37,7 @@ public class HttpRequestHelper {
 
         // Complete string for URL.
         String complete_URL_string = url + chosenStation;
-        Log.d("URL", "downloadFromServer() returned: " + complete_URL_string);
+
         // Turn string into URL.
         URL url = null;
 
@@ -73,13 +73,13 @@ public class HttpRequestHelper {
                     // Read the right errorstream.
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connect.getErrorStream()));
                     if (responseCode >= 300 && responseCode < 400) {
-                        result = "ERROR: redirect error:\n";
+                        result = "ERROR: redirect error";
                     }
                     if (responseCode >= 400 && responseCode < 500) {
-                        result = "ERROR: client error:\n";
+                        result = "ERROR: client error";
                     }
                     if (responseCode >= 500) {
-                        result = "ERROR: server error:\n";
+                        result = "ERROR: server error";
                     }
                     String currentLine;
                     while ((currentLine = bufferedReader.readLine()) != null) {

@@ -137,6 +137,5 @@ public class TrainAsyncTask extends AsyncTask<String, Integer, String> {
             // Return the data to be able to show it in ListView.
             this.activity.setData(traindatas);
         }
-
     }
 }

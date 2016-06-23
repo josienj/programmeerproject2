@@ -353,9 +353,9 @@ public class FriendsActivity extends AppCompatActivity
         boolean zelfdetrein = bool.getBoolean("key", false);
         if (zelfdetrein) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Gezellig, je kunt samen reizen met " + friend + "!")
+            builder.setMessage(R.string.gezellig_reizen + friend + "!")
                     .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                         }
@@ -366,9 +366,9 @@ public class FriendsActivity extends AppCompatActivity
         }
         if (!zelfdetrein){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Helaas, geen van je vrienden zit in dezelfde trein. Succes met een saaie treinreis!")
+            builder.setMessage(R.string.saai_reizen)
                     .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
                         }
@@ -383,7 +383,7 @@ public class FriendsActivity extends AppCompatActivity
         switch(view.getId()) {
             case R.id.checkBox:
                 if (checked){
-                    Toast.makeText(FriendsActivity.this, "Je moet eerst inchecken in een trein", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FriendsActivity.this, R.string.eerst_inchecken, Toast.LENGTH_SHORT).show();
                     pref = getSharedPreferences("Boolean", 0);
                     checkin = false;
                     pref.edit().putBoolean("check",checkin).apply();
@@ -395,8 +395,8 @@ public class FriendsActivity extends AppCompatActivity
                 else{
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FriendsActivity.this);
                     builder
-                            .setMessage("Ben je uit de trein gestapt? Als je op 'Ja' klikt word je definitief uitgecheckt")
-                            .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            .setMessage(R.string.uitchecken)
+                            .setPositiveButton(R.string.ja, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
                                     String dbName = "test";
@@ -428,7 +428,7 @@ public class FriendsActivity extends AppCompatActivity
                             })
 
                             // Nothing is done when "No" is pressed.
-                            .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.nee, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();

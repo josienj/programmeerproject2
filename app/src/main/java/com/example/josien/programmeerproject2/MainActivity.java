@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity
         String station = autoCompleteTextView.getText().toString();
 
         if (station.matches("")) {
-            Toast.makeText(this, "Vul een station in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.vulstationin, Toast.LENGTH_SHORT).show();
             return;
         }
         // Split the string and get only the first word (the abbreviation of the station).

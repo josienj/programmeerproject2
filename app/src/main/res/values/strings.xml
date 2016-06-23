@@ -11,8 +11,17 @@
     <string name="ingecheckt">Je bent ingecheckt in de trein</string>
     <string name="deleted">Verwijderd</string>
     <string name="vraag_uitloggen">Weet je zeker dat je uit wilt loggen?</string>
-
+    <string name="haveto_logout">Je bent al ingecheckt, check eerst uit om opnieuw in te checken</string>
+    <string name="ok">OK</string>
     <string name="action_settings">Settings</string>
+    <string name="gezellig_reizen">Gezellig, je kunt samen reizen met </string>
+    <string name="saai_reizen">Helaas, geen van je vrienden zit in dezelfde trein. Succes met een saaie treinreis!</string>
+    <string name="eerst_inchecken">Je moet eerst inchecken in een trein</string>
+    <string name="uitchecken">Wil je uitchecken van de trein waarin je zat? Klik dan 'Ja'</string>
+    <string name="ja">Ja</string>
+    <string name="nee">Nee</string>
+    <string name="vulstationin">Vul je vertrekstation in</string>
+
 
     <string name="facebook_app_id">1040163589387502</string>
 
