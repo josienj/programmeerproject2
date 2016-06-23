@@ -1,38 +1,34 @@
-# Programmeerproject
-## Josien Jansen
+# README Programmeerproject juni 2016
+## Josien Jansen - 11162295
+### App: Social Train Journey
 
-###PROPOSAL
-Many people, especially a lot of students, use the train on a daily basis, or at least every weekend to go from their student room to their parents’ home. Many students have to travel the same route, but don’t see or speak to each other on a daily basis. Regularly, friends see each other at their final destination and wanted that they know earlier in what train their friends were. So, here is the solution: an app, where you can log in with Facebook, and ‘check-in’ at the trains you will take. When your friends do that too, you can easily see that you are in the same train and find each other there. A boring train journey can then suddenly change in a nice journey with your friends!
-###FEATURES
-####Minimum Viable Product:
--	Login with Facebook
--	See all trains with their departure time from your train station
--	Choose the train you will take
--	Show in which trains your friends are
--	Possibility to create social interaction<br>
-
-####Additional features:
-
--	Make a ‘friend-list’ yourself based on your Facebook connections (possibly you don’t want to speak every friend on Facebook in the train)
--	Push messages when some friends are at the same train
--	Connect it with other social media canals (e.g. Whatsapp)
--	Show a history of your check-ins
--	Possibility to check-out from a train<br>
-
-### TECHNICAL FEATURES
+###INTRODUCTIE
+Veel mensen, waarbij vooral studenten, reizen dagelijks met de trein. Daarbij gebeurt het soms voor dat je bij bekenden in de trein zit en daar helemaal niet achterkomt of elkaar pas op het eindstation ziet. Een sociaal gezien gemiste kans! Met Social Train Journey komt daar een einde aan! Het enige wat je hoeft te doen is 'inchecken' in de trein waar je in zit en hopen dat je vrienden hetzelfde doen. <br>
 <br>
-For this app, external features are necessary to create the app. First, the login will be based on the Plugin of Facebook, because everyone has to login with their Facebook-account. Furthermore, the API of the NS (Nederlandse Spoorwegen) will be used. The NS provide us with five different services, whereby this app will use two services: a list with all train stations in the Netherlands and actual departure times. For the Edittext whereby the user must type the train station he is leaving from, the service of all train stations will be used. Type suggestions of the stations will be implemented with this service. When searching for a train station, the service of departure times will come in handy. This service will search for a particular station what trains will be leaving at what time and with their final destination. That will be showed in a ListView, whereby you can click on an item and continue to the real ‘check-in’-page. After that, Facebook and the check-in have to be combined and show in which trains other friends are sitting. 
-There will probably also a SQLite Database in this app, to store at which trains the user was sitting and with what friends. To not show a fully empty app when there is no Internet,  it is nice to have a database that show us some old actions of the user.<br>
+De app bevat de volgende features:<br>
+- Login met Facebook
+- Zoek op vertrekstation en ontvang de vertrekkende treinen
+- Klik de trein in waarin je zit en check daar op in
+- Zie welke Facebookvrienden de app ook gebruiken
+- Check of je met Facebookvrienden in dezelfde trein zit en een Social Train Journey kunt hebben
+- Een automatisch plaatje met 'We zitten in dezelfde trein' versturen via Facebook Messenger vanuit de app
+- Wanneer je uit de trein bent gestapt, check je uit met de app en kun je opnieuw inchecken in een andere trein
+- Alle check-ins van je worden in je Historie neergezet
+- Uiteraard is weer uitloggen met Facebook ook mogelijk
 
-### DIFFICULTIES
-<br>
-The implementation of the Plugin of Facebook can be a little bit problematic, because it works with complex stuff and it has to work confidentially.  Furthermore, the API of the NS works also not so easy. Instead of a key, NS works with basic authorization. That means that there is a lot more code necessary to get this API working.The combination of the Facebook accounts and the check-in will also be somewhat complex to do. The addition of doing some social interaction with the Facebook friends can be difficult too, because it needs more external features or there  has to be a database that can store social interactions. 
+###SCREENSHOTS
+![screenshot_2016-06-23-19-19-38](https://cloud.githubusercontent.com/assets/18394953/16319126/308861a0-3992-11e6-9540-25ca8a1244b9.png)
+![screenshot_2016-06-23-19-20-13](https://cloud.githubusercontent.com/assets/18394953/16319168/5a5e35ea-3992-11e6-9c99-125dedc0ad55.png)
+![screenshot_2016-06-23-19-20-32](https://cloud.githubusercontent.com/assets/18394953/16319125/30862f02-3992-11e6-8239-d47c46167001.png)
+![screenshot_2016-06-23-19-21-02](https://cloud.githubusercontent.com/assets/18394953/16319128/308a1a0e-3992-11e6-8f5b-d29aace5bfae.png)
+
+
 
 ### LICENSE
 Copyright  ©  Josien Jansen 2016<br>
 All rights reserved.
 
-###ACKNOWLEDGEMENT
+### ACKNOWLEDGEMENT
 for FacebookSDK usage:<br>
 - https://github.com/facebook/facebook-android-sdk/tree/master/samples/MessengerSendSample (FriendsActivity, method onMessengerButtonClicked)<br>
 - https://www.numetriclabz.com/get-facebook-friends-list-in-android-list-view/ (FbLoginActivity, method getLoginDetails)
